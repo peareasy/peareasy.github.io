@@ -1,39 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import './App.css';
+import Home from "./pages/Home";
 
 function App() {
 
-    const sendMsgToExtension = () => {
-        const id = "gkkejffdkmolljblpfldkobgnkbohioe"
-
-        console.log("Sending msg")
-        chrome.runtime.sendMessage(id, {
-            messageFromWeb: window.localStorage
-        }, function (res) {
-            console.log(res)
-            console.log("Got response")
-        })
-    }
+    // const sendMsgToExtension = () => {
+    //     const id = "gkkejffdkmolljblpfldkobgnkbohioe"
+    //
+    //     console.log("Sending msg")
+    //     chrome.runtime.sendMessage(id, {
+    //         messageFromWeb: window.localStorage
+    //     }, function (res) {
+    //         console.log(res)
+    //         console.log("Got response")
+    //     })
+    // }
 
   return (
     <div className="App">
-      <header className="App-header">
-          <button type="button" onClick={() => sendMsgToExtension()}>Click Me!</button>
-
-          <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Switch>
+          <Route path={'/'} component={Home} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
