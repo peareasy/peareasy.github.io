@@ -3,20 +3,20 @@ import { useCookies } from "react-cookie";
 import * as api from "../api/api";
 
 const Home = () => {
-  const id = "pcjpfpboackpjobnpeknldjaencjmjlp";
 
-  console.log("Sending msg");
+  const sendUUIDToExtension = () => {
+    const id = "pcjpfpboackpjobnpeknldjaencjmjlp";
 
-  chrome.runtime.sendMessage(
-    id,
-    {
-      messageFromWeb: window.localStorage,
-    },
-    function (res) {
-      console.log(res);
-      console.log("Got response");
-    }
-  );
+    chrome.runtime.sendMessage(
+      id,
+      {
+        messageFromWeb: window.localStorage,
+      },
+      function (res) {
+        console.log(res);
+      }
+    );
+  }
 
   const [cookies, setCookie] = useCookies(["peareasy"]);
   useEffect(() => {
@@ -26,7 +26,13 @@ const Home = () => {
       });
     }
   }, [cookies, setCookie]);
-  return <></>;
+
+  if (cookies['peareasy']) {
+    sendUUIDToExtension()
+  }
+  return <>
+    {cookies['peareasy']}
+  </>;
 };
 
 export default Home;

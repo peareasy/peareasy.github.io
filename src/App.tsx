@@ -5,23 +5,6 @@ import "./App.css";
 import Home from "./pages/Home";
 
 function App() {
-  const sendMsgToExtension = () => {
-    const id = "pcjpfpboackpjobnpeknldjaencjmjlp";
-
-    console.log("Sending msg");
-
-    chrome.runtime.sendMessage(
-      id,
-      {
-        messageFromWeb: window.localStorage,
-      },
-      function (res) {
-        console.log(res);
-        console.log("Got response");
-      }
-    );
-  };
-
   return (
     <div className="App">
       <BrowserRouter>
