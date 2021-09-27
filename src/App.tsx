@@ -1,8 +1,15 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
+  const btn = () => {
+    window.postMessage(
+      { type: "FROM_PAGE_TO_CONTENT_SCRIPT", text: "Hello from the webpage!" },
+      "*"
+    );
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -10,6 +17,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <button onClick={btn}>hej</button>
         <a
           className="App-link"
           href="https://reactjs.org"
