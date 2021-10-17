@@ -7,6 +7,7 @@ const Home = () => {
   const extensionId = "jjkdpohdgeeohccdmbhmecimolaglhkd";
   const [cookies, setCookie] = useCookies(["peareasy"]);
   const [players, setPlayers] = useState([])
+  const [sbcs, setSBCs] = useState([])
 
   useEffect(() => {
     if (!cookies["peareasy"]) {
@@ -36,17 +37,37 @@ const Home = () => {
     })
   }
 
+  const onGetSBCs = () => {
+    api.getSBCs().then((sbcs) => {
+      setSBCs(sbcs)
+    })
+  }
+
   let playersJsx: JSX.Element[] = []
   if (players) {
     players.map(player => playersJsx.push(<p style={{width: "100%"}}>{player}</p>))
   }
 
-  return <ul>
+  // For testing purposes
+  let sbcsJsx: JSX.Element[] = []
+  if (sbcs) {
+    // @ts-ignore
+    sbcs.map(sbc => sbcsJsx.push(<button style={{width: "100%", marginTop: "10px"}}>{sbc.name}</button>))
+  }
+
+
+  return <ul style={{width: "50%", margin: "auto"}}>
     {<p style={{width: "100%"}}>{cookies['peareasy']}</p> }
     <button onClick={onGetPlayers}>
       Get players
     </button>
+    <button onClick={onGetSBCs}>
+      Get SBCs
+    </button>
+    <div style={{height: "600px", overflow: "scroll", backgroundColor: "whitesmoke", marginTop: "10px"}}>
       {playersJsx}
+    </div>
+      {sbcsJsx}
   </ul>;
 };
 
