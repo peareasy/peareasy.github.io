@@ -4,8 +4,8 @@ export const postUUID = () => {
   return axios.post('/users').then(response => {
     let uuid;
     if (response.data) {
-        uuid = response.data['uuid']
-      }
+      uuid = response.data['uuid']
+    }
     return uuid
   })
 }
