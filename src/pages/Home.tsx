@@ -4,7 +4,7 @@ import * as api from "../api/api";
 
 const Home = () => {
   //TODO: find way to get extension id
-  const extensionId = "jjkdpohdgeeohccdmbhmecimolaglhkd";
+  const extensionId = "pcjpfpboackpjobnpeknldjaencjmjlp";
 
   const [cookies, setCookie] = useCookies(["peareasy"]);
   useEffect(() => {
@@ -17,23 +17,24 @@ const Home = () => {
 
   useEffect(() => {
     const sendUUIDToExtension = () => {
-      chrome.runtime.sendMessage(
-        extensionId,
-        {
-          uuid: cookies["peareasy"]
-        }
-      );
+      chrome.runtime.sendMessage(extensionId, {
+        uuid: cookies["peareasy"],
+      });
+    };
+    if (cookies["peareasy"]) {
+      sendUUIDToExtension();
     }
-    if (cookies['peareasy']) {
-      sendUUIDToExtension()
-    }
-  }, [cookies])
+  }, [cookies]);
 
-  return <div style={{
-    textAlign: "center"
-  }}>
-    {cookies['peareasy']}
-  </div>;
+  return (
+    <div
+      style={{
+        textAlign: "center",
+      }}
+    >
+      {cookies["peareasy"]}
+    </div>
+  );
 };
 
 export default Home;
