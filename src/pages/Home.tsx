@@ -2,12 +2,17 @@ import React, {useEffect, useState} from "react";
 import { useCookies } from "react-cookie";
 import * as api from "../api/api";
 
+
+interface SBC {
+  name: string
+}
+
 const Home = () => {
   //TODO: find way to get extension id
   const extensionId = "jjkdpohdgeeohccdmbhmecimolaglhkd";
   const [cookies, setCookie] = useCookies(["peareasy"]);
   const [players, setPlayers] = useState([])
-  const [sbcs, setSBCs] = useState([])
+  const [sbcs, setSBCs] = useState<SBC[]>([])
 
   useEffect(() => {
     if (!cookies["peareasy"]) {
@@ -43,16 +48,20 @@ const Home = () => {
     })
   }
 
+  const onSolveSBC = (sbc: string) => {
+    api.solveSBC(cookies['peareasy'], sbc).then(res => console.log(res))
+  }
+
   let playersJsx: JSX.Element[] = []
   if (players) {
-    players.map(player => playersJsx.push(<p style={{width: "100%"}}>{player}</p>))
+    players.map(player => playersJsx.push(<p key={player} style={{width: "100%"}}>{player}</p>))
   }
 
   // For testing purposes
+
   let sbcsJsx: JSX.Element[] = []
   if (sbcs) {
-    // @ts-ignore
-    sbcs.map(sbc => sbcsJsx.push(<button style={{width: "100%", marginTop: "10px"}}>{sbc.name}</button>))
+    sbcs.map(sbc => sbcsJsx.push(<button key={sbc.name} style={{width: "100%", marginTop: "10px"}} onClick={() => onSolveSBC(sbc.name)}>{sbc.name}</button>))
   }
 
 
