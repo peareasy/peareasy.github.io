@@ -2,6 +2,7 @@
   "name": "peareasy-web-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://peareasy.github.io/peareasy-web-app/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -13,6 +14,7 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-router": "^5.1.16",
     "axios": "^0.21.4",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
@@ -23,6 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
