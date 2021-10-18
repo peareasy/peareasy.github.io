@@ -1,26 +1,20 @@
 import React, {useEffect, useState} from "react";
 import { useCookies } from "react-cookie";
 import * as api from "../api/api";
-
+import { PrimaryButton, SecondaryButton } from "../components/UI/Button";
+import Spinner from "../components/UI/Spinner/Spinner";
 
 interface SBC {
   name: string
 }
 
 const Home = () => {
-  //TODO: find way to get extension id
   const extensionId = "jjkdpohdgeeohccdmbhmecimolaglhkd";
   const [cookies, setCookie] = useCookies(["peareasy"]);
-  const [players, setPlayers] = useState([])
-  const [sbcs, setSBCs] = useState<SBC[]>([])
-
-  useEffect(() => {
-    if (!cookies["peareasy"]) {
-      api.postUUID().then((uuid: string) => {
-        setCookie("peareasy", uuid);
-      });
-    }
-  }, [cookies, setCookie]);
+  const [loading, setLoading] = useState(false)
+  const [sbcs, setSBCs] = useState<JSX.Element[]>([])
+  const [players, setPlayers] = useState<JSX.Element[]>([])
+  const [solution, setSolution] = useState<JSX.Element[]>([])
 
   useEffect(() => {
     const sendUUIDToExtension = () => {
@@ -31,53 +25,84 @@ const Home = () => {
         }
       );
     }
-    if (cookies['peareasy']) {
+    if (!cookies["peareasy"]) {
+      api.postUUID().then((uuid: string) => {
+        setCookie("peareasy", uuid);
+      });
+    } else {
       sendUUIDToExtension()
     }
-  }, [cookies])
+  }, [cookies, setCookie])
 
   const onGetPlayers = () => {
-    api.getPlayers(cookies['peareasy']).then((players) => {
-      setPlayers(players)
+    api.getPlayers(cookies['peareasy']).then((players: SBC[]) => {
+      let ctr = 0
+      const _players = players.map(player => {
+        ctr++
+        return <div className={"text-primary-300 bg-gray-600 rounded text-s p-1"} key={ctr}>{player}</div>
+      })
+      setPlayers(_players)
     })
   }
 
   const onGetSBCs = () => {
-    api.getSBCs().then((sbcs) => {
-      setSBCs(sbcs)
+    api.getSBCs().then((sbcs: SBC[]) => {
+      const _sbcs = sbcs.map(sbc =>
+        <PrimaryButton key={sbc.name} onClick={() => onSolveSBC(sbc.name)} title={sbc.name}/>
+      )
+      setSBCs(_sbcs)
     })
   }
 
   const onSolveSBC = (sbc: string) => {
-    api.solveSBC(cookies['peareasy'], sbc).then(res => console.log(res))
+    setLoading(true)
+    api.solveSBC(cookies['peareasy'], sbc)
+    .then((solution: SBC[]) => {
+      const players = solution.map(player => <div className={"text-primary-300 bg-gray-600 rounded p-1"}>{player}</div>)
+      setSolution(players)
+      setLoading(false)
+  })
+    .catch(() => {
+      setSolution([])
+      setLoading(false) })
   }
 
-  let playersJsx: JSX.Element[] = []
-  if (players) {
-    players.map(player => playersJsx.push(<p key={player} style={{width: "100%"}}>{player}</p>))
-  }
-
-  // For testing purposes
-
-  let sbcsJsx: JSX.Element[] = []
-  if (sbcs) {
-    sbcs.map(sbc => sbcsJsx.push(<button key={sbc.name} style={{width: "100%", marginTop: "10px"}} onClick={() => onSolveSBC(sbc.name)}>{sbc.name}</button>))
-  }
-
-
-  return <ul style={{width: "50%", margin: "auto"}}>
-    {<p style={{width: "100%"}}>{cookies['peareasy']}</p> }
-    <button onClick={onGetPlayers}>
-      Get players
-    </button>
-    <button onClick={onGetSBCs}>
-      Get SBCs
-    </button>
-    <div style={{height: "600px", overflow: "scroll", backgroundColor: "whitesmoke", marginTop: "10px"}}>
-      {playersJsx}
+  return (
+    <main className='w-2/3 mx-auto space-y-10'>
+    <h1 className="text-secondary text-3xl text-center p-10 rounded bg-primary-200">Let's solve some SBCS! 🔥</h1>
+    <div className="grid grid-cols-2 gap-y-4 gap-x-8">
+      <div className="space-y-8">
+        <PrimaryButton onClick={onGetPlayers} title={"Get your players"}/>
+        <div className="bg-primary-200 rounded p-6">
+          <div className="bg-primary-300 rounded p-6">
+            <h1 className="text-secondary text-center text-3xl mt-8 mb-8">Players</h1>
+          </div>
+          <div className="flex flex-wrap gap-2 mt-8">
+            {players}
+          </div>
+        </div>
+      </div>
+      <div className="space-y-8">
+        <PrimaryButton onClick={onGetSBCs} title={"See available SBCs"}/>
+        <div className="bg-primary-200 rounded p-6">
+          <div className="bg-primary-300 rounded p-6">
+            <h1 className="text-secondary text-center text-3xl mt-8 mb-8">SBCs</h1>
+            {solution.length > 0 ? <div className="text-secondary text-xl">A solution was found! 🎉 </div> : null }
+          </div>
+          <div className="flex flex-col gap-4 mt-8">
+            {
+              loading ? <Spinner/> : (solution.length === 0 ? sbcs :
+              <div className="flex flex-wrap gap-2">
+                {solution}
+              </div>)
+            }
+            {solution.length > 0 ? <SecondaryButton title="Clear Solution" onClick={() => setSolution([])}/> : null }
+          </div>
+      </div>
+      </div>
     </div>
-      {sbcsJsx}
-  </ul>;
+  </main>
+  )
 };
 
 export default Home;
