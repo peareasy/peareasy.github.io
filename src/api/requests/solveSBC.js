@@ -6,7 +6,8 @@ export const solveSBC = (uuid, sbc) => {
     name: sbc
   }, {headers: { "x-auth-token": uuid }}).then(response => {
     if (response.data) {
-      console.log(response.data)
+      return response.data
     }
+    return []
   })
 }
