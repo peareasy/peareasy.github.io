@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "./App.css";
 import Home from "./pages/Home";
+import About from "./pages/About";
 import NavigationBar from "./components/UI/NavigationBar/NavgiationBar";
 
 function App() {
@@ -11,8 +12,8 @@ function App() {
       <BrowserRouter>
         <NavigationBar />
         <Switch>
+          <Route path={"/about"} component={About} />
           <Route path={"/"} component={Home} />
-          <Route path={"/docs"} component={Home} />
         </Switch>
       </BrowserRouter>
     </div>
