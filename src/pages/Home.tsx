@@ -26,7 +26,7 @@ const Home = () => {
       );
     }
     if (!cookies["peareasy"]) {
-      api.postUUID().then((uuid: string) => {
+      api.loginAsAnonymous().then((uuid: string) => {
         setCookie("peareasy", uuid);
       });
     } else {
