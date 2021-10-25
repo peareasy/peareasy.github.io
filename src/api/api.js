@@ -6,7 +6,9 @@ const instance = axios.create({
 
 export default instance
 
-export { postUUID } from "./requests/postUUID"
+export { loginAsAnonymous } from "./requests/loginAsAnonymous"
 export { getPlayers } from "./requests/getPlayers"
 export { getSBCs } from "./requests/getSBCs"
 export { solveSBC } from "./requests/solveSBC"
+export { signIn } from "./requests/signIn"
+export { signUp } from "./requests/signUp"

@@ -10,13 +10,14 @@ module.exports = {
       current: 'currentColor',
       primary: colors.emerald,
       secondary: colors.white,
-      purple: colors.purple,
+      tertiary: colors.purple,
       gray: colors.gray,
       error: colors.red['500'],
     },
     textColor: {
       primary: colors.emerald,
       secondary: colors.white,
+      tertiary: colors.purple,
       error: colors.red['500'],
     },
     extend: {

@@ -38,6 +38,12 @@ const NavigationBar = () => {
               import club
             </ExternalNavigationItem>
             <NavigationItem
+              link={'/profile'}
+              onClick={() => setNavbarOpen(!navbarOpen)}
+            >
+              profile
+            </NavigationItem>
+            <NavigationItem
               link={'/about'}
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
