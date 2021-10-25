@@ -10,6 +10,7 @@ module.exports = {
       current: 'currentColor',
       primary: colors.emerald,
       secondary: colors.white,
+      purple: colors.purple,
       gray: colors.gray,
       error: colors.red['500'],
     },
@@ -18,7 +19,11 @@ module.exports = {
       secondary: colors.white,
       error: colors.red['500'],
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        pitch: "url('/src/img/fifa.jpeg')",
+      }
+    },
   },
   variants: {
     extend: {

@@ -39,7 +39,7 @@ const Home = () => {
       let ctr = 0
       const _players = players.map(player => {
         ctr++
-        return <div className={"text-primary-300 bg-gray-600 rounded text-s p-1"} key={ctr}>{player}</div>
+        return <div className={"text-secondary bg-gray-600 rounded text-s p-1"} key={ctr}>{player}</div>
       })
       setPlayers(_players)
     })
@@ -69,24 +69,20 @@ const Home = () => {
 
   return (
     <main className='w-2/3 mx-auto space-y-10'>
-    <h1 className="text-secondary text-3xl text-center p-10 rounded bg-primary-200">Let's solve some SBCS! 🔥</h1>
     <div className="grid grid-cols-2 gap-y-4 gap-x-8">
       <div className="space-y-8">
         <PrimaryButton onClick={onGetPlayers} title={"Get your players"}/>
-        <div className="bg-primary-200 rounded p-6">
-          <div className="bg-primary-300 rounded p-6">
-            <h1 className="text-secondary text-center text-3xl mt-8 mb-8">Players</h1>
+        <div className="rounded p-6">
+            <h1 className="text-secondary text-center text-3xl mt-8 mb-8">Your players</h1>
           </div>
           <div className="flex flex-wrap gap-2 mt-8">
             {players}
           </div>
-        </div>
       </div>
       <div className="space-y-8">
         <PrimaryButton onClick={onGetSBCs} title={"See available SBCs"}/>
-        <div className="bg-primary-200 rounded p-6">
-          <div className="bg-primary-300 rounded p-6">
-            <h1 className="text-secondary text-center text-3xl mt-8 mb-8">SBCs</h1>
+        <div className="rounded p-6">
+            <h1 className="text-secondary text-center text-3xl mt-8 mb-8">Available SBCs</h1>
             {solution.length > 0 ? <div className="text-secondary text-xl">A solution was found! 🎉 </div> : null }
           </div>
           <div className="flex flex-col gap-4 mt-8">
@@ -98,7 +94,6 @@ const Home = () => {
             }
             {solution.length > 0 ? <SecondaryButton title="Clear Solution" onClick={() => setSolution([])}/> : null }
           </div>
-      </div>
       </div>
     </div>
   </main>
