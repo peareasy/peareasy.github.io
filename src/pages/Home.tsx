@@ -9,7 +9,7 @@ interface SBC {
 }
 
 const Home = () => {
-  const extensionId = "jjkdpohdgeeohccdmbhmecimolaglhkd";
+  const extensionId = "gkkejffdkmolljblpfldkobgnkbohioe";
   const [cookies, setCookie] = useCookies(["peareasy"]);
   const [loading, setLoading] = useState(false)
   const [sbcs, setSBCs] = useState<JSX.Element[]>([])
@@ -18,6 +18,7 @@ const Home = () => {
 
   useEffect(() => {
     const sendUUIDToExtension = () => {
+      console.log(chrome)
       chrome.runtime.sendMessage(
         extensionId,
         {
