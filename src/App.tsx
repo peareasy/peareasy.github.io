@@ -9,7 +9,7 @@ import NavigationBar from "./components/UI/NavigationBar/NavgiationBar";
 
 function App() {
   return (
-    <div className="min-h-screen pb-20 bg-gray-800g">
+    <div className="min-h-screen pb-20 bg-gray-800">
       <BrowserRouter>
         <NavigationBar />
         <Switch>
