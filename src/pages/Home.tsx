@@ -9,7 +9,7 @@ interface SBC {
 }
 
 const Home = () => {
-  const extensionId = "pcjpfpboackpjobnpeknldjaencjmjlp";
+  const extensionId = "mchecdiinfipdfihkoebfbpfnllbllhc";
   const [cookies, setCookie] = useCookies(["peareasy"]);
   const [loading, setLoading] = useState(false);
   const [sbcs, setSBCs] = useState<JSX.Element[]>([]);
