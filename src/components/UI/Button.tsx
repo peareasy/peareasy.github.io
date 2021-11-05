@@ -9,7 +9,7 @@ type PrimaryButtonProps = {
 const PrimaryButton = ({ title, onClick, disabled }: PrimaryButtonProps) => {
   return (
     <button
-      className="bg-primary-600 shadow hover:bg-tertiary-700 disabled:cursor-not-allowed disabled:bg-primary-300 focus:shadow-outline focus:outline-none text-secondary font-bold py-2 px-4 rounded"
+      className="bg-primary-500 shadow hover:bg-primary-600 disabled:cursor-not-allowed disabled:bg-primary-300 focus:shadow-outline focus:outline-none text-secondary font-bold py-2 px-4 rounded"
       onClick={onClick}
       disabled={disabled}
     >

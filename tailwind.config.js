@@ -8,22 +8,22 @@ module.exports = {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
-      primary: colors.emerald,
+      primary: colors.indigo,
       secondary: colors.white,
       tertiary: colors.purple,
       gray: colors.gray,
-      error: colors.red['500'],
+      error: colors.red,
     },
     textColor: {
-      primary: colors.emerald,
+      primary: colors.indigo,
       secondary: colors.white,
       tertiary: colors.purple,
-      error: colors.red['500'],
+      error: colors.red,
     },
     extend: {
       backgroundImage: {
-        pitch: "url('/src/img/fifa.jpeg')",
-      }
+        pitch: "url('/src/img/background.jpg')",
+      },
     },
   },
   variants: {

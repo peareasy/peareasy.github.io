@@ -7,7 +7,7 @@ import ExternalNavigationItem from "./ExternalNavigation";
 const NavigationBar = () => {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
-    <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-primary-600 mb-16">
+    <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-primary-500 mb-16">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
           <NavLink
@@ -32,17 +32,17 @@ const NavigationBar = () => {
           id="example-navbar-danger"
         >
           <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-            <ExternalNavigationItem
-              link={'https://www.ea.com/fifa/ultimate-team/web-app/'}
-            >
-              import club
-            </ExternalNavigationItem>
-            <NavigationItem
-              link={'/profile'}
-              onClick={() => setNavbarOpen(!navbarOpen)}
-            >
-              profile
-            </NavigationItem>
+            {/*<ExternalNavigationItem*/}
+            {/*  link={'https://www.ea.com/fifa/ultimate-team/web-app/'}*/}
+            {/*>*/}
+            {/*  import club*/}
+            {/*</ExternalNavigationItem>*/}
+            {/*<NavigationItem*/}
+            {/*  link={'/profile'}*/}
+            {/*  onClick={() => setNavbarOpen(!navbarOpen)}*/}
+            {/*>*/}
+            {/*  profile*/}
+            {/*</NavigationItem>*/}
             <NavigationItem
               link={'/about'}
               onClick={() => setNavbarOpen(!navbarOpen)}

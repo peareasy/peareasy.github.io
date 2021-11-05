@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 
 import "./App.css";
 import Home from "./pages/Home";
@@ -9,13 +9,16 @@ import NavigationBar from "./components/UI/NavigationBar/NavgiationBar";
 
 function App() {
   return (
-    <div className="min-h-screen pb-20 bg-gray-800">
+    <div className="h-screen bg-cover bg-center bg-gradient-to-r from-gray-700 via-gray-900 to-gray-800">
       <BrowserRouter>
         <NavigationBar />
         <Switch>
           <Route path={"/about"} component={About} />
           <Route path={"/profile"} component={Profile} />
-          <Route path={"/"} component={Home} />
+          <Route path={"/peareasy-web-app"} component={Home} />
+          <Route path={"/"}>
+            <Redirect to={'/peareasy-web-app'}/>
+          </Route>
         </Switch>
       </BrowserRouter>
     </div>
