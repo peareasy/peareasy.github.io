@@ -4,9 +4,20 @@ import * as api from "../api/api";
 import {PrimaryButton} from "../components/UI/Button";
 import Spinner from "../components/UI/Spinner/Spinner";
 import CardSBC from "../components/UI/CardSBC";
+import WaveBackground from "../components/UI/WaveBackground";
 
 interface SBC {
   name: string
+}
+
+interface Player {
+  name: string,
+  position: string
+}
+
+interface Solution {
+  cost: number,
+  players: Player[]
 }
 
 const Home = () => {
@@ -14,8 +25,8 @@ const Home = () => {
   const [cookies, setCookie] = useCookies(["peareasy"]);
   const [loading, setLoading] = useState(false)
   const [sbcs, setSBCs] = useState<string[]>([])
-  const [players, setPlayers] = useState<string[]>([])
-  const [solution, setSolution] = useState<string[]>([])
+  const [players, setPlayers] = useState<Player[]>([])
+  const [solution, setSolution] = useState<Solution>()
   const [steps, setSteps] = useState(0)
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
 
@@ -40,8 +51,13 @@ const Home = () => {
 
   const onGetPlayers = () => {
     setLoading(true)
-    api.getPlayers(cookies['peareasy']).then((players: SBC[]) => {
-      const _players = players.map(player => player.name)
+    api.getPlayers(cookies).then((players: Player[]) => {
+      const _players = players.map(player => {
+        return {
+          name: player.name,
+          position: player.position
+        }
+      })
       setPlayers(_players)
       setLoading(false)
     }).catch(() => setLoading(false))
@@ -51,7 +67,7 @@ const Home = () => {
     setLoading(true)
     api.getSBCs().then((sbcs) => {
       setSBCs(sbcs.map((sbc: SBC) => sbc.name))
-
+      setLoading(false)
     }).catch(() => setLoading(false))
   }
 
@@ -62,31 +78,34 @@ const Home = () => {
     }
 
     setLoading(true)
-    api.solveSBC(cookies['peareasy'], sbcs[selectedSBC])
-      .then((players: SBC[]) => {
-        setSolution(players.map((players) => players.name))
+    api.solveSBC(cookies, sbcs[selectedSBC])
+      .then((solution: Solution) => {
+        const players = solution.players
+        const cost = solution.cost
+        setSolution({players, cost})
         setLoading(false)
       })
       .catch(() => {
-        setSolution([])
         setLoading(false)
       })
   }
 
-  const getStartedView = (<>
-      <h1 className="font-extrabold text-transparent text-5xl bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text ">
+  const getStartedView = (<div className="space-y-8">
+      <h1
+        className="font-extrabold text-transparent text-5xl bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text ">
         Hello there! 👋🏼
       </h1>
       <p className="m-auto">
         Are you tired of spending time on solving squad building challenges (SBCs) in FIFA ultimate team?
       </p>
       <p className="m-auto">
-        Then you have come to the right place! We've developed an artificial intelligence which searches for a cheap solution to an SBC with the players in your club!
+        Then you have come to the right place! We've developed an artificial intelligence which searches for a cheap
+        solution to an SBC with the players in your club!
       </p>
       <div className="absolute bottom-10 left-0 right-0">
         <PrimaryButton onClick={() => setSteps(1)} title={"Get Started!"}/>
       </div>
-    </>
+    </div>
   )
 
   const importPlayersView = (<div className="space-y-8">
@@ -134,7 +153,6 @@ const Home = () => {
       <div className={progressBarClassName.join(' ')}/>
     </div>
   )
-
   if (steps === 2 && players.length === 0 && !loading) {
     progressBarClassNameParent.push('hidden')
     sbcsView = <div role="alert">
@@ -154,18 +172,31 @@ const Home = () => {
     </div>
   }
 
-  console.log(solution)
+  const solutionView = (
+    <div>
+      {solution?.players.map(player => <p>
+        {player.name}, {player.position}
+      </p>)}
+      <br/>
+      <p>Approximate cost of players involved is {solution?.cost}</p>
+    </div>
+  )
 
   return (
-    <main className='w-2/6 mx-auto h-96 text-secondary text-center relative space-y-8'>
-      {steps >= 1 ? progressBar : null}
-      {steps === 0 ? getStartedView : null}
-      {steps === 1 ? importPlayersView : null}
-      {steps === 2 ? sbcsView : null}
-      {steps === 3 ? (
-        loading ? <Spinner/> : null
-      ) : null}
-    </main>
+    <>
+      <main className='w-2/6 mx-auto h-2/4 text-secondary text-center relative'>
+        <div className='mx-auto h-3/4 overflow-y-scroll'>
+          {steps >= 1 ? progressBar : null}
+          {steps === 0 ? getStartedView : null}
+          {steps === 1 ? importPlayersView : null}
+          {steps === 2 ? sbcsView : null}
+          {steps === 3 ? (
+            loading ? <Spinner/> : solutionView
+          ) : null}
+        </div>
+      </main>
+      <WaveBackground/>
+    </>
   )
 };
 

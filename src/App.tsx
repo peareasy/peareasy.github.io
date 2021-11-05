@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 
 import "./App.css";
 import Home from "./pages/Home";
@@ -9,86 +9,18 @@ import NavigationBar from "./components/UI/NavigationBar/NavgiationBar";
 
 function App() {
   return (
-    <div className="min-h-screen bg-cover bg-center bg-gradient-to-r from-gray-700 via-gray-900 to-gray-800">
+    <div className="h-screen bg-cover bg-center bg-gradient-to-r from-gray-700 via-gray-900 to-gray-800">
       <BrowserRouter>
         <NavigationBar />
         <Switch>
           <Route path={"/about"} component={About} />
           <Route path={"/profile"} component={Profile} />
-          <Route path={"/"} component={Home} />
+          <Route path={"/peareasy-web-app"} component={Home} />
+          <Route path={"/"}>
+            <Redirect to={'/peareasy-web-app'}/>
+          </Route>
         </Switch>
       </BrowserRouter>
-      <div className="absolute bottom-0 w-full">
-        <svg width="100%" height="300px" fill="none" version="1.1"
-             xmlns="http://www.w3.org/2000/svg">
-          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#A5B4FC"/>
-            <stop offset="50%" stopColor="#6366F1"/>
-            <stop offset="100%" stopColor="#4338CA"/>
-          </linearGradient>
-          <path
-            fill="url(#grad1)"
-            d="
-          M0 67
-          C 273,183
-            822,-40
-            1920.00,106
-
-          V 359
-          H 0
-          V 67
-          Z">
-            <animate
-              repeatCount="indefinite"
-              fill="url(#grad1)"
-              attributeName="d"
-              dur="15s"
-              attributeType="XML"
-              values="
-            M0 77
-            C 473,283
-              822,-40
-              1920,116
-
-            V 359
-            H 0
-            V 67
-            Z;
-
-            M0 77
-            C 473,-40
-              1222,283
-              1920,136
-
-            V 359
-            H 0
-            V 67
-            Z;
-
-            M0 77
-            C 973,260
-              1722,-53
-              1920,120
-
-            V 359
-            H 0
-            V 67
-            Z;
-
-            M0 77
-            C 473,283
-              822,-40
-              1920,116
-
-            V 359
-            H 0
-            V 67
-            Z
-            ">
-            </animate>
-          </path>
-        </svg>
-      </div>
     </div>
   );
 }

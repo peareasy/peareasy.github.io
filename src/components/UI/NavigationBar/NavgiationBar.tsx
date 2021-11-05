@@ -32,17 +32,17 @@ const NavigationBar = () => {
           id="example-navbar-danger"
         >
           <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-            <ExternalNavigationItem
-              link={'https://www.ea.com/fifa/ultimate-team/web-app/'}
-            >
-              import club
-            </ExternalNavigationItem>
-            <NavigationItem
-              link={'/profile'}
-              onClick={() => setNavbarOpen(!navbarOpen)}
-            >
-              profile
-            </NavigationItem>
+            {/*<ExternalNavigationItem*/}
+            {/*  link={'https://www.ea.com/fifa/ultimate-team/web-app/'}*/}
+            {/*>*/}
+            {/*  import club*/}
+            {/*</ExternalNavigationItem>*/}
+            {/*<NavigationItem*/}
+            {/*  link={'/profile'}*/}
+            {/*  onClick={() => setNavbarOpen(!navbarOpen)}*/}
+            {/*>*/}
+            {/*  profile*/}
+            {/*</NavigationItem>*/}
             <NavigationItem
               link={'/about'}
               onClick={() => setNavbarOpen(!navbarOpen)}
