@@ -166,8 +166,8 @@ const Home = () => {
           <p>It seems like your players weren't imported properly. Please, try again or see
             {<a rel="noreferrer"
                 href="https://www.youtube.com/watch?v=MvMSYZ8gA2s&list=LLPrmD7AZQwQzstyOwLT0QiQ"
-                target="_blank" > this </a>}
-          tutorial</p>
+                target="_blank"> this </a>}
+            tutorial</p>
         </div>
       </div>
       <div className="absolute bottom-10 left-0 right-0">
@@ -178,24 +178,48 @@ const Home = () => {
     </div>
   }
 
-  const solutionView = (
-    <div>
-      {solution?.players.map(player => <p>
-        {player.name}, {player.position}
-      </p>)}
-      <br/>
-      <p>Approximate cost of players involved is {solution?.cost}</p>
-    </div>
-  )
+  let solutionView
+
+  if (solution) {
+    solutionView = (
+      <div>
+        {solution?.players.map(player => <p>
+          {player.name}, {player.position}
+        </p>)}
+        <br/>
+        <p>Approximate cost of players involved is {solution?.cost}</p>
+      </div>
+    )
+  } else {
+    solutionView = (
+      <div className={'space-y-8'}>
+        <h1 className="text-5xl font-bold m-auto">
+          Oh no, we couldn't find a solution 😔
+        </h1>
+        <p>
+          We can see that you only have {players.length} players in the club that can be used for SBCs.
+        </p>
+        <p>
+          With your current players, we couldn't find a solution - you can try to see if another SBC can be solved.
+        </p>
+        <div className="absolute bottom-10 left-0 right-0">
+          <PrimaryButton onClick={() => {
+            setSteps(2)
+          }} title={"Try another one!"}/>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <>
-      <main className='w-2/6 mx-auto h-2/4 text-secondary text-center relative'>
+      <main className='w-2/6 mx-auto h-2/4 text-secondary text-center relative z-10'>
         <div className='mx-auto h-3/4 overflow-y-scroll'>
-          {steps >= 1 ? progressBar : null}
+          {steps >= 1 && !(steps === 3 && !solution) ? progressBar : null}
           {steps === 0 ? getStartedView : null}
           {steps === 1 ? importPlayersView : null}
           {steps === 2 && !loading ? sbcsView : null}
+          {steps === 2 && loading ? <Spinner/> : null}
           {steps === 3 ? (
             loading ? <Spinner/> : solutionView
           ) : null}
