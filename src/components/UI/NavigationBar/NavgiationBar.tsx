@@ -1,8 +1,8 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import NavigationItem from './NavigationItem';
-import { menu as menuIcon } from '../icons';
-import ExternalNavigationItem from "./ExternalNavigation";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import NavigationItem from "./NavigationItem";
+import { menu as menuIcon } from "../icons";
+// import ExternalNavigationItem from "./ExternalNavigation";
 
 const NavigationBar = () => {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -12,7 +12,7 @@ const NavigationBar = () => {
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
           <NavLink
             className="text-m font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-secondary"
-            to={'/'}
+            to={"/"}
           >
             SBC Solver ⚽
           </NavLink>
@@ -26,8 +26,8 @@ const NavigationBar = () => {
         </div>
         <div
           className={
-            'lg:flex flex-grow items-center' +
-            (navbarOpen ? ' flex' : ' hidden')
+            "lg:flex flex-grow items-center" +
+            (navbarOpen ? " flex" : " hidden")
           }
           id="example-navbar-danger"
         >
@@ -44,7 +44,7 @@ const NavigationBar = () => {
             {/*  profile*/}
             {/*</NavigationItem>*/}
             <NavigationItem
-              link={'/about'}
+              link={"/about"}
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
               about
