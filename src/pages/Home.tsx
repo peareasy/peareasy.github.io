@@ -117,13 +117,15 @@ const Home = () => {
     </div>
     <div>
       Click
-      <a href="https://www.ea.com/fifa/ultimate-team/web-app/" className="no-underline m-auto"
+      <a href="https://www.ea.com/fifa/ultimate-team/web-app/"
+         rel="noreferrer"
          target="_blank"> here </a>
       to import players
     </div>
     <div className="absolute bottom-10 left-0 right-0">
       <PrimaryButton onClick={() => {
         onGetPlayers()
+        setLoading(true)
         setSteps(2)
       }} title={"Done"}/>
     </div>
@@ -132,7 +134,7 @@ const Home = () => {
   let sbcsView = (
     <div className="space-y-2">
       {sbcs.length > 0 ? sbcs.map((sbc, index) =>
-        <CardSBC title={sbc} onClick={() => setSelectedSBC(index)} selected={selectedSBC === index}/>) : null}
+        <CardSBC title={sbc} key={sbc} onClick={() => setSelectedSBC(index)} selected={selectedSBC === index}/>) : null}
       <div className="absolute bottom-10 left-0 right-0">
         <PrimaryButton title={'Solve'} onClick={onSolveSBC}/>
       </div>
@@ -161,7 +163,11 @@ const Home = () => {
           Oh no
         </div>
         <div className="border border-t-0 border-error-400 rounded-b bg-red-100 px-4 py-3 text-red-700 ">
-          <p>It seems like your players weren't imported properly. Please, try again or see this Youtube tutorial</p>
+          <p>It seems like your players weren't imported properly. Please, try again or see
+            {<a rel="noreferrer"
+                href="https://www.youtube.com/watch?v=MvMSYZ8gA2s&list=LLPrmD7AZQwQzstyOwLT0QiQ"
+                target="_blank" > this </a>}
+          tutorial</p>
         </div>
       </div>
       <div className="absolute bottom-10 left-0 right-0">
@@ -189,7 +195,7 @@ const Home = () => {
           {steps >= 1 ? progressBar : null}
           {steps === 0 ? getStartedView : null}
           {steps === 1 ? importPlayersView : null}
-          {steps === 2 ? sbcsView : null}
+          {steps === 2 && !loading ? sbcsView : null}
           {steps === 3 ? (
             loading ? <Spinner/> : solutionView
           ) : null}

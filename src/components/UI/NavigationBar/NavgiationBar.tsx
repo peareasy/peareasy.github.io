@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import NavigationItem from './NavigationItem';
 import { menu as menuIcon } from '../icons';
-import ExternalNavigationItem from "./ExternalNavigation";
+// import ExternalNavigationItem from "./ExternalNavigation";
 
 const NavigationBar = () => {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
