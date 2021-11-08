@@ -127,14 +127,14 @@ const Home = () => {
         onGetPlayers()
         setLoading(true)
         setSteps(2)
-      }} title={"Done ✅"}/>
+      }} title={"Done"}/>
     </div>
   </div>)
 
   let sbcsView = (
     <div className="space-y-2">
       {sbcs.length > 0 ? sbcs.map((sbc, index) =>
-        <CardSBC title={sbc} key={sbc} onClick={() => setSelectedSBC(index)} selected={selectedSBC === index}/>) : null}
+        <CardSBC title={sbc} key={sbc} changeImg={index % 2 === 0} onClick={() => setSelectedSBC(index)} selected={selectedSBC === index}/>) : null}
       <div className="absolute bottom-10 left-0 right-0">
         <PrimaryButton title={'Solve ✨️'} onClick={onSolveSBC}/>
       </div>
