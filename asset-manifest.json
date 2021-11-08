@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/peareasy-web-app/static/css/main.c552f11f.chunk.css",
-    "main.js": "/peareasy-web-app/static/js/main.120f2498.chunk.js",
-    "main.js.map": "/peareasy-web-app/static/js/main.120f2498.chunk.js.map",
+    "main.css": "/peareasy-web-app/static/css/main.ef2a5a27.chunk.css",
+    "main.js": "/peareasy-web-app/static/js/main.cf29e1ed.chunk.js",
+    "main.js.map": "/peareasy-web-app/static/js/main.cf29e1ed.chunk.js.map",
     "runtime-main.js": "/peareasy-web-app/static/js/runtime-main.a0ac85f8.js",
     "runtime-main.js.map": "/peareasy-web-app/static/js/runtime-main.a0ac85f8.js.map",
     "static/js/2.6174d4c2.chunk.js": "/peareasy-web-app/static/js/2.6174d4c2.chunk.js",
     "static/js/2.6174d4c2.chunk.js.map": "/peareasy-web-app/static/js/2.6174d4c2.chunk.js.map",
     "index.html": "/peareasy-web-app/index.html",
-    "static/css/main.c552f11f.chunk.css.map": "/peareasy-web-app/static/css/main.c552f11f.chunk.css.map",
+    "static/css/main.ef2a5a27.chunk.css.map": "/peareasy-web-app/static/css/main.ef2a5a27.chunk.css.map",
     "static/js/2.6174d4c2.chunk.js.LICENSE.txt": "/peareasy-web-app/static/js/2.6174d4c2.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a0ac85f8.js",
     "static/js/2.6174d4c2.chunk.js",
-    "static/css/main.c552f11f.chunk.css",
-    "static/js/main.120f2498.chunk.js"
+    "static/css/main.ef2a5a27.chunk.css",
+    "static/js/main.cf29e1ed.chunk.js"
   ]
 }
