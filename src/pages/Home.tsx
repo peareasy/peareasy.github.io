@@ -47,7 +47,7 @@ const Home = () => {
       sendUUIDToExtension()
       onGetSBCs()
     }
-  }, [cookies, setCookie])
+  }, [cookies, setCookie, extensionId])
 
   const onGetPlayers = () => {
     setLoading(true)
