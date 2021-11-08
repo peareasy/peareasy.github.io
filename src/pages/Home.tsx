@@ -103,7 +103,7 @@ const Home = () => {
         solution to an SBC with the players in your club!
       </p>
       <div className="absolute bottom-10 left-0 right-0">
-        <PrimaryButton onClick={() => setSteps(1)} title={"Get Started!"}/>
+        <PrimaryButton onClick={() => setSteps(1)} title={"Get Started! 👊🏼"}/>
       </div>
     </div>
   )
@@ -127,7 +127,7 @@ const Home = () => {
         onGetPlayers()
         setLoading(true)
         setSteps(2)
-      }} title={"Done"}/>
+      }} title={"Done ✅"}/>
     </div>
   </div>)
 
@@ -136,7 +136,7 @@ const Home = () => {
       {sbcs.length > 0 ? sbcs.map((sbc, index) =>
         <CardSBC title={sbc} key={sbc} onClick={() => setSelectedSBC(index)} selected={selectedSBC === index}/>) : null}
       <div className="absolute bottom-10 left-0 right-0">
-        <PrimaryButton title={'Solve'} onClick={onSolveSBC}/>
+        <PrimaryButton title={'Solve ✨️'} onClick={onSolveSBC}/>
       </div>
     </div>
   )
@@ -173,7 +173,7 @@ const Home = () => {
       <div className="absolute bottom-10 left-0 right-0">
         <PrimaryButton onClick={() => {
           setSteps(1)
-        }} title={"Try again!"}/>
+        }} title={"Try again! 😎"}/>
       </div>
     </div>
   }
@@ -205,7 +205,7 @@ const Home = () => {
         <div className="absolute bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {
             setSteps(2)
-          }} title={"Try another one!"}/>
+          }} title={"Try another one! 😎"}/>
         </div>
       </div>
     )
