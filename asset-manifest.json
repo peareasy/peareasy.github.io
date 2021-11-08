@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/peareasy-web-app/static/css/main.c552f11f.chunk.css",
-    "main.js": "/peareasy-web-app/static/js/main.c2ce785a.chunk.js",
-    "main.js.map": "/peareasy-web-app/static/js/main.c2ce785a.chunk.js.map",
+    "main.js": "/peareasy-web-app/static/js/main.89557b8f.chunk.js",
+    "main.js.map": "/peareasy-web-app/static/js/main.89557b8f.chunk.js.map",
     "runtime-main.js": "/peareasy-web-app/static/js/runtime-main.a0ac85f8.js",
     "runtime-main.js.map": "/peareasy-web-app/static/js/runtime-main.a0ac85f8.js.map",
     "static/js/2.6174d4c2.chunk.js": "/peareasy-web-app/static/js/2.6174d4c2.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.a0ac85f8.js",
     "static/js/2.6174d4c2.chunk.js",
     "static/css/main.c552f11f.chunk.css",
-    "static/js/main.c2ce785a.chunk.js"
+    "static/js/main.89557b8f.chunk.js"
   ]
 }
