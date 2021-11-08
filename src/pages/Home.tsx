@@ -78,7 +78,7 @@ const Home = () => {
     }
 
     setLoading(true)
-    api.solveSBC(cookies, sbcs[selectedSBC])
+    api.solveSBC(cookies["peareasy"], sbcs[selectedSBC])
       .then((solution: Solution) => {
         const players = solution.players
         const cost = solution.cost
