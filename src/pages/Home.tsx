@@ -90,15 +90,17 @@ const Home = () => {
       })
   }
 
-  const getStartedView = (<div className="space-y-8">
+  const emptySolution = (): Solution => ({cost: 0, players: []})
+
+  const getStartedView = (<div className="space-y-4">
       <h1
         className="font-extrabold text-transparent text-5xl bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text ">
         Hello there! 👋🏼
       </h1>
-      <p className="m-auto">
+      <p className="text-left pt-4">
         Are you tired of spending time on solving squad building challenges (SBCs) in FIFA ultimate team?
       </p>
-      <p className="m-auto">
+      <p className="text-left">
         Then you have come to the right place! We've developed an artificial intelligence which searches for a cheap
         solution to an SBC with the players in your club!
       </p>
@@ -108,12 +110,21 @@ const Home = () => {
     </div>
   )
 
-  const importPlayersView = (<div className="space-y-8">
+  const importPlayersView = (<div className="space-y-4">
     <h1 className="text-5xl font-bold m-auto">
       Import your players! ⚽
     </h1>
-    <div className="m-auto">
-      We will take you through a few steps, before you can solve SBCs
+    <div className="text-left pt-4">
+      We will take you through a few steps, before you can solve SBCs. The first step is to import your players from FUT.
+    </div>
+    <div className="text-left">
+      Once you have logged in, go to your club and browse through all the players by clicking next. Once you've reached the last page,
+      you can go back to peareasy and click done. After the players have been imported, you can choose an SBC to solve.
+    </div>
+    <div className="text-left">
+      If you are still in doubt, you can watch {<a rel="noreferrer"
+                                                   href="https://www.youtube.com/watch?v=MvMSYZ8gA2s&list=LLPrmD7AZQwQzstyOwLT0QiQ"
+                                                   target="_blank"> this </a>} short video to see the flow
     </div>
     <div>
       Click
@@ -190,6 +201,7 @@ const Home = () => {
         <p>Approximate cost of players involved is {solution?.cost}</p>
         <div className="absolute bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {
+            setSolution(emptySolution)
             setSteps(2)
           }} title={"Try another one! 😎"}/>
         </div>
