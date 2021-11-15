@@ -118,8 +118,8 @@ const Home = () => {
       We will take you through a few steps, before you can solve SBCs. The first step is to import your players from FUT.
     </div>
     <div className="text-left">
-      Once you have logged in, go to your club and browse through all the players by clicking next. Once you've reached the last page,
-      you can go back to peareasy and click done. After the players have been imported, you can choose an SBC to solve.
+      Once you have logged into the FUT web app, go to your club and browse through all the players by clicking next. When you've reached the last page,
+      you can navigate back to SBC Solver and click done. After the players have been imported, you can choose an SBC to solve.
     </div>
     <div className="text-left">
       If you are still in doubt, you can watch {<a rel="noreferrer"
