@@ -188,6 +188,11 @@ const Home = () => {
         </p>)}
         <br/>
         <p>Approximate cost of players involved is {solution?.cost}</p>
+        <div className="absolute bottom-10 left-0 right-0">
+          <PrimaryButton onClick={() => {
+            setSteps(2)
+          }} title={"Try another one! 😎"}/>
+        </div>
       </div>
     )
   } else {
