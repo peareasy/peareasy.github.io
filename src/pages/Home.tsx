@@ -230,8 +230,8 @@ const Home = () => {
 
   return (
     <>
-      <main className='w-2/6 mx-auto h-2/4 text-secondary text-center relative z-10'>
-        <div className='mx-auto h-3/4 overflow-y-scroll'>
+      <main className='md:w-1/2 2-xl:w-3/4 mx-auto h-3/5 text-secondary text-center relative z-10'>
+        <div className='mx-auto h-3/4 overflow-y-auto'>
           {steps >= 1 && !(steps === 3 && !solution) ? progressBar : null}
           {steps === 0 ? getStartedView : null}
           {steps === 1 ? importPlayersView : null}
