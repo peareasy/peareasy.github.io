@@ -10,7 +10,7 @@ type NavigationItemProps = {
 const NavigationItem = ({ link, onClick, children }: NavigationItemProps) => (
   <NavLink
     to={link}
-    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-secondary hover:opacity-75"
+    className="px-3 py-2 flex items-center text-sm uppercase leading-snug text-secondary hover:opacity-75"
     onClick={onClick}
   >
     <span className="ml-2">{children}</span>

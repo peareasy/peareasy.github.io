@@ -20,7 +20,7 @@ const CardSBC = ({title, onClick, selected, changeImg}: CardSBCProps) => {
   return (
     <div key={title} className={greenBorderClassName.join(' ')} onClick={onClick}>
       <div className='flex-none mt-auto mb-auto w-16'>
-        <img src={changeImg ? sbcBadge : sbcBadgeGold} />
+        <img alt={title} src={changeImg ? sbcBadge : sbcBadgeGold} />
       </div>
       <p className='m-auto text-xl'>
         {title}

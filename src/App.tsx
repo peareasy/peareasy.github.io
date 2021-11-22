@@ -9,7 +9,7 @@ import NavigationBar from "./components/UI/NavigationBar/NavgiationBar";
 
 function App() {
   return (
-    <div className="h-screen bg-cover bg-center bg-gray-800">
+    <div className="h-screen bg-cover bg-center bg-cover bg-pitch">
       <BrowserRouter>
         <NavigationBar />
         <Switch>
