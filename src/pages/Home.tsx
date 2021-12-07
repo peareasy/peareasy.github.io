@@ -74,6 +74,7 @@ const Home = () => {
   const onSolveSBC = () => {
     setSteps(3)
     if (players.length === 0) {
+      setSolution(emptySolution)
       return
     }
 
@@ -191,7 +192,7 @@ const Home = () => {
 
   let solutionView
 
-  if (solution) {
+  if (solution?.players && solution.players.length > 0) {
     solutionView = (
       <div>
         {solution?.players.map(player => <p>
@@ -230,8 +231,8 @@ const Home = () => {
 
   return (
     <>
-      <main className='w-2/6 mx-auto h-2/4 text-secondary text-center relative z-10'>
-        <div className='mx-auto h-3/4 overflow-y-scroll'>
+      <main className='w-4/5 sm:w-3/4 lg:w-1/2 mx-auto h-3/5 text-secondary text-center relative z-10'>
+        <div className='mx-auto h-3/4 overflow-y-auto'>
           {steps >= 1 && !(steps === 3 && !solution) ? progressBar : null}
           {steps === 0 ? getStartedView : null}
           {steps === 1 ? importPlayersView : null}

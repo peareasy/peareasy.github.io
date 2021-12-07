@@ -2,7 +2,7 @@ import React from "react"
 
 const WaveBackground = () => (
   <div className="absolute bottom-0 w-full z-0">
-  <svg width="100%" height="300px" fill="none" version="1.1"
+  <svg width="100%" height="200px" fill="none" version="1.1"
        xmlns="http://www.w3.org/2000/svg">
     <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stopColor="#A5B4FC"/>

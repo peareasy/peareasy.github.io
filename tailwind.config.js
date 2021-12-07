@@ -22,8 +22,13 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        pitch: "url('/src/img/background.jpg')",
+        pitch: "url('/src/img/background.svg')",
       },
+    },
+    screens: {
+      'mobile': '640px',
+      'sm': '1024px',
+      'lg': '1536px',
     },
   },
   variants: {
