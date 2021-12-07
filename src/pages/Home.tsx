@@ -74,6 +74,7 @@ const Home = () => {
   const onSolveSBC = () => {
     setSteps(3)
     if (players.length === 0) {
+      setSolution(emptySolution)
       return
     }
 
@@ -191,7 +192,7 @@ const Home = () => {
 
   let solutionView
 
-  if (solution) {
+  if (solution?.players && solution.players.length > 0) {
     solutionView = (
       <div>
         {solution?.players.map(player => <p>
