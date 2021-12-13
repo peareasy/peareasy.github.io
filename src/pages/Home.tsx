@@ -5,20 +5,9 @@ import {PrimaryButton} from "../components/UI/Button";
 import Spinner from "../components/UI/Spinner/Spinner";
 import CardSBC from "../components/UI/CardSBC";
 import WaveBackground from "../components/UI/WaveBackground";
-
-interface SBC {
-  name: string
-}
-
-interface Player {
-  name: string,
-  position: string
-}
-
-interface Solution {
-  cost: number,
-  players: Player[]
-}
+import { Player } from "../interfaces/Player";
+import { Solution } from "../interfaces/Solution";
+import { SBC } from "../interfaces/SBC";
 
 const Home = () => {
   const extensionId = process.env.REACT_APP_EXTENSION_ID || "";
