@@ -87,7 +87,7 @@ const Home = () => {
     <h1 className="text-5xl font-bold m-auto">
       Import your players! ⚽
     </h1>
-    <iframe src="https://www.youtube.com/embed/OKL-EHSpev0" className="w-full h-96 mt-10" />
+    <iframe src="https://www.youtube.com/embed/OKL-EHSpev0" title="video-guide" className="w-full h-96 mt-10"/>
     <div className="text-xl">
       Click
       <a href="https://www.ea.com/fifa/ultimate-team/web-app/"
