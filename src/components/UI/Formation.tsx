@@ -1,17 +1,13 @@
-import React from "react";
 import { Player } from "../../interfaces/Player";
 
 type FormationProps = {
-  titleProp: string;
-  formationProp: string;
+  players: Player[]
+  rawFormation: string,
 };
 
-
-const Formation = ({titleProp}: FormationProps) => {
-  const formationProp = "4-3-3"
-  const formation = ("1-" + formationProp).split('-').map(Number)
-
-  const players = [{"position":"CM","name":"Ulrik Saltnes"},{"position":"CB","name":"Noë Dussenne"},{"position":"ST","name":"Mushaga Bakenga"},{"position":"LB","name":"James Husband"},{"position":"RB","name":"Thibault Vlietinck"},{"position":"CB","name":"Loïc Mbe Soh"},{"position":"CB","name":"Mario Maloča"},{"position":"ST","name":"Victor Boniface"},{"position":"CDM","name":"Fredrik Sjølstad"},{"position":"CM","name":"Homero Calderón"},{"position":"GK","name":"Cezary Miszta"}]
+const Formation = ({players, rawFormation}: FormationProps) => {
+  
+  const formation = ("1-" + rawFormation).split('-').map(Number)
 
   const formationWithPlayers = []
   let counter = 0;
@@ -19,10 +15,10 @@ const Formation = ({titleProp}: FormationProps) => {
     const row = []
     for (let j = 0; j < formation[i]; j++) {
       row.push(
-        <span className="rounded-full w-32 h-32 leading-extra-loose text-secondary text-center align-middle">
-          {players[counter].name}
-
-        </span>)
+        <div className="rounded-full bg-primary-800 h-24 flex flex-col w-32 m-auto">
+          <div className="m-auto text-center text-secondary">{players[counter].position}</div>
+          <div className="h-18 w-24 m-auto text-center text-secondary">{players[counter].name}</div>
+        </div>)
       counter++
     }
     formationWithPlayers.push(<div className="flex flex-row justify-center gap-x-4">
@@ -30,17 +26,11 @@ const Formation = ({titleProp}: FormationProps) => {
     </div>
     )
   }
-  console.log(formationWithPlayers)
-
-
-    // <div className="rounded-full bg-secondary w-32 h-32">
-    //
-    //   {player.name}
-    // </div>
 
   return (
   <div className={"w-3/5 mx-auto flex justify-center"}>
-    <div className="flex flex-col gap-y-16">
+    <div className="flex flex-col gap-y-4">
+    <div className="text-secondary text-center text-4xl">{rawFormation}</div>
       {formationWithPlayers.reverse()}
       </div>
   </div>

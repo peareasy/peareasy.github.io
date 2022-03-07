@@ -4,7 +4,7 @@ import * as api from "../api/api";
 import {PrimaryButton} from "../components/UI/Button";
 import Spinner from "../components/UI/Spinner/Spinner";
 import CardSBC from "../components/UI/CardSBC";
-import WaveBackground from "../components/UI/WaveBackground";
+import Formation from "../components/UI/Formation"
 import { Player } from "../interfaces/Player";
 import { Solution } from "../interfaces/Solution";
 import { SBC } from "../interfaces/SBC";
@@ -70,9 +70,10 @@ const Home = () => {
     setLoading(true)
     api.solveSBC(cookies["peareasy"], sbcs[selectedSBC])
       .then((solution: Solution) => {
+        const formation = solution.formation
         const players = solution.players
         const cost = solution.cost
-        setSolution({players, cost})
+        setSolution({players, cost, formation})
         setLoading(false)
       })
       .catch(() => {
@@ -80,7 +81,7 @@ const Home = () => {
       })
   }
 
-  const emptySolution = (): Solution => ({cost: 0, players: []})
+  const emptySolution = (): Solution => ({cost: 0, players: [], formation: ""})
 
   const getStartedView = (<div className="space-y-4">
       <h1
@@ -184,11 +185,9 @@ const Home = () => {
   if (solution?.players && solution.players.length > 0) {
     solutionView = (
       <div>
-        {solution?.players.map(player => <p>
-          {player.name}, {player.position}
-        </p>)}
+        <Formation players={solution.players} rawFormation={solution.formation}/>
+        <p className="mt-4">Approximate cost of players involved is {solution?.cost}</p>
         <br/>
-        <p>Approximate cost of players involved is {solution?.cost}</p>
         <div className="absolute bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {
             setSolution(emptySolution)
@@ -232,7 +231,6 @@ const Home = () => {
           ) : null}
         </div>
       </main>
-      <WaveBackground/>
     </>
   )
 };
