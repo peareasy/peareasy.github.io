@@ -1,5 +1,3 @@
-import React from "react"
-
 import sbcBadge from './sbc.png'
 import sbcBadgeGold from './sbc_gold.png'
 
