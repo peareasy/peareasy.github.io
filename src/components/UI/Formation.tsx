@@ -6,7 +6,6 @@ type FormationProps = {
 };
 
 const Formation = ({players, rawFormation}: FormationProps) => {
-  
   const formation = ("1-" + rawFormation).split('-').map(Number)
 
   const formationWithPlayers = []
