@@ -95,26 +95,12 @@ const Home = () => {
          target="_blank"> here </a>
       to import players
     </div>
-<<<<<<< HEAD
 
     <div className="absolute bottom-10 left-0 right-0">
       <PrimaryButton onClick={() => {
         onGetPlayers()
         setLoading(true)
         setSteps(1)
-=======
-    <div className="absolute bottom-10 left-16">
-      <PrimaryButton onClick={() => {
-        setSteps(0)
-      }} title={"Back"}/>
-    </div>
-
-    <div className="absolute bottom-10 right-16">
-      <PrimaryButton onClick={() => {
-        onGetPlayers()
-        setLoading(true)
-        setSteps(2)
->>>>>>> main
       }} title={"Next"}/>
     </div>
   </div>)
@@ -127,11 +113,7 @@ const Home = () => {
         <CardSBC title={sbc} key={sbc} changeImg={index % 2 === 0} onClick={() => setSelectedSBC(index)} selected={selectedSBC === index}/>) : null}
       <div className="absolute bottom-10 left-16">
       <PrimaryButton onClick={() => {
-<<<<<<< HEAD
         setSteps(0)
-=======
-        setSteps(1)
->>>>>>> main
       }} title={"Back"}/>
     </div>
       <div className="absolute bottom-10 right-16">
@@ -189,11 +171,7 @@ const Home = () => {
           <PrimaryButton onClick={() => {
             setSolution(emptySolution)
             setSelectedSBC(-1)
-<<<<<<< HEAD
             setSteps(1)
-=======
-            setSteps(2)
->>>>>>> main
           }} title={"Try another one! 😎"}/>
         </div>
       </div>
@@ -213,11 +191,7 @@ const Home = () => {
         <div className="absolute bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {
             setSelectedSBC(-1)
-<<<<<<< HEAD
             setSteps(1)
-=======
-            setSteps(2)
->>>>>>> main
           }} title={"Try another one! 😎"}/>
         </div>
       </div>
@@ -226,11 +200,7 @@ const Home = () => {
 
   return (
     <>
-<<<<<<< HEAD
       <main className='w-4/5 sm:w-3/4 lg:w-1/2 mx-auto h-4/5 text-secondary text-center relative z-10'>
-=======
-      <main className='w-4/5 sm:w-3/4 lg:w-1/2 mx-auto h-3/5 text-secondary text-center relative z-10'>
->>>>>>> main
         <div className='mx-auto h-4/5 overflow-y-auto'>
           {steps >= 1 && !(steps === 3 && !solution) ? progressBar : null}
           {steps === 0 ? importPlayersView : null}
