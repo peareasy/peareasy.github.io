@@ -15,10 +15,7 @@ function App() {
         <Switch>
           <Route path={"/about"} component={About} />
           <Route path={"/profile"} component={Profile} />
-          <Route path={"/peareasy-web-app"} component={Home} />
-          <Route path={"/"}>
-            <Redirect to={'/peareasy-web-app'}/>
-          </Route>
+          <Route path={"/"} component={Home} />
         </Switch>
       </BrowserRouter>
     </div>
