@@ -21,6 +21,7 @@ const Home = () => {
 
   useEffect(() => {
     const sendUUIDToExtension = () => {
+      console.log("extension id", extensionId)
       chrome.runtime.sendMessage(
         extensionId,
         {
