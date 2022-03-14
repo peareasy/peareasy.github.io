@@ -22,6 +22,7 @@ const Home = () => {
 
   useEffect(() => {
     const sendUUIDToExtension = () => {
+      console.log("extension id", extensionId)
       chrome.runtime.sendMessage(
         extensionId,
         {
@@ -62,7 +63,7 @@ const Home = () => {
   }
 
   const onSolveSBC = () => {
-    setSteps(3)
+    setSteps(2)
     if (players.length === 0) {
       setSolution(emptySolution)
       return
@@ -84,62 +85,29 @@ const Home = () => {
 
   const emptySolution = (): Solution => ({cost: 0, players: [], formation: ""})
 
-  const getStartedView = (<div className="space-y-4">
-      <h1
-        className="font-extrabold text-transparent text-5xl bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text ">
-        Hello there! 👋🏼
-      </h1>
-      <p className="text-left pt-4">
-        Are you tired of spending time on solving squad building challenges (SBCs) in FIFA ultimate team?
-      </p>
-      <p className="text-left">
-        Then you have come to the right place! We've developed an artificial intelligence which searches for a cheap
-        solution to an SBC with the players in your club!
-      </p>
-      <div className="absolute bottom-10 left-0 right-0">
-        <PrimaryButton onClick={() => setSteps(1)} title={"Get Started! 👊🏼"}/>
-      </div>
-    </div>
-  )
-
-  const importPlayersView = (<div className="space-y-4">
+  const importPlayersView = (<div className="space-y-8">
     <h1 className="text-5xl font-bold m-auto">
       Import your players! ⚽
     </h1>
-    <div className="text-left pt-4">
-      We will take you through a few steps, before you can solve SBCs. The first step is to import your players from FUT.
-    </div>
-    <div className="text-left">
-      Once you have logged into the FUT web app, go to your club and browse through all the players by clicking next. When you've reached the last page,
-      you can navigate back to SBC Solver and click done. After the players have been imported, you can choose an SBC to solve.
-    </div>
-    <div className="text-left">
-      If you are still in doubt, you can watch {<a rel="noreferrer"
-                                                   href="https://www.youtube.com/watch?v=MvMSYZ8gA2s&list=LLPrmD7AZQwQzstyOwLT0QiQ"
-                                                   target="_blank"> this </a>} short video to see the flow
-    </div>
-    <div>
+    <iframe src="https://www.youtube.com/embed/OKL-EHSpev0" title="video-guide" className="w-full h-96 mt-10"/>
+    <div className="text-xl">
       Click
       <a href="https://www.ea.com/fifa/ultimate-team/web-app/"
          rel="noreferrer"
          target="_blank"> here </a>
       to import players
     </div>
-    <div className="absolute bottom-10 left-16">
-      <PrimaryButton onClick={() => {
-        setSteps(0)
-      }} title={"Back"}/>
-    </div>
 
-    <div className="absolute bottom-10 right-16">
+    <div className="absolute bottom-10 left-0 right-0">
       <PrimaryButton onClick={() => {
         onGetPlayers()
         setLoading(true)
-        setSteps(2)
+        setSteps(1)
       }} title={"Next"}/>
     </div>
   </div>)
   console.log("selected sbc", selectedSBC)
+
 
   let sbcsView = (
     <div className="space-y-2">
@@ -147,7 +115,7 @@ const Home = () => {
         <CardSBC title={sbc} key={sbc} changeImg={index % 2 === 0} onClick={() => setSelectedSBC(index)} selected={selectedSBC === index}/>) : null}
       <div className="absolute bottom-10 left-16">
       <PrimaryButton onClick={() => {
-        setSteps(1)
+        setSteps(0)
       }} title={"Back"}/>
     </div>
       <div className="absolute bottom-10 right-16">
@@ -199,13 +167,13 @@ const Home = () => {
     solutionView = (
       <div>
         <Formation players={solution.players} rawFormation={solution.formation}/>
-        <p className="mt-4">Approximate cost of players involved is {solution?.cost}</p>
+        <p className="mt-12 text-xl">Approximate cost of players involved is {solution?.cost}</p>
         <br/>
         <div className="absolute bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {
             setSolution(emptySolution)
             setSelectedSBC(-1)
-            setSteps(2)
+            setSteps(1)
           }} title={"Try another one! 😎"}/>
         </div>
       </div>
@@ -225,7 +193,7 @@ const Home = () => {
         <div className="absolute bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {
             setSelectedSBC(-1)
-            setSteps(2)
+            setSteps(1)
           }} title={"Try another one! 😎"}/>
         </div>
       </div>
@@ -240,20 +208,21 @@ const Home = () => {
 
   return (
     <>
-      <main className='w-4/5 sm:w-3/4 lg:w-1/2 mx-auto h-3/5 text-secondary text-center relative z-10'>
-        {isMobile ? 
-        mobileView : 
-        <div className='mx-auto h-4/5 overflow-y-auto'>
-        {steps >= 1 && !(steps === 3 && !solution) ? progressBar : null}
-        {steps === 0 ? getStartedView : null}
-        {steps === 1 ? importPlayersView : null}
-        {steps === 2 && !loading ? sbcsView : null}
-        {steps === 2 && loading ? <Spinner/> : null}
-        {steps === 3 ? (
-          loading ? <Spinner/> : solutionView
-        ) : null}
-      </div>
-      }
+      
+      <main className='w-4/5 sm:w-3/4 lg:w-1/2 mx-auto h-4/5 text-secondary text-center relative z-10'>
+        {
+          isMobile ? mobileView : 
+          (<div className='mx-auto h-4/5 overflow-y-auto'>
+          {steps >= 1 && !(steps === 3 && !solution) ? progressBar : null}
+          {steps === 0 ? importPlayersView : null}
+          {steps === 1 && !loading ? sbcsView : null}
+          {steps === 1 && loading ? <Spinner/> : null}
+          {steps === 2 ? (
+            loading ? <Spinner/> : solutionView
+          ) : null}
+        </div>)
+        }
+        
       </main>
     </>
   )
