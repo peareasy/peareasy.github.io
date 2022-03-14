@@ -8,6 +8,7 @@ import Formation from "../components/UI/Formation"
 import { Player } from "../interfaces/Player";
 import { Solution } from "../interfaces/Solution";
 import { SBC } from "../interfaces/SBC";
+import {isMobile} from 'react-device-detect';
 
 const Home = () => {
   const extensionId = process.env.REACT_APP_EXTENSION_ID || "";
@@ -231,19 +232,28 @@ const Home = () => {
     )
   }
 
+  const mobileView = (<div>
+    <h1 className="mx-auto h-4/5 overflow-y-auto">
+      Mobile view
+    </h1>
+  </div>)
+
   return (
     <>
       <main className='w-4/5 sm:w-3/4 lg:w-1/2 mx-auto h-3/5 text-secondary text-center relative z-10'>
+        {isMobile ? 
+        mobileView : 
         <div className='mx-auto h-4/5 overflow-y-auto'>
-          {steps >= 1 && !(steps === 3 && !solution) ? progressBar : null}
-          {steps === 0 ? getStartedView : null}
-          {steps === 1 ? importPlayersView : null}
-          {steps === 2 && !loading ? sbcsView : null}
-          {steps === 2 && loading ? <Spinner/> : null}
-          {steps === 3 ? (
-            loading ? <Spinner/> : solutionView
-          ) : null}
-        </div>
+        {steps >= 1 && !(steps === 3 && !solution) ? progressBar : null}
+        {steps === 0 ? getStartedView : null}
+        {steps === 1 ? importPlayersView : null}
+        {steps === 2 && !loading ? sbcsView : null}
+        {steps === 2 && loading ? <Spinner/> : null}
+        {steps === 3 ? (
+          loading ? <Spinner/> : solutionView
+        ) : null}
+      </div>
+      }
       </main>
     </>
   )
