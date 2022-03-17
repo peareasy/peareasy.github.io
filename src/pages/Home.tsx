@@ -8,6 +8,7 @@ import Formation from "../components/UI/Formation"
 import { Player } from "../interfaces/Player";
 import { Solution } from "../interfaces/Solution";
 import { SBC } from "../interfaces/SBC";
+import {isMobile} from 'react-device-detect';
 
 const Home = () => {
   const extensionId = process.env.REACT_APP_EXTENSION_ID || "";
@@ -21,12 +22,14 @@ const Home = () => {
 
   useEffect(() => {
     const sendUUIDToExtension = () => {
-      chrome.runtime.sendMessage(
-        extensionId,
-        {
-          uuid: cookies["peareasy"]
-        }
-      );
+      console.log("extension id", extensionId)
+      if (window.chrome)
+        window.chrome.runtime.sendMessage(
+          extensionId,
+          {
+            uuid: cookies["peareasy"]
+          }
+        );
     }
     if (!cookies["peareasy"]) {
       api.loginAsAnonymous().then((uuid: string) => {
@@ -198,10 +201,30 @@ const Home = () => {
     )
   }
 
+  const mobileView = (<div className="space-y-8">
+    <h1 className="text-3xl font-bold m-auto">
+      Oh no, you are on mobile! 😔
+    </h1>
+    <p>In order for you to use our Chrome extension to import your players, you have to use this site from a desktop computer!</p>
+  </div>)
+
+  const nonChromeView = (<div className="space-y-8">
+    <h1 className="text-3xl font-bold mx-auto h-4/5 overflow-y-auto">
+      Oh no, you are on not using Chrome! 😔
+    </h1>
+    <p>In order for you to use our Chrome extension to import your players, you have to use this site from a Chrome browser!</p>
+  </div>)
+
+  const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+
+
   return (
     <>
       <main className='w-4/5 sm:w-3/4 lg:w-1/2 mx-auto h-4/5 text-secondary text-center relative z-10'>
-        <div className='mx-auto h-4/5 overflow-y-auto'>
+        {
+          isMobile ? mobileView : 
+          !isChrome ?  nonChromeView : 
+          (<div className='mx-auto h-4/5 overflow-y-auto'>
           {steps >= 1 && !(steps === 3 && !solution) ? progressBar : null}
           {steps === 0 ? importPlayersView : null}
           {steps === 1 && !loading ? sbcsView : null}
@@ -209,7 +232,9 @@ const Home = () => {
           {steps === 2 ? (
             loading ? <Spinner/> : solutionView
           ) : null}
-        </div>
+        </div>)
+        }
+        
       </main>
     </>
   )

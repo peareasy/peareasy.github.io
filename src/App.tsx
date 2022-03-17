@@ -1,23 +1,24 @@
-import React from "react";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import { HashRouter, Route} from "react-router-dom";
 
 import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Profile from "./pages/Profile";
 import NavigationBar from "./components/UI/NavigationBar/NavgiationBar";
+import Contact from "./pages/Contact";
+import Tos from "./pages/Tos";
 
 function App() {
   return (
     <div className="h-screen bg-cover bg-center bg-cover bg-pitch">
-      <BrowserRouter>
+      <HashRouter basename="/">
         <NavigationBar />
-        <Switch>
-          <Route path={"/about"} component={About} />
-          <Route path={"/profile"} component={Profile} />
-          <Route path={"/"} component={Home} />
-        </Switch>
-      </BrowserRouter>
+        <Route path={"/about"} component={About} />
+        <Route path={"/profile"} component={Profile} />
+        <Route path={"/contact"} component={Contact} />
+        <Route path={"/tos"} component={Tos} />
+        <Route exact path={"/"} component={Home} />
+      </HashRouter>
     </div>
   );
 }
