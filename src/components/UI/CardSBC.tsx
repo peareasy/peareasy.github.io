@@ -1,6 +1,3 @@
-import sbcBadge from './sbc.png'
-import sbcBadgeGold from './sbc_gold.png'
-
 type CardSBCProps = {
   title: string;
   onClick: () => void;
@@ -18,7 +15,7 @@ const CardSBC = ({title, onClick, selected, changeImg}: CardSBCProps) => {
   return (
     <div key={title} className={greenBorderClassName.join(' ')} onClick={onClick}>
       <div className='flex-none mt-auto mb-auto w-16'>
-        <img alt={title} src={changeImg ? sbcBadge : sbcBadgeGold} />
+        <img alt={title} src={changeImg ? process.env.PUBLIC_URL+'/sbc.png' : process.env.PUBLIC_URL+'/sbc_gold.png' } />
       </div>
       <p className='m-auto text-xl'>
         {title}

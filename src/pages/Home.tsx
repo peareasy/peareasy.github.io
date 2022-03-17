@@ -84,10 +84,10 @@ const Home = () => {
   const emptySolution = (): Solution => ({cost: 0, players: [], formation: ""})
 
   const importPlayersView = (<div className="space-y-8">
-    <h1 className="text-5xl font-bold m-auto">
+    <h1 className="text-4xl font-bold m-auto">
       Import your players! ⚽
     </h1>
-    <iframe src="https://www.youtube.com/embed/OKL-EHSpev0" title="video-guide" className="w-full h-96 mt-10"/>
+    <img src={process.env.PUBLIC_URL+"/tutorial.gif"} alt="tutorial" className="w-full m-auto"/>
     <div className="text-xl">
       Click
       <a href="https://www.ea.com/fifa/ultimate-team/web-app/"
