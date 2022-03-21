@@ -22,7 +22,6 @@ const Home = () => {
 
   useEffect(() => {
     const sendUUIDToExtension = () => {
-      console.log("extension id", extensionId)
       if (window.chrome)
         window.chrome.runtime.sendMessage(
           extensionId,
@@ -47,7 +46,8 @@ const Home = () => {
       const _players = players.map(player => {
         return {
           name: player.name,
-          position: player.position
+          position: player.position,
+          rating: player.rating
         }
       })
       setPlayers(_players)
@@ -107,8 +107,6 @@ const Home = () => {
       }} title={"Next"}/>
     </div>
   </div>)
-  console.log("selected sbc", selectedSBC)
-
 
   let sbcsView = (
     <div className="space-y-2">
