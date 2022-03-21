@@ -49,6 +49,12 @@ const NavigationBar = () => {
             >
               about
             </NavigationItem>
+            <NavigationItem
+              link={'/contact'}
+              onClick={() => setNavbarOpen(!navbarOpen)}
+            >
+              contact
+            </NavigationItem>
           </ul>
         </div>
       </div>
