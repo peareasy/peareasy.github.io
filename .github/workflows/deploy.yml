@@ -19,6 +19,7 @@ jobs:
         run: |
           touch .env
           echo REACT_APP_EXTENSION_ID="mchecdiinfipdfihkoebfbpfnllbllhc" >> .env
+          echo REACT_APP_BACKEND_URL="https://5fmhq2i8rp.eu-west-1.awsapprunner.com" >> .env
           cat .env
       - name: Install and Build 🔧
         run: |
