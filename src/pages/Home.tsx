@@ -32,19 +32,21 @@ const Home = () => {
   const [step, setStep] = useState(Steps.Start)
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
 
-
   useEffect(() => {
     const sendUUIDToExtension = () => {
       if (window.chrome) {
+        console.log("extension id", extensionId);
         window.chrome.runtime.sendMessage(
           extensionId,
           {
             uuid: cookies["userId"]
-          }
-        );
+          }, (res) => {
+            console.log("response from extension", res);
+          });
+      } else {
+        console.error("Window.chrome not avialable");
       }
     }
-
     if (!cookies["userId"]) {
       setStep(Steps.HasNotAcceptedTos)
     } else {
