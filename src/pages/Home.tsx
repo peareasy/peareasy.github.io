@@ -22,14 +22,23 @@ const Home = () => {
 
   useEffect(() => {
     const sendUUIDToExtension = () => {
-      if (window.chrome)
+      if (window.chrome){
+        console.log("extension id", extensionId);
+        
         window.chrome.runtime.sendMessage(
           extensionId,
           {
             uuid: cookies["peareasy"]
           }
-        );
+        , (res) => {
+          console.log("response from extension", res);
+        });
+        
+      }
+      else 
+        console.error("Window.chrome not avialable");
     }
+    
     if (!cookies["peareasy"]) {
       api.loginAsAnonymous().then((uuid: string) => {
         setCookie("peareasy", uuid);
