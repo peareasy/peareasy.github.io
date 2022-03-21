@@ -13,10 +13,11 @@ const Formation = ({players, rawFormation}: FormationProps) => {
   for (let i = 0; i < formation.length; i++) {
     const row = []
     for (let j = 0; j < formation[i]; j++) {
+      console.log(players)
       row.push(
-        <div className="rounded-full bg-primary-800 h-24 flex flex-col w-32 m-auto">
-          <div className="m-auto text-center text-secondary">{players[counter].position}</div>
-          <div className="h-18 w-24 m-auto text-center text-secondary">{players[counter].name}</div>
+        <div className="rounded-full bg-primary-800 flex flex-col w-44 m-auto">
+          <div className="w-24 m-auto text-center text-secondary">{players[counter].name}</div>
+          <div className="m-auto pt-4 text-center text-secondary">{players[counter].position+', '+players[counter].rating}</div>
         </div>)
       counter++
     }
