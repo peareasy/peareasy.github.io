@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import NavigationItem from './NavigationItem';
 import { menu as menuIcon } from '../icons';
-// import ExternalNavigationItem from "./ExternalNavigation";
 
 const NavigationBar = () => {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -11,10 +10,10 @@ const NavigationBar = () => {
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between mobile:w-auto mobile:static mobile:block mobile:justify-start">
           <NavLink
-            className="text-xl leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-secondary"
+            className="text-xl leading-relaxed inline-block mr-4 py-2 whitespace-nowrap text-secondary"
             to={'/'}
           >
-            SBC Solver ⚽
+            EasySBC ⚽
           </NavLink>
           <button
             className="text-secondary cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block mobile:hidden outline-none focus:outline-none"

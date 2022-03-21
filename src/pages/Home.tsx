@@ -11,38 +11,57 @@ import { SBC } from "../interfaces/SBC";
 import {isMobile} from 'react-device-detect';
 
 const Home = () => {
+
+  const enum Steps {
+    Start,
+    HasNotAcceptedTos,
+    HasNotDownloadedExtension,
+    ImportPlayers,
+    ChooseSBC,
+    Solution
+  }
+
   const extensionId = process.env.REACT_APP_EXTENSION_ID || "";
-  const [cookies, setCookie] = useCookies(["peareasy"]);
+  const [cookies, setCookie] = useCookies(["userId"]);
+  const [userId, setUserId] = useState("")
+  const [tosAccepted, setTosAccepted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [sbcs, setSBCs] = useState<string[]>([])
   const [players, setPlayers] = useState<Player[]>([])
   const [solution, setSolution] = useState<Solution>()
-  const [steps, setSteps] = useState(0)
+  const [step, setStep] = useState(Steps.Start)
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
+
 
   useEffect(() => {
     const sendUUIDToExtension = () => {
-      if (window.chrome)
+      if (window.chrome) {
         window.chrome.runtime.sendMessage(
           extensionId,
           {
-            uuid: cookies["peareasy"]
+            uuid: cookies["userId"]
           }
         );
+      }
     }
-    if (!cookies["peareasy"]) {
-      api.loginAsAnonymous().then((uuid: string) => {
-        setCookie("peareasy", uuid);
-      });
+
+    if (!cookies["userId"]) {
+      setStep(Steps.HasNotAcceptedTos)
     } else {
       sendUUIDToExtension()
       onGetSBCs()
+      setUserId(cookies["userId"])
+      setStep(Steps.ImportPlayers)
     }
-  }, [cookies, setCookie, extensionId])
+  }, [Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId])
+
+  const onTosAcceptChange = () => {
+    setTosAccepted(!tosAccepted)
+  }
 
   const onGetPlayers = () => {
     setLoading(true)
-    api.getPlayers(cookies["peareasy"]).then((players: Player[]) => {
+    api.getPlayers(userId).then((players: Player[]) => {
       const _players = players.map(player => {
         return {
           name: player.name,
@@ -64,14 +83,14 @@ const Home = () => {
   }
 
   const onSolveSBC = () => {
-    setSteps(2)
+    setStep(Steps.Solution)
     if (players.length === 0) {
       setSolution(emptySolution)
       return
     }
 
     setLoading(true)
-    api.solveSBC(cookies["peareasy"], sbcs[selectedSBC])
+    api.solveSBC(userId, sbcs[selectedSBC])
       .then((solution: Solution) => {
         const formation = solution.formation
         const players = solution.players
@@ -87,11 +106,16 @@ const Home = () => {
   const emptySolution = (): Solution => ({cost: 0, players: [], formation: ""})
 
   const importPlayersView = (<div className="space-y-8">
-    <h1 className="text-4xl font-bold m-auto">
-      Import your players! ⚽
+    <h1 className="text-l text-left space-y-4">
+      <p>↗️ Open or reload the <a href="https://www.ea.com/fifa/ultimate-team/web-app/"
+                               rel="noreferrer"
+                               target="_blank">FUT Web App</a>
+      </p>
+      <p>↔️ Navigate through all your player pages</p>
+      <p>⬅️ Go back to EasySBC</p>
     </h1>
-    <img src={process.env.PUBLIC_URL+"/tutorial.gif"} alt="tutorial" className="w-full m-auto"/>
-    <div className="text-xl">
+    <img src={process.env.PUBLIC_URL+"/tutorial.gif"} alt="tutorial" className="w-full m-auto rounded"/>
+    <div className="text-l">
       Click
       <a href="https://www.ea.com/fifa/ultimate-team/web-app/"
          rel="noreferrer"
@@ -99,11 +123,11 @@ const Home = () => {
       to import players
     </div>
 
-    <div className="absolute bottom-10 left-0 right-0">
+    <div className="bottom-10">
       <PrimaryButton onClick={() => {
         onGetPlayers()
         setLoading(true)
-        setSteps(1)
+        setStep(Steps.ChooseSBC)
       }} title={"Next"}/>
     </div>
   </div>)
@@ -111,34 +135,17 @@ const Home = () => {
   let sbcsView = (
     <div className="space-y-2">
       {sbcs.length > 0 ? sbcs.map((sbc, index) =>
-        <CardSBC title={sbc} key={sbc} changeImg={index % 2 === 0} onClick={() => setSelectedSBC(index)} selected={selectedSBC === index}/>) : null}
-      <div className="absolute bottom-10 left-16">
-      <PrimaryButton onClick={() => {
-        setSteps(0)
-      }} title={"Back"}/>
-    </div>
-      <div className="absolute bottom-10 right-16">
+        <CardSBC title={sbc} key={sbc} changeImg={index % 2 === 0} onClick={() => setSelectedSBC(index === selectedSBC ? -1 : index)} selected={selectedSBC === index}/>) : null}
+      <div className="pt-10 flex justify-around">
+        <PrimaryButton onClick={() => {
+          setStep(Steps.ImportPlayers)
+        }} title={"Back"}/>
         <PrimaryButton title={'Solve'} disabled={selectedSBC === -1} onClick={onSolveSBC}/>
       </div>
     </div>
   )
 
-  const progressBarClassName = ["flex flex-col text-center bg-primary-500"]
-  const progressBarClassNameParent = ["absolute bottom-0 h-2 w-full bg-primary-200 rounded overflow-hidden text-xs flex"]
-  progressBarClassName.push('w-' + steps.toString() + '/3')
-  if (steps < 3) {
-    progressBarClassNameParent.push('bg-primary-200')
-  } else {
-    progressBarClassNameParent.push('bg-primary-500')
-  }
-
-  const progressBar = (
-    <div className={progressBarClassNameParent.join(' ')}>
-      <div className={progressBarClassName.join(' ')}/>
-    </div>
-  )
-  if (steps === 2 && players.length === 0 && !loading) {
-    progressBarClassNameParent.push('hidden')
+  if (step === Steps.ChooseSBC && players.length === 0 && !loading) {
     sbcsView = <div role="alert">
       <div className='w-2/3 m-auto'>
         <div className="bg-error-500 text-white font-bold rounded-t px-4 py-2">
@@ -152,10 +159,10 @@ const Home = () => {
             tutorial</p>
         </div>
       </div>
-      <div className="absolute bottom-10 left-0 right-0">
+      <div className="mt-10 bottom-10 left-0 right-0">
         <PrimaryButton onClick={() => {
-          setSteps(1)
-        }} title={"Try again! 😎"}/>
+          setStep(Steps.ImportPlayers)
+        }} title={"Try again!"}/>
       </div>
     </div>
   }
@@ -168,11 +175,11 @@ const Home = () => {
         <Formation players={solution.players} rawFormation={solution.formation}/>
         <p className="mt-12 text-xl">Approximate cost of players involved is {solution?.cost}</p>
         <br/>
-        <div className="absolute bottom-10 left-0 right-0">
+        <div className="top-10 bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {
             setSolution(emptySolution)
             setSelectedSBC(-1)
-            setSteps(1)
+            setStep(Steps.ChooseSBC)
           }} title={"Try another one! 😎"}/>
         </div>
       </div>
@@ -189,10 +196,10 @@ const Home = () => {
         <p>
           With your current players, we couldn't find a solution - you can try to see if another SBC can be solved.
         </p>
-        <div className="absolute bottom-10 left-0 right-0">
+        <div className="top-10 bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {
             setSelectedSBC(-1)
-            setSteps(1)
+            setStep(Steps.ChooseSBC)
           }} title={"Try another one! 😎"}/>
         </div>
       </div>
@@ -220,30 +227,51 @@ const Home = () => {
     <Spinner/>
   </div>)
 
+  const tosView = (
+    <div className="space-y-12 text-center">
+      <img alt={"img"} className="m-auto w-1/3 " src={process.env.PUBLIC_URL+'/sbc_gold.png'}/>
+    <div className="form-check flex justify-center">
+      <input
+        className="form-check-input h-4 w-4 border rounded-sm focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+        type="checkbox"
+        checked={tosAccepted}
+        onChange={onTosAcceptChange}
+      />
+      <label>
+        Do you accept our Terms of Service?
+      </label>
+    </div>
+    <PrimaryButton disabled={!tosAccepted} onClick={() => {
+      setLoading(true)
+      setStep(Steps.ImportPlayers)
+      api.loginAsAnonymous().then((uuid: string) => {
+        setCookie("userId", uuid);
+      });
+      setTosAccepted(tosAccepted)
+    }} title={"Start Solving SBCs"}/>
+  </div>)
+
   const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
 
+  let currentView
 
-  return (
-    <>
-      <main className='w-4/5 sm:w-3/4 lg:w-1/2 mx-auto h-4/5 text-secondary text-center relative z-10'>
-        {
-          isMobile ? mobileView : 
-          !isChrome ?  nonChromeView : 
-          (<div className='mx-auto h-4/5 overflow-y-auto'>
-          {steps >= 1 && !(steps === 3 && !solution) ? progressBar : null}
-          {steps === 0 ? importPlayersView : null}
-          {steps === 1 && !loading ? sbcsView : null}
-          {steps === 1 && loading ? <Spinner/> : null}
-          {steps === 2 ? (
-            loading ?
-              loadingView : solutionView
-          ) : null}
-        </div>)
-        }
-        
-      </main>
-    </>
-  )
+  if (step === Steps.HasNotAcceptedTos) {
+    currentView = tosView
+  } else if (step === Steps.ImportPlayers) {
+    currentView = importPlayersView
+  } else if (step === Steps.ChooseSBC) {
+    currentView = loading ?  <Spinner/> : sbcsView
+  } else if (step === Steps.Solution) {
+    currentView = loading ? loadingView : solutionView
+  }
+
+  return <main className='w-4/5 sm:w-3/4 lg:w-1/2 mx-auto h-4/5 text-secondary text-center relative z-10'>
+    { isMobile ? mobileView :
+      !isChrome ?  nonChromeView :
+      <div className='mx-auto'>
+        {currentView}
+    </div> }
+  </main>
 };
 
 export default Home;

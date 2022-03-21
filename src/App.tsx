@@ -10,7 +10,7 @@ import Tos from "./pages/Tos";
 
 function App() {
   return (
-    <div className="h-screen bg-cover bg-center bg-cover bg-pitch">
+    <div className="min-h-screen bg-cover bg-center bg-cover bg-pitch">
       <HashRouter basename="/">
         <NavigationBar />
         <Route path={"/about"} component={About} />
