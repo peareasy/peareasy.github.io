@@ -213,6 +213,13 @@ const Home = () => {
     <p>In order for you to use our Chrome extension to import your players, you have to use this site from a Chrome browser!</p>
   </div>)
 
+  const loadingView = (<div className="space-y-8">
+    <h1 className="text-2xl font-bold mx-auto h-4/5 overflow-y-auto mb-24">
+      We're trying to get you one of the optimal solutions. This might take up to 30 seconds 👊🏽
+    </h1>
+    <Spinner/>
+  </div>)
+
   const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
 
 
@@ -228,7 +235,8 @@ const Home = () => {
           {steps === 1 && !loading ? sbcsView : null}
           {steps === 1 && loading ? <Spinner/> : null}
           {steps === 2 ? (
-            loading ? <Spinner/> : solutionView
+            loading ?
+              loadingView : solutionView
           ) : null}
         </div>)
         }
