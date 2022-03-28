@@ -43,6 +43,18 @@ const NavigationBar = () => {
             {/*  profile*/}
             {/*</NavigationItem>*/}
             <NavigationItem
+                link={'/tos'}
+                onClick={() => setNavbarOpen(!navbarOpen)}
+            >
+              Tos
+            </NavigationItem>
+            <NavigationItem
+                link={'/privacy'}
+                onClick={() => setNavbarOpen(!navbarOpen)}
+            >
+              Privacy
+            </NavigationItem>
+            <NavigationItem
               link={'/about'}
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
