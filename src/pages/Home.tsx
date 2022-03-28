@@ -9,6 +9,8 @@ import { Player } from "../interfaces/Player";
 import { Solution } from "../interfaces/Solution";
 import { SBC } from "../interfaces/SBC";
 import {isMobile} from 'react-device-detect';
+import { NavLink } from 'react-router-dom';
+
 
 const Home = () => {
 
@@ -259,7 +261,8 @@ const Home = () => {
         onChange={onTosAcceptChange}
       />
       <label>
-        Do you accept our Terms of Service?
+        <p>I hereby declare that I have read and accept both</p>
+        <p><NavLink to={"/tos"}>Terms of Service</NavLink> and <NavLink to={"/privacy"}>Privacy Policy</NavLink></p>
       </label>
     </div>
     <PrimaryButton disabled={!tosAccepted} onClick={() => {
