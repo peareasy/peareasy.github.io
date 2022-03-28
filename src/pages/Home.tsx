@@ -10,6 +10,7 @@ import { Solution } from "../interfaces/Solution";
 import { SBC } from "../interfaces/SBC";
 import {isMobile} from 'react-device-detect';
 import { NavLink } from 'react-router-dom';
+import { open_link as openLinkIcon } from '../components/UI/icons';
 
 
 const Home = () => {
@@ -24,15 +25,23 @@ const Home = () => {
   }
 
   const extensionId = process.env.REACT_APP_EXTENSION_ID || "";
+
+  // setup phase
   const [cookies, setCookie] = useCookies(["userId"]);
   const [userId, setUserId] = useState("")
   const [tosAccepted, setTosAccepted] = useState(false)
   const [extensionInstalled, setExtensionInstalled] = useState(false)
+
+  // navigation
+  const [step, setStep] = useState(Steps.Start)
+  const [importError, setImportError] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [nextEnabled, setNextEnabled] = useState(false)
+
+  // data
   const [sbcs, setSBCs] = useState<string[]>([])
   const [players, setPlayers] = useState<Player[]>([])
   const [solution, setSolution] = useState<Solution>()
-  const [step, setStep] = useState(Steps.Start)
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
 
   useEffect(() => {
@@ -70,17 +79,32 @@ const Home = () => {
     setTosAccepted(!tosAccepted)
   }
 
+  const onImportPlayersClicked = () => {
+    setNextEnabled(true)
+    setImportError(false)
+    window.open(
+      'https://www.ea.com/fifa/ultimate-team/web-app/',
+      '_blank'
+    )
+  }
+
   const onGetPlayers = () => {
     setLoading(true)
     api.getPlayers(userId).then((players: Player[]) => {
-      const _players = players.map(player => {
-        return {
-          name: player.name,
-          position: player.position,
-          rating: player.rating
-        }
-      })
-      setPlayers(_players)
+      if (players.length === 0) {
+        setImportError(true)
+      } else {
+        const _players = players.map(player => {
+          return {
+            name: player.name,
+            position: player.position,
+            rating: player.rating
+          }
+        })
+        setPlayers(_players)
+        setStep(Steps.ChooseSBC)
+        setImportError(false)
+      }
       setLoading(false)
     }).catch(() => setLoading(false))
   }
@@ -116,28 +140,41 @@ const Home = () => {
 
   const emptySolution = (): Solution => ({cost: 0, players: [], formation: ""})
 
-  const importPlayersView = (<div className="space-y-8">
-    <h1 className="text-l text-left space-y-4">
-      <p>↗️ Open or reload theFUT Web App</p>
-      <p>↔️ Navigate through all your player pages</p>
-      <p>⬅️ Go back to EasySBC</p>
-    </h1>
-    <img src={process.env.PUBLIC_URL+"/tutorial.gif"} alt="tutorial" className="w-full m-auto rounded"/>
-    <div className="text-l">
-      Click
-      <a href="https://www.ea.com/fifa/ultimate-team/web-app/"
-         rel="noreferrer"
-         target="_blank"> here </a>
-      to import players
+  const importPlayersView = (<div className="space-y-12">
+    <div className="grid grid-cols-6 gap-8">
+      <h1 className="text-m m-auto text-left space-y-3 col-start-1 col-end-1">
+        <p className="border-2 border-secondary rounded p-2">1. Click the Import Players button</p>
+        <p className="border-2 border-secondary rounded p-2">2. Navigate through all your player pages</p>
+        <p className="border-2 border-secondary rounded p-2">3. Go back to EasySBC</p>
+      </h1>
+      <img src={process.env.PUBLIC_URL+"/tutorial.gif"} alt="tutorial" className="w-full col-start-2 col-end-7 m-auto rounded"/>
     </div>
 
-    <div className="bottom-10">
-      <PrimaryButton onClick={() => {
-        onGetPlayers()
-        setLoading(true)
-        setStep(Steps.ChooseSBC)
-      }} title={"Next"}/>
+    <div className="bottom-10 grid grid-cols-5">
+      <div className="col-start-3">
+        <PrimaryButton title={"Import Players"} icon={openLinkIcon} onClick={onImportPlayersClicked}/>
+      </div>
+      <div className="col-start-5">
+        <PrimaryButton onClick={() => {
+          onGetPlayers()
+        }} title={"Next"} disabled={!nextEnabled}/>
+      </div>
     </div>
+
+    { importError ? <div role="alert">
+      <div className='w-2/3 m-auto'>
+        <div className="bg-error-500 text-white font-bold rounded-t px-3 py-1">
+          Oh no
+        </div>
+        <div className="border border-t-0 border-error-400 rounded-b bg-red-100 px-4 py-3 text-red-700 ">
+          <p>It seems like your players weren't imported properly. Please try again or see
+            {<a rel="noreferrer"
+                href="https://www.youtube.com/watch?v=MvMSYZ8gA2s&list=LLPrmD7AZQwQzstyOwLT0QiQ"
+                target="_blank"> this </a>}
+            tutorial</p>
+        </div>
+      </div>
+    </div> : null}
   </div>)
 
   let sbcsView = (
@@ -168,27 +205,7 @@ const Home = () => {
     </div>
   )
 
-  if (step === Steps.ChooseSBC && players.length === 0 && !loading) {
-    sbcsView = <div role="alert">
-      <div className='w-2/3 m-auto'>
-        <div className="bg-error-500 text-white font-bold rounded-t px-4 py-2">
-          Oh no
-        </div>
-        <div className="border border-t-0 border-error-400 rounded-b bg-red-100 px-4 py-3 text-red-700 ">
-          <p>It seems like your players weren't imported properly. Please, try again or see
-            {<a rel="noreferrer"
-                href="https://www.youtube.com/watch?v=MvMSYZ8gA2s&list=LLPrmD7AZQwQzstyOwLT0QiQ"
-                target="_blank"> this </a>}
-            tutorial</p>
-        </div>
-      </div>
-      <div className="mt-10 bottom-10 left-0 right-0">
-        <PrimaryButton onClick={() => {
-          setStep(Steps.ImportPlayers)
-        }} title={"Try again!"}/>
-      </div>
-    </div>
-  }
+  console.log(importError)
 
   let solutionView
 
@@ -262,7 +279,7 @@ const Home = () => {
       />
       <label>
         <p>I hereby declare that I have read and accept both</p>
-        <p><NavLink to={"/tos"}>Terms of Service</NavLink> and <NavLink to={"/privacy"}>Privacy Policy</NavLink></p>
+        <p><NavLink to={"/tos"} target="_blank">Terms of Service</NavLink> and <NavLink to={"/privacy"} target="_blank">Privacy Policy</NavLink></p>
       </label>
     </div>
     <PrimaryButton disabled={!tosAccepted} onClick={() => {
@@ -280,13 +297,13 @@ const Home = () => {
       You need our Chrome extension to import your players
     </h1>
     <img alt={"img"} className="m-auto w-1/4" src={process.env.PUBLIC_URL+'/chrome.svg'}/>
-    <PrimaryButton title={"Download Extension"} onClick={() =>
+    <PrimaryButton title={"Download Extension"} icon={openLinkIcon} onClick={() =>
       window.open(
         'https://chrome.google.com/webstore/detail/auto-sbc/mchecdiinfipdfihkoebfbpfnllbllhc?hl=en-GB',
         '_blank'
       )}/>
     <p className="text-l">
-      Once you have downloaded the extension, please refresh the application
+      Please refresh the application once you have downloaded the extension 🔄
     </p>
   </div>
 
@@ -305,7 +322,7 @@ const Home = () => {
     currentView = loading ? loadingView : solutionView
   }
 
-  return <main className='w-4/5 sm:w-3/4 lg:w-1/2 mx-auto h-4/5 text-secondary text-center relative z-10'>
+  return <main className='w-1/2 mx-auto h-3/5 text-secondary text-center relative z-10'>
     { isMobile ? mobileView :
       !isChrome ?  nonChromeView :
       <div className='mx-auto'>
