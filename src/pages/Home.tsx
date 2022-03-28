@@ -15,7 +15,7 @@ const Home = () => {
   const enum Steps {
     Start,
     HasNotAcceptedTos,
-    HasNotDownloadedExtension,
+    DownloadExtension,
     ImportPlayers,
     ChooseSBC,
     Solution
@@ -25,6 +25,7 @@ const Home = () => {
   const [cookies, setCookie] = useCookies(["userId"]);
   const [userId, setUserId] = useState("")
   const [tosAccepted, setTosAccepted] = useState(false)
+  const [extensionInstalled, setExtensionInstalled] = useState(false)
   const [loading, setLoading] = useState(false)
   const [sbcs, setSBCs] = useState<string[]>([])
   const [players, setPlayers] = useState<Player[]>([])
@@ -34,28 +35,34 @@ const Home = () => {
 
   useEffect(() => {
     const sendUUIDToExtension = () => {
-      if (window.chrome) {
-        console.log("extension id", extensionId);
+      if (window.chrome?.runtime) {
+        setLoading(true)
         window.chrome.runtime.sendMessage(
           extensionId,
           {
             uuid: cookies["userId"]
           }, (res) => {
-            console.log("response from extension", res);
+            setLoading(false)
+            setExtensionInstalled(res.msg === 'confirmation')
           });
       } else {
-        console.error("Window.chrome not avialable");
+        setLoading(false)
+        console.error("window.chrome not available");
       }
     }
     if (!cookies["userId"]) {
       setStep(Steps.HasNotAcceptedTos)
     } else {
+      if (extensionInstalled) {
+        setStep(Steps.ImportPlayers)
+      } else {
+        setStep(Steps.DownloadExtension)
+      }
       sendUUIDToExtension()
       onGetSBCs()
       setUserId(cookies["userId"])
-      setStep(Steps.ImportPlayers)
     }
-  }, [Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId])
+  }, [Steps.DownloadExtension, Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId, extensionInstalled])
 
   const onTosAcceptChange = () => {
     setTosAccepted(!tosAccepted)
@@ -109,10 +116,7 @@ const Home = () => {
 
   const importPlayersView = (<div className="space-y-8">
     <h1 className="text-l text-left space-y-4">
-      <p>↗️ Open or reload the <a href="https://www.ea.com/fifa/ultimate-team/web-app/"
-                               rel="noreferrer"
-                               target="_blank">FUT Web App</a>
-      </p>
+      <p>↗️ Open or reload theFUT Web App</p>
       <p>↔️ Navigate through all your player pages</p>
       <p>⬅️ Go back to EasySBC</p>
     </h1>
@@ -260,7 +264,7 @@ const Home = () => {
     </div>
     <PrimaryButton disabled={!tosAccepted} onClick={() => {
       setLoading(true)
-      setStep(Steps.ImportPlayers)
+      setStep(Steps.DownloadExtension)
       api.loginAsAnonymous().then((uuid: string) => {
         setCookie("userId", uuid);
       });
@@ -268,14 +272,30 @@ const Home = () => {
     }} title={"Start Solving SBCs"}/>
   </div>)
 
-  const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+  const getChromeExtensionView = <div className="space-y-12 text-center">
+    <h1 className="text-xl">
+      You need our Chrome extension to import your players
+    </h1>
+    <img alt={"img"} className="m-auto w-1/4" src={process.env.PUBLIC_URL+'/chrome.svg'}/>
+    <PrimaryButton title={"Download Extension"} onClick={() =>
+      window.open(
+        'https://chrome.google.com/webstore/detail/auto-sbc/mchecdiinfipdfihkoebfbpfnllbllhc?hl=en-GB',
+        '_blank'
+      )}/>
+    <p className="text-l">
+      Once you have downloaded the extension, please refresh the application
+    </p>
+  </div>
 
+  const isChrome = !!window.chrome
   let currentView
 
   if (step === Steps.HasNotAcceptedTos) {
-    currentView = tosView
+    currentView = loading ?  <Spinner/> : tosView
+  } else if (step === Steps.DownloadExtension) {
+    currentView = loading ?  <Spinner/> : getChromeExtensionView
   } else if (step === Steps.ImportPlayers) {
-    currentView = importPlayersView
+    currentView = loading ?  <Spinner/> : importPlayersView
   } else if (step === Steps.ChooseSBC) {
     currentView = loading ?  <Spinner/> : sbcsView
   } else if (step === Steps.Solution) {
