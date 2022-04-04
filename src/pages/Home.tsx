@@ -5,7 +5,6 @@ import {PrimaryButton} from "../components/UI/Button";
 import Spinner from "../components/UI/Spinner/Spinner";
 import CardSBC from "../components/UI/CardSBC";
 import Formation from "../components/UI/Formation"
-import { Player } from "../interfaces/Player";
 import { Solution } from "../interfaces/Solution";
 import { SBC } from "../interfaces/SBC";
 import {isMobile} from 'react-device-detect';
@@ -40,7 +39,7 @@ const Home = () => {
 
   // data
   const [sbcs, setSBCs] = useState<string[]>([])
-  const [players, setPlayers] = useState<Player[]>([])
+  const [numberOfPlayers, setNumberOfPlayers] = useState(0)
   const [solution, setSolution] = useState<Solution>()
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
 
@@ -95,18 +94,11 @@ const Home = () => {
 
   const onGetPlayers = () => {
     setLoading(true)
-    api.getPlayers(userId).then((players: Player[]) => {
-      if (players.length === 0) {
+    api.getPlayers(userId).then((numberOfPlayers) => {
+      if (numberOfPlayers === 0) {
         setImportError(true)
       } else {
-        const _players = players.map(player => {
-          return {
-            name: player.name,
-            position: player.position,
-            rating: player.rating
-          }
-        })
-        setPlayers(_players)
+        setNumberOfPlayers(numberOfPlayers)
         setStep(Steps.ChooseSBC)
         setImportError(false)
       }
@@ -124,7 +116,7 @@ const Home = () => {
 
   const onSolveSBC = () => {
     setStep(Steps.Solution)
-    if (players.length === 0) {
+    if (numberOfPlayers === 0) {
       setSolution(emptySolution)
       return
     }
@@ -195,7 +187,7 @@ const Home = () => {
           </div>
           <div>
             <p className="font-bold">Players have successfully been imported! 💥</p>
-            <p className="text-sm">We have imported {players.length} players</p>
+            <p className="text-sm">We have imported {numberOfPlayers} players</p>
           </div>
         </div>
       </div>
@@ -236,7 +228,7 @@ const Home = () => {
           Oh no, we couldn't find a solution 😔
         </h1>
         <p>
-          We can see that you only have {players.length} players in the club that can be used for SBCs.
+          We can see that you only have {numberOfPlayers} players in the club that can be used for SBCs.
         </p>
         <p>
           With your current players, we couldn't find a solution - you can try to see if another SBC can be solved.
