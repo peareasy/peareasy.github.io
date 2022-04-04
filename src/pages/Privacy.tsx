@@ -2,11 +2,11 @@ import React from "react";
 
 const Privacy = () => {
     return (
-                <main className={'container mx-auto w-1/2 space-y-5 pb-10 pt-10 bg-gray-100 p-20 overflow-visible'}>
+                <main className={'container mx-auto w-1/2 space-y-5 pb-10 pt-10 p-20 overflow-visible text-secondary'}>
             <div>
-                    <p style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '0cm', marginLeft: '0cm', lineHeight: 'normal', fontSize: '15px', fontFamily: '"Cambria",serif', textAlign: 'center'}}><strong><span style={{fontFamily: '"Arial",sans-serif', color: 'black'}}>PRIVACY POLICY</span></strong></p>
-            <p style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '0cm', marginLeft: '0cm', fontSize: '15px', fontFamily: '"Times New Roman",serif'}}>&nbsp;</p>
-            <p style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '0cm', marginLeft: '0cm', fontSize: '15px', fontFamily: '"Times New Roman",serif'}}><span style={{fontFamily: '"Arial",sans-serif'}}>Effective date: 28/03/2022</span></p>
+                    <p style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '0cm', marginLeft: '0cm', lineHeight: 'normal', fontSize: '15px', fontFamily: '"Cambria",serif', textAlign: 'center'}}><strong><span style={{fontFamily: '"Arial",sans-serif', color: 'white'}}>PRIVACY POLICY</span></strong></p>
+            <p style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '0cm', marginLeft: '0cm', fontSize: '15px', fontFamily: '"Times New Roman",serif', color: 'white'}}>&nbsp;</p>
+            <p style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '0cm', marginLeft: '0cm', fontSize: '15px', fontFamily: '"Times New Roman",serif'}}><span style={{fontFamily: '"Arial",sans-serif', color: 'white'}}>Effective date: 28/03/2022</span></p>
             <p style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '0cm', marginLeft: '0cm', fontSize: '15px', fontFamily: '"Times New Roman",serif'}}><span style={{fontFamily: '"Arial",sans-serif'}}>&nbsp;</span></p>
             <div style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '10.0pt', marginLeft: '0cm', fontSize: '15px', fontFamily: '"Times New Roman",serif'}}>
             <ol style={{marginBottom: '0cm', listStyleType: 'decimal', marginLeft: '7.850000000000001px'}}>
@@ -521,7 +521,7 @@ const Privacy = () => {
             <li style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '10.0pt', marginLeft: '0cm', fontSize: '15px', fontFamily: '"Times New Roman",serif'}}><strong><u><span style={{}}>Children's Privacy</span></u></strong></li>
             </ol>
             </div>
-            <p style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '0cm', marginLeft: '0cm', fontSize: '15px', fontFamily: '"Times New Roman",serif'}}><span style={{fontFamily: '"Arial",sans-serif', color: 'black', background: 'white'}}>&nbsp;</span></p>
+            <p style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '0cm', marginLeft: '0cm', fontSize: '15px', fontFamily: '"Times New Roman",serif'}}><span style={{fontFamily: '"Arial",sans-serif', color: 'white', background: 'white'}}>&nbsp;</span></p>
             <p style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '0cm', marginLeft: '17.85pt', fontSize: '15px', fontFamily: '"Times New Roman",serif', textAlign: 'justify'}}><span style={{fontFamily: '"Arial",sans-serif'}}>Our Services are not intended for use by children under the age of 18 (“<strong>Child</strong>” or “<strong>Children</strong>”).&nbsp;</span></p>
             <p style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '0cm', marginLeft: '17.85pt', fontSize: '15px', fontFamily: '"Times New Roman",serif', textAlign: 'justify'}}><span style={{fontFamily: '"Arial",sans-serif'}}>&nbsp;</span></p>
             <p style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '0cm', marginLeft: '17.85pt', fontSize: '15px', fontFamily: '"Times New Roman",serif', textAlign: 'justify'}}><span style={{fontFamily: '"Arial",sans-serif'}}>We do not knowingly collect personally identifiable information from Children under 18. If you become aware that a Child has provided us with Personal Data, please contact us. If we become aware that we have collected Personal Data from Children without verification of parental consent, we take steps to remove that information from our servers.</span></p>

@@ -13,7 +13,7 @@ const NavigationBar = () => {
             className="text-xl leading-relaxed inline-block mr-4 py-2 whitespace-nowrap text-secondary"
             to={'/'}
           >
-            EasySBC ⚽
+            easySBC ⚽
           </NavLink>
           <button
             className="text-secondary cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block mobile:hidden outline-none focus:outline-none"
@@ -31,40 +31,11 @@ const NavigationBar = () => {
           id="example-navbar-danger"
         >
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
-            {/*<ExternalNavigationItem*/}
-            {/*  link={'https://www.ea.com/fifa/ultimate-team/web-app/'}*/}
-            {/*>*/}
-            {/*  import club*/}
-            {/*</ExternalNavigationItem>*/}
-            {/*<NavigationItem*/}
-            {/*  link={'/profile'}*/}
-            {/*  onClick={() => setNavbarOpen(!navbarOpen)}*/}
-            {/*>*/}
-            {/*  profile*/}
-            {/*</NavigationItem>*/}
-            <NavigationItem
-                link={'/tos'}
-                onClick={() => setNavbarOpen(!navbarOpen)}
-            >
-              Tos
-            </NavigationItem>
-            <NavigationItem
-                link={'/privacy'}
-                onClick={() => setNavbarOpen(!navbarOpen)}
-            >
-              Privacy
-            </NavigationItem>
             <NavigationItem
               link={'/about'}
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
               about
-            </NavigationItem>
-            <NavigationItem
-              link={'/contact'}
-              onClick={() => setNavbarOpen(!navbarOpen)}
-            >
-              contact
             </NavigationItem>
           </ul>
         </div>
