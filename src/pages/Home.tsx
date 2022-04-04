@@ -154,19 +154,19 @@ const Home = () => {
       <div className="flex flex-col w-7/12 bg-gray-700 justify-around rounded">
         <div className="flex flex-row justify-around">
           <div className="bg-gray-900 w-3/12 flex flex-col z-10 mt-4">
-            <img className="p-4" src={process.env.PUBLIC_URL+'/club.png'}/>
+            <img alt="club" className="p-4" src={process.env.PUBLIC_URL+'/club.png'}/>
             <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
               <p className="text-secondary m-auto text-3xl text-bold">2</p>
             </div>
           </div>
           <div className="bg-gray-900 w-3/12 flex flex-col z-10 mt-4">
-            <img className="p-4" src={process.env.PUBLIC_URL+'/players.png'}/>
+            <img alt="players" className="p-4" src={process.env.PUBLIC_URL+'/players.png'}/>
             <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
               <p className="text-secondary m-auto text-3xl text-bold">3</p>
             </div>
           </div>
           <div className="bg-gray-900 w-3/12 flex flex-col z-10 mt-4">
-            <img className="p-4" src={process.env.PUBLIC_URL+'/import_players.gif'}/>
+            <img alt="import players" className="p-4" src={process.env.PUBLIC_URL+'/import_players.gif'}/>
             <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
               <p className="text-secondary m-auto text-3xl text-bold">4</p>
             </div>
