@@ -147,7 +147,7 @@ const Home = () => {
         <div className="ml-4 mr-4 mt-4 h-28">
           <SecondaryButton title={"Launch FUT Web App"} icon={openLinkIcon} onClick={onImportPlayersClicked}/>
         </div>
-        <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
+        <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 mt-4 flex">
           <p className="text-secondary m-auto text-3xl text-bold">1</p>
         </div>
       </div>
@@ -178,7 +178,7 @@ const Home = () => {
         <div className="ml-4 mr-4 mt-4 h-28">
           <SecondaryButton title={"Next"} onClick={onGetPlayers} disabled={!nextEnabled}/>
         </div>
-        <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
+        <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 mt-4 flex">
           <p className="text-secondary m-auto text-3xl text-bold">5</p>
         </div>
       </div>
