@@ -80,6 +80,7 @@ const Home = () => {
   }
 
   const onImportPlayersClicked = () => {
+    api.deletePlayers(userId)
     setNextEnabled(true)
     setImportError(false)
     window.open(
