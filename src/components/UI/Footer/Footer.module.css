@@ -7,8 +7,8 @@
 
 .footerBreak {
   width: 100%;
-  height: 2px;
-  background-color: white;
+  height: 1px;
+  background-color: darkgray;
 }
 
 .footerContent {
@@ -24,7 +24,7 @@
 .footerElement {
   margin: 10px;
   background: none;
-  -webkit-text-fill-color: white;
+  -webkit-text-fill-color: darkgray;
 }
 
 .footerElement:last-child {
