@@ -16,10 +16,8 @@ const About = () => {
       </p>
       <p className="text-secondary text-m text-left">
         Our service is still at an early stage, but we are tirelessly working to improve the AI and as well as the experience and services we offer. Please feel free to contact us with any feedback or ideas on: peareasy.sbc@gmail.com or through our <NavLink
-            to={'contact'} className={styles.footerElement}
-          >
-            Contact page
-          </NavLink>.
+            to={'contact'}>
+            Contact page</NavLink>.
       </p>
       <h3 className="text-secondary text-2xl text-left">How it works</h3>
       <p className="text-secondary text-m text-left">
