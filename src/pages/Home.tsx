@@ -141,45 +141,45 @@ const Home = () => {
 
   const importPlayersView = (
     <div className="flex flex-col">
-      <p className="m-auto text-3xl pt-8 pb-8">Import your players from the FUT Web App</p>
-    <div className="flex flex-row space-between w-screen justify-between pl-4 pr-4">
-      <div className="bg-gray-900 w-1/6 flex flex-col mt-4 mb-24">
-        <div className="ml-4 mr-4 mt-4 h-28">
-          <SecondaryButton title={"Launch FUT Web App"} icon={openLinkIcon} onClick={onImportPlayersClicked}/>
+    <p className="m-auto text-3xl pt-8 pb-8">Import your players from the FUT Web App</p>
+    <div className="flex flex-row space-between space-x-2 pl-32 pr-32 w-screen">
+      <div className="bg-gray-900 flex flex-col mt-4 mb-24 w-1/5 shadow-2xl laptop:h-64">
+        <div className="ml-4 mr-4 mt-4 h-28 shadow-2xl">
+          <SecondaryButton title={"Launch FUT Web App"} onClick={onImportPlayersClicked}/>
         </div>
-        <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 mt-4 flex">
-          <p className="text-secondary m-auto text-3xl text-bold">1</p>
+        <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
+          <p className="text-secondary m-auto text-2xl text-bold">1</p>
         </div>
       </div>
-      <div className="flex flex-col w-7/12 bg-gray-700 justify-around rounded">
-        <div className="flex flex-row justify-around">
-          <div className="bg-gray-900 w-3/12 flex flex-col z-10 mt-4">
+      <div className="flex flex-col bg-gray-600 justify-around rounded w-3/5">
+        <div className="flex flex-row space-x-2 justify-center pr-2 pl-2">
+          <div className="bg-gray-900 w-1/3 flex flex-col z-10 mt-4 shadow-2xl laptop:h-64">
             <img alt="club" className="p-4" src={process.env.PUBLIC_URL+'/club.png'}/>
             <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
-              <p className="text-secondary m-auto text-3xl text-bold">2</p>
+              <p className="text-secondary m-auto text-2xl text-bold">2</p>
             </div>
           </div>
-          <div className="bg-gray-900 w-3/12 flex flex-col z-10 mt-4">
+          <div className="bg-gray-900 w-1/3 flex flex-col z-10 mt-4 shadow-2xl laptop:h-64">
             <img alt="players" className="p-4" src={process.env.PUBLIC_URL+'/players.png'}/>
             <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
-              <p className="text-secondary m-auto text-3xl text-bold">3</p>
+              <p className="text-secondary m-auto text-2xl text-bold">3</p>
             </div>
           </div>
-          <div className="bg-gray-900 w-3/12 flex flex-col z-10 mt-4">
+          <div className="bg-gray-900 w-1/3 flex flex-col z-10 mt-4 shadow-2xl laptop:h-64">
             <img alt="import players" className="p-4" src={process.env.PUBLIC_URL+'/import_players.gif'}/>
             <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
-              <p className="text-secondary m-auto text-3xl text-bold">4</p>
+              <p className="text-secondary m-auto text-2xl text-bold">4</p>
             </div>
           </div>
         </div>
-        <p className="m-auto text-3xl pt-8 pb-8">Inside FUT Web App</p>
+        <p className="m-auto text-3xl pt-8 pb-8">Inside the FUT Web App</p>
       </div>
-      <div className="bg-gray-900 w-1/6 flex flex-col mt-4 mb-24">
+      <div className="bg-gray-900 flex flex-col mt-4 mb-24 w-1/5 shadow-2xl laptop:h-64">
         <div className="ml-4 mr-4 mt-4 h-28">
           <SecondaryButton title={"Next"} onClick={onGetPlayers} disabled={!nextEnabled}/>
         </div>
-        <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 mt-4 flex">
-          <p className="text-secondary m-auto text-3xl text-bold">5</p>
+        <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
+          <p className="text-secondary m-auto text-2xl text-bold">5</p>
         </div>
       </div>
     </div>

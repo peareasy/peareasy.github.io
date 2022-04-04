@@ -29,8 +29,7 @@ module.exports = {
     },
     screens: {
       'mobile': '640px',
-      'sm': '1024px',
-      'lg': '1536px',
+      'laptop': {'max': '2000px'},
     },
   },
   variants: {
