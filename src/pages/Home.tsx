@@ -141,7 +141,7 @@ const Home = () => {
 
   const importPlayersView = (
     <div className="flex flex-col">
-    <p className="m-auto text-3xl pt-8 pb-8">Import your players from the FUT Web App</p>
+    <p className="m-auto text-3xl pb-8">Import your players from the FUT Web App</p>
     <div className="flex flex-row space-between space-x-2 pl-32 pr-32 w-screen">
       <div className="bg-gray-900 flex flex-col mt-4 mb-24 w-1/5 shadow-2xl laptop:h-64">
         <div className="ml-4 mr-4 mt-4 h-28 shadow-2xl">
