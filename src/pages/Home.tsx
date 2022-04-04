@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import * as api from "../api/api";
 import {PrimaryButton} from "../components/UI/Button";
@@ -44,26 +44,7 @@ const Home = () => {
   const [solution, setSolution] = useState<Solution>()
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
 
-  useEffect(() => {
-    if (!cookies["userId"]) {
-      setStep(Steps.HasNotAcceptedTos)
-    } else {
-      if (extensionInstalled) {
-        setStep(Steps.ImportPlayers)
-      } else {
-        setStep(Steps.DownloadExtension)
-      }
-      sendUUIDToExtension()
-      onGetSBCs()
-      setUserId(cookies["userId"])
-    }
-  }, [Steps.DownloadExtension, Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId, extensionInstalled])
-
-  const onTosAcceptChange = () => {
-    setTosAccepted(!tosAccepted)
-  }
-
-  const sendUUIDToExtension = () => {
+  const sendUUIDToExtension = useCallback(() => {
     if (window.chrome?.runtime) {
       setLoading(true)
 
@@ -80,7 +61,28 @@ const Home = () => {
       setLoading(false)
       console.error("window.chrome not available");
     }
+  }, [])
+
+  useEffect(() => {
+    if (!cookies["userId"]) {
+      setStep(Steps.HasNotAcceptedTos)
+    } else {
+      if (extensionInstalled) {
+        setStep(Steps.ImportPlayers)
+      } else {
+        setStep(Steps.DownloadExtension)
+      }
+      sendUUIDToExtension()
+      onGetSBCs()
+      setUserId(cookies["userId"])
+    }
+  }, [sendUUIDToExtension, Steps.DownloadExtension, Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId, extensionInstalled])
+
+  const onTosAcceptChange = () => {
+    setTosAccepted(!tosAccepted)
   }
+
+
 
   const onImportPlayersClicked = () => {
     api.deletePlayers(userId)
