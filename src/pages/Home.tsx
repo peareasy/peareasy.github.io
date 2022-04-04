@@ -45,22 +45,6 @@ const Home = () => {
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
 
   useEffect(() => {
-    const sendUUIDToExtension = () => {
-      if (window.chrome?.runtime) {
-        setLoading(true)
-        window.chrome.runtime.sendMessage(
-          extensionId,
-          {
-            uuid: cookies["userId"]
-          }, (res) => {
-            setLoading(false)
-            setExtensionInstalled(res.msg === 'confirmation')
-          });
-      } else {
-        setLoading(false)
-        console.error("window.chrome not available");
-      }
-    }
     if (!cookies["userId"]) {
       setStep(Steps.HasNotAcceptedTos)
     } else {
@@ -79,10 +63,30 @@ const Home = () => {
     setTosAccepted(!tosAccepted)
   }
 
+  const sendUUIDToExtension = () => {
+    if (window.chrome?.runtime) {
+      setLoading(true)
+
+      window.chrome.runtime.sendMessage(
+          extensionId,
+          {
+            uuid: cookies["userId"]
+          }, (res) => {
+            setLoading(false)
+            setExtensionInstalled(res.msg === 'confirmation')
+            console.log("Response received from extension")
+          });
+    } else {
+      setLoading(false)
+      console.error("window.chrome not available");
+    }
+  }
+
   const onImportPlayersClicked = () => {
     api.deletePlayers(userId)
     setNextEnabled(true)
     setImportError(false)
+    sendUUIDToExtension()
     window.open(
       'https://www.ea.com/fifa/ultimate-team/web-app/',
       '_blank'
