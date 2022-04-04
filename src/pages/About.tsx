@@ -5,16 +5,20 @@ const About = () => {
     <main className={'container mx-auto w-1/2 space-y-5 pb-10 pt-10 p-20 overflow-visible'}>
       <h3 className="text-secondary text-2xl text-left">What we offer</h3>
       <p className="text-secondary text-m text-left">
-        Cheap, fast solutions to squad building challenges using players in your club.
-      </p>
-      <p className="text-secondary text-m text-left">
-        Are you tired of spending time on solving squad building challenges (SBCs) in FIFA ultimate team? Maybe you prefer using players which you already own, but it takes ages to find a cheap solution?  Then you have come to the right place! We've developed an artificial intelligence which searches for a cheap solution to an SBC with the players in your club!
-      </p>
-      <p className="text-secondary text-m text-left">
-        Our service is still at an early stage and we are currently working hard on improving the AI. We are also working on some different extensions - for example searching for solutions where we use a few cheap players from the transfer market, in case no solutions exist within your club.
+        Fast, automatic solutions to squad building challenges using players from your own club.
       </p>
       <p className="text-secondary text-m text-left">
         Note that when we load the players in your club, we NEVER interact with the web-app. We only read the player names in order to tailor solutions to your club!
+      </p>
+      <p className="text-secondary text-m text-left">
+        Our AI will help you find a solution to almost any SBC, trying to use the players with least value in your club. All you have to do is sit back and enjoy opening your packs! 
+      </p>
+      <p className="text-secondary text-m text-left">
+        Our service is still at an early stage, but we are tirelessly working to improve the AI and as well as the experience and services we offer. Please feel free to contact us with any feedback or ideas on: peareasy.sbc@gmail.com or through our <NavLink
+            to={'contact'} className={styles.footerElement}
+          >
+            Contact page
+          </NavLink>.
       </p>
       <h3 className="text-secondary text-2xl text-left">How it works</h3>
       <p className="text-secondary text-m text-left">
@@ -22,10 +26,7 @@ const About = () => {
       </p>
       <h3 className="text-secondary text-2xl text-left">About us</h3>
       <p className="text-secondary text-m text-left">
-        Many of our employees have played a lot of FIFA ultimate team, where we have experienced the hassle of solving SBCs for many years. In the recent years, we've talked a lot about that it must be possible to automate... And here we are!
-      </p>
-      <p className="text-secondary text-m text-left">
-        Please feel free to contact us with any feedback or ideas. We are still at an early stage with lots of features and improvements to come.
+        We have played a lot of FIFA Ultimate Team ourselves and know the pain of having to solve new SBCs all the time. In recent years we have been wondering whether it would be possible to solve them automatically... And here we are!
       </p>
     </main>
   )
