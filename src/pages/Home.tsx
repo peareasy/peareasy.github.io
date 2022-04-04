@@ -60,7 +60,7 @@ const Home = () => {
       setLoading(false)
       console.error("window.chrome not available");
     }
-  }, [])
+  }, [cookies, extensionId])
 
   useEffect(() => {
     if (!cookies["userId"]) {
