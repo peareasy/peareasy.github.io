@@ -15,7 +15,10 @@ const About = () => {
         Our AI will help you find a solution to almost any SBC, trying to use the players with least value in your club. All you have to do is sit back and enjoy opening your packs! 
       </p>
       <p className="text-secondary text-m text-left">
-        Our service is still at an early stage, but we are tirelessly working to improve the AI as well as the experience and services we offer. Please feel free to contact us with any feedback or ideas on: peareasy.sbc@gmail.com or through our <NavLink
+        Our service is still at an early stage, but we are tirelessly working to improve the AI as well as the experience and services we offer.
+      </p>
+      <p className="text-secondary text-m text-left">
+       Please feel free to contact us with any feedback or ideas through our <NavLink
             to={'contact'}>
             Contact page</NavLink>.
       </p>
