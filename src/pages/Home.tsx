@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import * as api from "../api/api";
-import {PrimaryButton} from "../components/UI/Button";
+import {SecondaryButton, PrimaryButton} from "../components/UI/Button";
 import Spinner from "../components/UI/Spinner/Spinner";
 import CardSBC from "../components/UI/CardSBC";
 import Formation from "../components/UI/Formation"
@@ -139,29 +139,52 @@ const Home = () => {
 
   const emptySolution = (): Solution => ({cost: 0, players: [], formation: ""})
 
-  const importPlayersView = (<div className="space-y-12">
-    <div className="grid grid-cols-6 gap-8">
-      <h1 className="text-m m-auto text-left space-y-3 col-start-1 col-end-1">
-        <p className="border-2 border-secondary rounded p-2">1. Click the Import Players button</p>
-        <p className="border-2 border-secondary rounded p-2">2. Navigate through all your player pages</p>
-        <p className="border-2 border-secondary rounded p-2">3. Go back to EasySBC</p>
-      </h1>
-      <img src={process.env.PUBLIC_URL+"/tutorial.gif"} alt="tutorial" className="w-full col-start-2 col-end-7 m-auto rounded"/>
-    </div>
-
-    <div className="bottom-10 grid grid-cols-5">
-      <div className="col-start-3">
-        <PrimaryButton title={"Import Players"} icon={openLinkIcon} onClick={onImportPlayersClicked}/>
+  const importPlayersView = (
+    <div className="flex flex-col">
+      <p className="m-auto text-3xl pt-8 pb-8">Import your players from the FUT Web App</p>
+    <div className="flex flex-row space-between w-screen justify-between pl-4 pr-4">
+      <div className="bg-gray-900 w-1/6 flex flex-col mt-4 mb-24">
+        <div className="ml-4 mr-4 mt-4 h-28">
+          <SecondaryButton title={"Launch FUT Web App"} icon={openLinkIcon} onClick={onImportPlayersClicked}/>
+        </div>
+        <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
+          <p className="text-secondary m-auto text-3xl text-bold">1</p>
+        </div>
       </div>
-      <div className="col-start-5">
-        <PrimaryButton onClick={() => {
-          onGetPlayers()
-        }} title={"Next"} disabled={!nextEnabled}/>
+      <div className="flex flex-col w-7/12 bg-gray-700 justify-around rounded">
+        <div className="flex flex-row justify-around">
+          <div className="bg-gray-900 w-3/12 flex flex-col z-10 mt-4">
+            <img className="p-4" src={process.env.PUBLIC_URL+'/club.png'}/>
+            <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
+              <p className="text-secondary m-auto text-3xl text-bold">2</p>
+            </div>
+          </div>
+          <div className="bg-gray-900 w-3/12 flex flex-col z-10 mt-4">
+            <img className="p-4" src={process.env.PUBLIC_URL+'/players.png'}/>
+            <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
+              <p className="text-secondary m-auto text-3xl text-bold">3</p>
+            </div>
+          </div>
+          <div className="bg-gray-900 w-3/12 flex flex-col z-10 mt-4">
+            <img className="p-4" src={process.env.PUBLIC_URL+'/import_players.gif'}/>
+            <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
+              <p className="text-secondary m-auto text-3xl text-bold">4</p>
+            </div>
+          </div>
+        </div>
+        <p className="m-auto text-3xl pt-8 pb-8">Inside FUT Web App</p>
+      </div>
+      <div className="bg-gray-900 w-1/6 flex flex-col mt-4 mb-24">
+        <div className="ml-4 mr-4 mt-4 h-28">
+          <SecondaryButton title={"Next"} onClick={onGetPlayers} disabled={!nextEnabled}/>
+        </div>
+        <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
+          <p className="text-secondary m-auto text-3xl text-bold">5</p>
+        </div>
       </div>
     </div>
-
     { importError ? <div role="alert">
-      <div className='w-2/3 m-auto'>
+      <div className='w-2/3 m-auto mt-10'>
         <div className="bg-error-500 text-white font-bold rounded-t px-3 py-1">
           Oh no
         </div>
@@ -174,7 +197,7 @@ const Home = () => {
         </div>
       </div>
     </div> : null}
-  </div>)
+    </div>)
 
   let sbcsView = (
     <div className="space-y-2">
@@ -259,10 +282,11 @@ const Home = () => {
     <p>In order for you to use our Chrome extension to import your players, you have to use this site from a Chrome browser!</p>
   </div>)
 
-  const loadingView = (<div className="space-y-8">
-    <h1 className="text-2xl font-bold mx-auto h-4/5 overflow-y-auto mb-24">
-      We're trying to get you one of the optimal solutions. This might take up to 30 seconds 👊🏽
+  const loadingView = (<div className="space-y-4">
+    <h1 className="text-2xl font-bold mx-auto h-4/5">
+      Our AI is working hard to get you a good solution.
     </h1>
+    <h1 className="text-2xl font-bold mx-auto pb-12">This might take up to 60 seconds 👊🏽</h1>
     <Spinner/>
   </div>)
 
@@ -321,7 +345,7 @@ const Home = () => {
     currentView = loading ? loadingView : solutionView
   }
 
-  return <main className='w-1/2 mx-auto h-3/5 text-secondary text-center relative z-10'>
+  return <main className='text-secondary text-center m-auto relative z-10'>
     { isMobile ? mobileView :
       !isChrome ?  nonChromeView :
       <div className='mx-auto'>

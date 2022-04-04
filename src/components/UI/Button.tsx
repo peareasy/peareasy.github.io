@@ -22,14 +22,18 @@ const PrimaryButton = ({ title, onClick, disabled, icon }: ButtonProps) => {
   );
 };
 
-const SecondaryButton = ({ title, onClick, disabled }: ButtonProps) => {
+const SecondaryButton = ({ title, onClick, disabled, icon }: ButtonProps) => {
   return (
     <button
-      className="bg-tertiary-700 shadow hover:bg-tertiary-500 disabled:cursor-not-allowed disabled:bg-primary-300 focus:shadow-outline outline-secondary focus:outline-none text-secondary font-bold py-2 px-4 rounded"
+      className="bg-primary-600 shadow hover:bg-primary-800 disabled:cursor-not-allowed disabled:bg-primary-300 focus:shadow-outline outline-secondary focus:outline-none text-secondary font-bold py-2 px-4 w-full h-full"
       onClick={onClick}
       disabled={disabled}
     >
-      {title}
+      <div className="flex justify-center">
+        <div className="flex flex-row justify-center">
+          <span className="text-xl">{title}</span>
+        </div>
+      </div>
     </button>
   );
 };
