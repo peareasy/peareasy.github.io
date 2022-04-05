@@ -36,6 +36,7 @@ const NavigationBar = () => {
             >
               tutorial
             </NavigationItem>
+          </ul>
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
               link={'/about'}
