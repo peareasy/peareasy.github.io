@@ -32,8 +32,9 @@ const NavigationBar = () => {
         >
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
-              onClick={() => window.open(
-                'https://www.youtube.com/watch?v=sFu6rMaSEDg',
+              link={"https://www.youtube.com/watch?v=sFu6rMaSEDg"}
+              onClick={(link) => window.open(
+                link,
                 '_blank'
               )}
             >
