@@ -37,7 +37,7 @@ module.exports = {
       opacity: ['disabled'],
       backgroundColor: ['disabled'],
       cursor: ['disabled'],
-      hover: ['disabled'],
+      hover: ['disabled', 'cursor-grab', 'cursor-default'],
     },
   },
   plugins: [],
