@@ -19,8 +19,9 @@ const CopyButton = ({value}: ButtonProps) => {
           }, 7000)
     }}
     >
-      <div className="flex flex-row">
-        {clicked ? <span className="mr-2">{copied}</span>: <span className="mr-2">{copy}</span>}
+      <div className="flex flex-row pt-4">
+          <span className='mr-1'>{value}</span>
+        {clicked ? <span className="">{copied}</span>: <span className="mr-2">{copy}</span>}
       </div>
     </button>
   );

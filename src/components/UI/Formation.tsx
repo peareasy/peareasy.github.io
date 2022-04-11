@@ -17,11 +17,10 @@ const Formation = ({players, rawFormation}: FormationProps) => {
       console.log(players)
       row.push(
         <div className="rounded-full bg-primary-800 flex flex-col w-44 m-auto">
-          <div className="w-24 m-auto text-center text-secondary">{players[counter].name}</div>
            <div className="text-center">
-           <CopyButton  value={players[counter].name} />
+           <CopyButton value={players[counter].name} />
            </div>
-          <div className="m-auto pt-4 text-center text-secondary">{players[counter].position+', '+players[counter].rating}</div>
+          <div className="m-auto pt-2 pb-4 text-center text-secondary">{players[counter].position+', '+players[counter].rating}</div>
         </div>)
       counter++
     }
