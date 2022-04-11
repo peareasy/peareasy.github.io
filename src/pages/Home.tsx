@@ -8,6 +8,7 @@ import Formation from "../components/UI/Formation"
 import { Solution } from "../interfaces/Solution";
 import { SBC } from "../interfaces/SBC";
 import {isMobile} from 'react-device-detect';
+import Modal from "../components/UI/Modal";
 import { NavLink } from 'react-router-dom';
 import { open_link as openLinkIcon } from '../components/UI/icons';
 
@@ -36,6 +37,7 @@ const Home = () => {
   const [importError, setImportError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [nextEnabled, setNextEnabled] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   // data
   const [sbcs, setSBCs] = useState<string[]>([])
@@ -80,8 +82,6 @@ const Home = () => {
   const onTosAcceptChange = () => {
     setTosAccepted(!tosAccepted)
   }
-
-
 
   const onImportPlayersClicked = () => {
     api.deletePlayers(userId)
@@ -138,6 +138,10 @@ const Home = () => {
   }
 
   const emptySolution = (): Solution => ({cost: 0, players: [], formation: ""})
+
+  const onClearPlayers = () => {
+    console.log("on clear players")
+  }
 
   const importPlayersView = (
     <div className="flex flex-col">
@@ -239,6 +243,7 @@ const Home = () => {
         <br/>
         <div className="top-10 bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {
+            setShowModal(true)
             setSolution(emptySolution)
             setSelectedSBC(-1)
             setStep(Steps.ChooseSBC)
@@ -346,11 +351,28 @@ const Home = () => {
   }
 
   return <main className='text-secondary text-center m-auto relative z-10'>
-    { isMobile ? mobileView :
-      !isChrome ?  nonChromeView :
-      <div className='mx-auto'>
-        {currentView}
-    </div> }
+    {/*{ isMobile ? mobileView :*/}
+    {/*  !isChrome ?  nonChromeView :*/}
+    {/*  <div className='mx-auto'>*/}
+    {/*    {currentView}*/}
+    {/*</div> }*/}
+    <div className="top-10 bottom-10 left-0 right-0">
+      <PrimaryButton onClick={() => {
+        setShowModal(true)
+        setSolution(emptySolution)
+        setSelectedSBC(-1)
+        setStep(Steps.ChooseSBC)
+      }} title={"Try another one! 😎"}/>
+    </div>
+    {showModal ? <Modal header={"Did you use this solution?"}
+           body={"If you want to solve a new SBC we want to make sure that your old players are removed from our database. " +
+           "If you used the generated solution, please clear the players."}
+           onCloseClicked={() => setShowModal(false)}
+           onActionClicked={() => {
+             setShowModal(false)
+             onClearPlayers()
+           }}
+    /> : null }
   </main>
 };
 
