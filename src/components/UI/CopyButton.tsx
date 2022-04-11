@@ -8,15 +8,15 @@ type ButtonProps = {
 
 const CopyButton = ({value}: ButtonProps) => {
   const [clicked, setClicked] = useState(false)
-    
+
   return (
-    <button
+    <button className={clicked ? "cursor-default" : ""} disabled={clicked}
       onClick={() => {
           navigator.clipboard.writeText(value);
           setClicked(true);
           setTimeout(() => {
               setClicked(false)
-          }, 5000)
+          }, 7000)
     }}
     >
       <div className="flex flex-row">
