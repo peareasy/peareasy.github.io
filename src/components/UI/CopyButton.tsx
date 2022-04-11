@@ -14,9 +14,6 @@ const CopyButton = ({value}: ButtonProps) => {
       onClick={() => {
           navigator.clipboard.writeText(value);
           setClicked(true);
-          setTimeout(() => {
-              setClicked(false)
-          }, 7000)
     }}
     >
       <div className="flex flex-row pt-4">
