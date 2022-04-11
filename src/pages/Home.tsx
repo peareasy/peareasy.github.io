@@ -140,7 +140,7 @@ const Home = () => {
   const emptySolution = (): Solution => ({cost: 0, players: [], formation: ""})
 
   const onClearPlayers = () => {
-    console.log("on clear players")
+    api.deletePlayersUsedInSBCs(userId, solution?.players)
   }
 
   const importPlayersView = (
@@ -231,24 +231,38 @@ const Home = () => {
     </div>
   )
 
-  console.log(importError)
-
   let solutionView
-
+  let solutionViewButton = (
+    <div className="top-10 bottom-10 left-0 right-0">
+      <PrimaryButton onClick={() => {
+        setShowModal(true)
+      }} title={"Try another one! 😎"}/>
+    </div>
+  )
   if (solution?.players && solution.players.length > 0) {
     solutionView = (
       <div>
         <Formation players={solution.players} rawFormation={solution.formation}/>
         <p className="mt-12 text-xl">Approximate cost of players involved is {solution?.cost}</p>
         <br/>
-        <div className="top-10 bottom-10 left-0 right-0">
-          <PrimaryButton onClick={() => {
-            setShowModal(true)
-            setSolution(emptySolution)
-            setSelectedSBC(-1)
-            setStep(Steps.ChooseSBC)
-          }} title={"Try another one! 😎"}/>
-        </div>
+        {solutionViewButton}
+        {showModal ? <Modal header={"Did you use this solution?"}
+                            body={"If you want to solve a new SBC we want to make sure that your old players are removed from our database. " +
+                            "If you used the generated solution, please clear the players."}
+                            onCloseClicked={() => {
+                              setSolution(emptySolution)
+                              setSelectedSBC(-1)
+                              setStep(Steps.ChooseSBC)
+                              setShowModal(false)
+                            }}
+                            onActionClicked={() => {
+                              onClearPlayers()
+                              setSolution(emptySolution)
+                              setSelectedSBC(-1)
+                              setStep(Steps.ChooseSBC)
+                              setShowModal(false)
+                            }}
+        /> : null }
       </div>
     )
   } else {
@@ -263,12 +277,7 @@ const Home = () => {
         <p>
           With your current players, we couldn't find a solution - you can try to see if another SBC can be solved.
         </p>
-        <div className="top-10 bottom-10 left-0 right-0">
-          <PrimaryButton onClick={() => {
-            setSelectedSBC(-1)
-            setStep(Steps.ChooseSBC)
-          }} title={"Try another one! 😎"}/>
-        </div>
+        {solutionViewButton}
       </div>
     )
   }
@@ -351,28 +360,11 @@ const Home = () => {
   }
 
   return <main className='text-secondary text-center m-auto relative z-10'>
-    {/*{ isMobile ? mobileView :*/}
-    {/*  !isChrome ?  nonChromeView :*/}
-    {/*  <div className='mx-auto'>*/}
-    {/*    {currentView}*/}
-    {/*</div> }*/}
-    <div className="top-10 bottom-10 left-0 right-0">
-      <PrimaryButton onClick={() => {
-        setShowModal(true)
-        setSolution(emptySolution)
-        setSelectedSBC(-1)
-        setStep(Steps.ChooseSBC)
-      }} title={"Try another one! 😎"}/>
-    </div>
-    {showModal ? <Modal header={"Did you use this solution?"}
-           body={"If you want to solve a new SBC we want to make sure that your old players are removed from our database. " +
-           "If you used the generated solution, please clear the players."}
-           onCloseClicked={() => setShowModal(false)}
-           onActionClicked={() => {
-             setShowModal(false)
-             onClearPlayers()
-           }}
-    /> : null }
+    { isMobile ? mobileView :
+      !isChrome ?  nonChromeView :
+      <div className='mx-auto'>
+        {currentView}
+    </div> }
   </main>
 };
 
