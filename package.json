@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "https://peareasy.github.io",
   "dependencies": {
+    "@bugsnag/js": "^7.16.2",
+    "@bugsnag/plugin-react": "^7.16.2",
     "@craco/craco": "^6.3.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",

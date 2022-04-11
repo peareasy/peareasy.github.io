@@ -10,7 +10,7 @@ const Footer = () => {
       <div className={styles.footer}>
         <div className={styles.footerContent}>
           <NavLink to={'privacy'} className={styles.footerElement}>
-            Privacy
+            Privacy Policy
           </NavLink>
           <NavLink to={'tos'} className={styles.footerElement}>
             Terms of Service
