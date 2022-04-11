@@ -2,14 +2,14 @@ import React from "react";
 import { PrimaryButton } from "./Button";
 import { remove as remove_icon }from "./icons"
 
-type Modal = {
+type _Modal = {
   header: string,
   body: string,
   onCloseClicked: () => void;
   onActionClicked: () => void;
 };
 
-const Modal = ({header, body, onCloseClicked, onActionClicked}: Modal) => {
+const Modal = ({header, body, onCloseClicked, onActionClicked}: _Modal) => {
 
   return (
     <div

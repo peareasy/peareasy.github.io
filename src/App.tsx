@@ -2,13 +2,14 @@ import { HashRouter, Route} from "react-router-dom";
 
 import "./App.css";
 import Home from "./pages/Home";
-import About from "./pages/About";
+import About from "./pages/Navbar/About";
 import Profile from "./pages/Profile";
 import NavigationBar from "./components/UI/NavigationBar/NavgiationBar";
-import Contact from "./pages/Contact";
-import Tos from "./pages/Tos";
-import Privacy from "./pages/Privacy";
+import Contact from "./pages/Footer/Contact";
+import Tos from "./pages/Footer/Tos";
+import Privacy from "./pages/Footer/Privacy";
 import Footer from "./components/UI/Footer/Footer";
+import Tutorial from "./pages/Navbar/Tutorial";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path={"/profile"} component={Profile} />
           <Route path={"/contact"} component={Contact} />
           <Route path={"/tos"} component={Tos} />
+          <Route path={"/tutorial"} component={Tutorial} />
           <Route path={"/privacy"} component={Privacy} />
           <Route exact path={"/"} component={Home} />
           <Footer/>

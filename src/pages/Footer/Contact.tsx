@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
-import { PrimaryButton } from "../components/UI/Button";
-import * as api from "../api/api";
+import { PrimaryButton } from "../../components/UI/Button";
+import * as api from "../../api/api";
 
 const Contact = () => {     
     const [email, setEmail] = useState('');
