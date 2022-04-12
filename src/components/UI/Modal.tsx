@@ -1,6 +1,4 @@
 import React from "react";
-import { PrimaryButton } from "./Button";
-import { remove as remove_icon }from "./icons"
 
 type _Modal = {
   header: string,
@@ -10,7 +8,6 @@ type _Modal = {
 };
 
 const Modal = ({header, body, onCloseClicked, onActionClicked}: _Modal) => {
-
   return (
     <div
       className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
@@ -45,7 +42,13 @@ const Modal = ({header, body, onCloseClicked, onActionClicked}: _Modal) => {
             >
               Close
             </button>
-            <PrimaryButton onClick={onActionClicked} title={"Clear Players"} icon={remove_icon}/>
+            <button
+              className="bg-primary-700 hover:bg-primary-600 uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              type="button"
+              onClick={onActionClicked}
+            >
+              Clear Players
+            </button>
           </div>
         </div>
       </div>

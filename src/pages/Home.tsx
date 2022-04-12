@@ -206,6 +206,9 @@ const Home = () => {
 
   let sbcsView = (
     <div className="space-y-2">
+      <h1 className="text-3xl mb-6">
+        Select an SBC
+      </h1>
       <div className="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-md mx-20 mb-10" role="alert">
         <div className="flex">
           <div className="py-1">
@@ -233,20 +236,18 @@ const Home = () => {
   )
 
   let solutionView
-  let solutionViewButton = (
-    <div className="top-10 bottom-10 left-0 right-0">
-      <PrimaryButton onClick={() => {
-        setShowModal(true)
-      }} title={"Try another one! 😎"}/>
-    </div>
-  )
+
   if (solution?.players && solution.players.length > 0) {
     solutionView = (
       <div>
         <Formation players={solution.players} rawFormation={solution.formation}/>
         <p className="mt-12 text-xl">Approximate cost of players involved is {solution?.cost}</p>
         <br/>
-        {solutionViewButton}
+        <div className="top-10 bottom-10 left-0 right-0">
+          <PrimaryButton onClick={() => {
+            setShowModal(true)
+          }} title={"Try another one! 😎"}/>
+        </div>
         {showModal ? <Modal header={"Did you use this solution?"}
                             body={"If you want to solve a new SBC we want to make sure that your old players are removed from our database. " +
                             "If you used the generated solution, please clear the players."}
@@ -278,7 +279,12 @@ const Home = () => {
         <p>
           With your current players, we couldn't find a solution - you can try to see if another SBC can be solved.
         </p>
-        {solutionViewButton}
+        <div className="top-10 bottom-10 left-0 right-0">
+          <PrimaryButton onClick={() => {
+            setSelectedSBC(-1)
+            setStep(Steps.ChooseSBC)
+          }} title={"Try another one! 😎"}/>
+        </div>
       </div>
     )
   }
