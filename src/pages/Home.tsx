@@ -8,6 +8,7 @@ import Formation from "../components/UI/Formation"
 import { Solution } from "../interfaces/Solution";
 import { SBC } from "../interfaces/SBC";
 import {isMobile} from 'react-device-detect';
+import Modal from "../components/UI/Modal";
 import { NavLink } from 'react-router-dom';
 import { open_link as openLinkIcon } from '../components/UI/icons';
 
@@ -36,6 +37,7 @@ const Home = () => {
   const [importError, setImportError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [nextEnabled, setNextEnabled] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   // data
   const [sbcs, setSBCs] = useState<string[]>([])
@@ -80,8 +82,6 @@ const Home = () => {
   const onTosAcceptChange = () => {
     setTosAccepted(!tosAccepted)
   }
-
-
 
   const onImportPlayersClicked = () => {
     api.deletePlayers(userId)
@@ -138,6 +138,10 @@ const Home = () => {
   }
 
   const emptySolution = (): Solution => ({cost: 0, players: [], formation: ""})
+
+  const onClearPlayers = () => {
+    api.deletePlayersUsedInSBCs(userId, solution?.players)
+  }
 
   const importPlayersView = (
     <div className="flex flex-col">
@@ -202,6 +206,9 @@ const Home = () => {
 
   let sbcsView = (
     <div className="space-y-2">
+      <h1 className="text-3xl mb-6">
+        Select an SBC
+      </h1>
       <div className="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-md mx-20 mb-10" role="alert">
         <div className="flex">
           <div className="py-1">
@@ -228,8 +235,6 @@ const Home = () => {
     </div>
   )
 
-  console.log(importError)
-
   let solutionView
 
   if (solution?.players && solution.players.length > 0) {
@@ -240,11 +245,26 @@ const Home = () => {
         <br/>
         <div className="top-10 bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {
-            setSolution(emptySolution)
-            setSelectedSBC(-1)
-            setStep(Steps.ChooseSBC)
+            setShowModal(true)
           }} title={"Try another one! 😎"}/>
         </div>
+        {showModal ? <Modal header={"Did you use this solution?"}
+                            body={"If you want to solve a new SBC we want to make sure that your old players are removed from our database. " +
+                            "If you used the generated solution, please clear the players."}
+                            onCloseClicked={() => {
+                              setSolution(emptySolution)
+                              setSelectedSBC(-1)
+                              setStep(Steps.ChooseSBC)
+                              setShowModal(false)
+                            }}
+                            onActionClicked={() => {
+                              onClearPlayers()
+                              setSolution(emptySolution)
+                              setSelectedSBC(-1)
+                              setStep(Steps.ChooseSBC)
+                              setShowModal(false)
+                            }}
+        /> : null }
       </div>
     )
   } else {

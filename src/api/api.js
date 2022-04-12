@@ -9,6 +9,7 @@ export default instance;
 export { loginAsAnonymous } from "./requests/loginAsAnonymous";
 export { getPlayers } from "./requests/getPlayers";
 export { deletePlayers } from "./requests/deletePlayers"
+export { deletePlayersUsedInSBCs } from "./requests/deletePlayersUsedInSBC"
 export { getSBCs } from "./requests/getSBCs";
 export { solveSBC } from "./requests/solveSBC";
 export { signIn } from "./requests/signIn";

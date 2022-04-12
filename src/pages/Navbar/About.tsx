@@ -22,10 +22,6 @@ const About = () => {
             to={'contact'}>
             Contact page</NavLink>.
       </p>
-      <h3 className="text-secondary text-2xl text-left">How it works</h3>
-      <p className="text-secondary text-m text-left">
-        YOUTUBE VIDEO COMING SOON
-      </p>
       <h3 className="text-secondary text-2xl text-left">About us</h3>
       <p className="text-secondary text-m text-left">
         We have played a lot of FIFA Ultimate Team ourselves and know the pain of having to solve new SBCs all the time. In recent years we have been wondering whether it would be possible to solve them automatically... And here we are!

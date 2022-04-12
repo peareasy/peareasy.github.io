@@ -26,9 +26,18 @@ module.exports = {
       backgroundImage: {
         pitch: "url('/src/img/background.svg')",
       },
+      height: {
+        'youtube-md': '385px',
+        'youtube-lg': '505px'
+      },
+      width: {
+        'youtube-md': '640px',
+        'youtube-lg': '853px'
+      },
     },
     screens: {
       'mobile': '640px',
+      'low-res': {'max': '1280px'},
       'laptop': {'max': '2000px'},
     },
   },

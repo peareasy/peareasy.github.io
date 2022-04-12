@@ -14,7 +14,6 @@ const Formation = ({players, rawFormation}: FormationProps) => {
   for (let i = 0; i < formation.length; i++) {
     const row = []
     for (let j = 0; j < formation[i]; j++) {
-      console.log(players)
       row.push(
         <div className="rounded-full bg-primary-800 flex flex-col w-44 m-auto">
            {/* <div className="text-center"> */}

@@ -32,8 +32,6 @@ const SecondaryButton = ({ title, onClick, disabled, icon }: ButtonProps) => {
       <div className="flex flex-row justify-center">
           <span className="text-l ">{title} </span>
           {icon ? (<div className='flex items-center ml-2 '> <span className="">{icon}</span></div>) : null}
-
-
       </div>
     </button>
   );
