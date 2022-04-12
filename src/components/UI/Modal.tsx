@@ -2,15 +2,14 @@ import React from "react";
 import { PrimaryButton } from "./Button";
 import { remove as remove_icon }from "./icons"
 
-type Modal = {
+type _Modal = {
   header: string,
   body: string,
   onCloseClicked: () => void;
   onActionClicked: () => void;
 };
 
-const Modal = ({header, body, onCloseClicked, onActionClicked}: Modal) => {
-
+const Modal = ({header, body, onCloseClicked, onActionClicked}: _Modal) => {
   return (
     <div
       className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"

@@ -32,6 +32,14 @@ const NavigationBar = () => {
         >
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
+              link={'/tutorial'}
+              onClick={() => setNavbarOpen(!navbarOpen)}
+            >
+              tutorial
+            </NavigationItem>
+          </ul>
+          <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
+            <NavigationItem
               link={'/about'}
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
