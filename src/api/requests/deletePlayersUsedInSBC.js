@@ -1,8 +1,9 @@
 import axios from "../api";
 
 export const deletePlayersUsedInSBCs = (uuid, players) => {
-  axios.delete("/players/sbc",{
+  const playerIds = players.map(player => player.id)
+  axios.delete("/players/user",{
       headers: {"x-auth-token": uuid}, data: {
-      players: players
+      players: playerIds
   }}).then(r => r)
 };
