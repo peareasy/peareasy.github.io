@@ -24,7 +24,7 @@ const Home = () => {
     Solution
   }
 
-  const extensionId = process.env.REACT_APP_EXTENSION_ID || "";
+  const extensionId = process.env.REACT_APP_EXTENSION_ID!
 
   // setup phase
   const [cookies, setCookie] = useCookies(["userId"]);
@@ -74,6 +74,7 @@ const Home = () => {
         setStep(Steps.DownloadExtension)
       }
       sendUUIDToExtension()
+      api.verifyUser(cookies["userId"]);
       onGetSBCs()
       setUserId(cookies["userId"])
     }
