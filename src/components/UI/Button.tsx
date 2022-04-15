@@ -25,7 +25,7 @@ const PrimaryButton = ({ title, onClick, disabled, icon }: ButtonProps) => {
 const SecondaryButton = ({ title, onClick, disabled, icon }: ButtonProps) => {
   return (
     <button
-      className="bg-primary-600 shadow hover:bg-primary-800  disabled:cursor-not-allowed disabled:bg-primary-300 focus:shadow-outline outline-secondary focus:outline-none text-secondary py-2 px-4 w-full h-full rounded"
+      className="bg-primary-600 shadow hover:bg-primary-800 disabled:cursor-not-allowed disabled:bg-primary-300 focus:shadow-outline outline-secondary focus:outline-none text-secondary py-2 px-4 w-full h-full rounded"
       onClick={onClick}
       disabled={disabled}
     >
