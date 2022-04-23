@@ -127,10 +127,9 @@ const Home = () => {
     setLoading(true)
     api.solveSBC(userId, sbcs[selectedSBC])
       .then((solution: Solution) => {
-        const formation = solution.formation
-        const players = solution.players
-        const cost = solution.cost
-        setSolution({players, cost, formation})
+
+        const {formation, players, cost, solution_message} = solution;
+        setSolution({players, cost, formation, solution_message})
         setLoading(false)
       })
       .catch(() => {
@@ -138,7 +137,7 @@ const Home = () => {
       })
   }
 
-  const emptySolution = (): Solution => ({cost: 0, players: [], formation: ""})
+  const emptySolution = (): Solution => ({cost: 0, players: [], formation: "", solution_message: ""})
 
   const onClearPlayers = () => {
     api.deletePlayersUsedInSBCs(userId, solution?.players)
@@ -269,10 +268,10 @@ const Home = () => {
           Oh no, we couldn't find a solution 😔
         </h1>
         <p>
-          We can see that you only have {numberOfPlayers} players in the club that can be used for SBCs.
+          {solution?.solution_message}
         </p>
         <p>
-          With your current players, we couldn't find a solution - you can try to see if another SBC can be solved.
+          You can try to see if another SBC can be solved!
         </p>
         <div className="top-10 bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {
