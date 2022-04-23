@@ -6,7 +6,7 @@ type CardSBCProps = {
 };
 
 const CardSBC = ({title, onClick, selected, changeImg}: CardSBCProps) => {
-  const cardClassName = ['rounded-xl hover:bg-gray-800 flex flex-col m-auto cursor-pointer border-2']
+  const cardClassName = ['rounded-xl hover:bg-gray-800 flex flex-col m-auto cursor-pointer border-2 w-full']
   if (selected) {
     cardClassName.push('border-primary-500 bg-gray-800')
   } else {
@@ -14,7 +14,7 @@ const CardSBC = ({title, onClick, selected, changeImg}: CardSBCProps) => {
   }
   return (
     <div key={title} className={cardClassName.join(' ')} onClick={onClick}>
-      <p className='text-left p-4 text-xl'>
+      <p className='p-4 text-xl'>
         {title}
       </p>
       <div className='m-auto w-24'>

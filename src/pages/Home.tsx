@@ -210,7 +210,7 @@ const Home = () => {
       <h1 className="text-3xl font-light mb-6">
         Select an SBC 👇🏼
       </h1>
-      <div className="grid grid-cols-2 gap-4 pb-4">
+      <div className="grid grid-cols-2 gap-4 pb-2">
         {sbcs.length > 0 ? sbcs.map((sbc, index) =>
           <CardSBC title={sbc} key={sbc} changeImg={index % 2 === 0}
                    onClick={() => setSelectedSBC(index === selectedSBC ? -1 : index)}
