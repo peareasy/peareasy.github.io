@@ -19,14 +19,21 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
     const row = []
     for (let j = 0; j < formation[i]; j++) {
       row.push(
-        <div className="rounded bg-primary-800 flex flex-row w-36 m-auto justify-between ">
+        <div className="rounded bg-primary-800 flex flex-row w-48 m-auto justify-between ">
           <div className="flex flex-col p-2">
             <CopyButton value={players[counter].name} />
             <div className="text-secondary text-left">{players[counter].position+', '+players[counter].rating}</div>
           </div>
           <div className="flex flex-col p-2 my-auto">
-            {players[counter].loyalty ? <img className="w-4 m-auto" alt="loyalty" src={process.env.PUBLIC_URL + '/loyalty.png'}/> : null }
-            {players[counter].untradeable ? <img className="w-6" alt="untradeable" src={process.env.PUBLIC_URL + '/untradeable.png'}/> : null }
+            {players[counter].loyalty ?
+              <div className="w-6 h-6">
+                <img className="w-4 m-auto" alt="loyalty" src={process.env.PUBLIC_URL + '/loyalty.png'}/>
+              </div>
+              : null }
+            {players[counter].untradeable ?
+              <div className="w-6 h-6">
+              <img className="w-6" alt="untradeable" src={process.env.PUBLIC_URL + '/untradeable.png'}/>
+            </div>: null }
           </div>
         </div>)
       counter++

@@ -6,7 +6,7 @@ type CardSBCProps = {
 };
 
 const CardSBC = ({title, onClick, selected, changeImg}: CardSBCProps) => {
-  const cardClassName = ['rounded-xl hover:bg-gray-800 flex flex-col m-auto cursor-pointer border-2 w-72']
+  const cardClassName = ['rounded-xl hover:bg-gray-800 flex flex-col m-auto cursor-pointer border-2 w-full']
   if (selected) {
     cardClassName.push('border-primary-500 bg-gray-800')
   } else {

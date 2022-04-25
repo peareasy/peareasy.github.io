@@ -235,7 +235,7 @@ const Home = () => {
     solutionView = (
       <div>
         <SolutionView players={solution.players} solution={solution} sbc={sbcs[selectedSBC]} />
-        <div className="mt-10 top-10 bottom-10 left-10 right-0">
+        <div className="mt-10 top-10 bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {
             setShowModal(true)
           }} title={"Solve another SBC"}/>
