@@ -128,9 +128,8 @@ const Home = () => {
     setLoading(true)
     api.solveSBC(userId, sbcs[selectedSBC].name)
       .then((solution: Solution) => {
-
-        const {formation, players, cost, solution_message} = solution;
-        setSolution({players, cost, formation, solution_message})
+        const {formation, players, cost, chem, rating, solution_message} = solution;
+        setSolution({players, cost, chem, rating, formation, solution_message})
         setLoading(false)
       })
       .catch(() => {
@@ -138,7 +137,7 @@ const Home = () => {
       })
   }
 
-  const emptySolution = (): Solution => ({cost: 0, players: [], formation: "", solution_message: ""})
+  const emptySolution = (): Solution => ({cost: 0, chem: 0, rating: 0, players: [], formation: "", solution_message: ""})
 
   const onClearPlayers = () => {
     api.deletePlayersUsedInSBCs(userId, solution?.players)
@@ -241,22 +240,25 @@ const Home = () => {
             setShowModal(true)
           }} title={"Solve another SBC"}/>
         </div>
-        {showModal ? <Modal header={"Did you use this solution?"}
+        {showModal ? <Modal header={"❗ Did you use this solution?"}
                             body={"If you want to solve a new SBC we want to make sure that your old players are removed from our database. " +
-                            "If you used the generated solution, please clear the players."}
-                            onCloseClicked={() => {
+                            "Please indicate if you used our generated solution"}
+                            onNegativeActionClicked={() => {
                               setSolution(emptySolution)
                               setSelectedSBC(-1)
                               setStep(Steps.ChooseSBC)
                               setShowModal(false)
                             }}
-                            onActionClicked={() => {
+                            onPositiveActionClicked={() => {
                               onClearPlayers()
                               setSolution(emptySolution)
                               setSelectedSBC(-1)
                               setStep(Steps.ChooseSBC)
                               setShowModal(false)
                             }}
+                            onCloseClicked={() => setShowModal(false)}
+                            positiveActionButtonLabel="Yes"
+                            negativeActionButtonLabel="No"
         /> : null }
       </div>
     )
@@ -297,10 +299,10 @@ const Home = () => {
   </div>)
 
   const loadingView = (<div className="space-y-4">
-    <h1 className="text-2xl font-bold mx-auto h-4/5">
+    <h1 className="text-2xl mx-auto h-4/5">
       Our AI is working hard to get you a good solution.
     </h1>
-    <h1 className="text-2xl font-bold mx-auto pb-12">This might take up to 60 seconds 👊🏽</h1>
+    <h1 className="text-2xl mx-auto pb-12">This might take up to 60 seconds 👊🏽</h1>
     <Spinner/>
   </div>)
 
