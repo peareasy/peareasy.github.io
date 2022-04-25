@@ -19,7 +19,7 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
     const row = []
     for (let j = 0; j < formation[i]; j++) {
       row.push(
-        <div className="rounded bg-primary-800 flex flex-row w-56 m-auto justify-between ">
+        <div className="rounded bg-primary-800 flex flex-row w-36 m-auto justify-between ">
           <div className="flex flex-col p-2">
             <CopyButton value={players[counter].name} />
             <div className="text-secondary text-left">{players[counter].position+', '+players[counter].rating}</div>
@@ -37,16 +37,14 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
       </div>
     )
   }
-  console.log(solution.chem)
-  console.log(solution.rating)
   return (
   <div className={"mx-auto flex justify-center"}>
     <div className="flex flex-row gap-x-16">
       <div className="text-secondary w-1/5 text-center font-light text-2xl"/>
-      <div className="flex flex-col gap-y-4 w-3/5">
+      <div className="flex flex-col gap-y-4">
         {formationWithPlayers.reverse()}
       </div>
-      <div className="text-secondary text-center font-light rounded-l bg-gray-800 border border-primary-300 w-1/5 flex flex-col gap-y-4">
+      <div className="text-secondary text-center font-light rounded-l bg-gray-800 border border-primary-300 flex flex-col gap-y-4 w-72">
         <h1 className="font-light mt-4 text-xl">Constraints</h1>
         <p className="text-m flex flex-row ml-2"><span className="pr-1">{copied}</span>Rating: {sbc.min_rating} ({solution.rating})</p>
         <p className="text-m flex flex-row ml-2"><span className="pr-1">{copied}</span>Chem: {sbc.min_chemistry} ({solution.chem})</p>
