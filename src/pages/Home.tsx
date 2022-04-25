@@ -25,7 +25,7 @@ const Home = () => {
     Solution
   }
 
-  const extensionId = process.env.REACT_APP_EXTENSION_ID || "";
+  const extensionId = process.env.REACT_APP_EXTENSION_ID!
 
   // setup phase
   const [cookies, setCookie] = useCookies(["userId"]);
@@ -75,6 +75,7 @@ const Home = () => {
         setStep(Steps.DownloadExtension)
       }
       sendUUIDToExtension()
+      api.verifyUser(cookies["userId"]);
       onGetSBCs()
       setUserId(cookies["userId"])
     }
@@ -127,10 +128,9 @@ const Home = () => {
     setLoading(true)
     api.solveSBC(userId, sbcs[selectedSBC].name)
       .then((solution: Solution) => {
-        const formation = solution.formation
-        const players = solution.players
-        const cost = solution.cost
-        setSolution({players, cost, formation})
+
+        const {formation, players, cost, solution_message} = solution;
+        setSolution({players, cost, formation, solution_message})
         setLoading(false)
       })
       .catch(() => {
@@ -138,7 +138,7 @@ const Home = () => {
       })
   }
 
-  const emptySolution = (): Solution => ({cost: 0, players: [], formation: ""})
+  const emptySolution = (): Solution => ({cost: 0, players: [], formation: "", solution_message: ""})
 
   const onClearPlayers = () => {
     api.deletePlayersUsedInSBCs(userId, solution?.players)
@@ -211,7 +211,7 @@ const Home = () => {
       <h1 className="text-3xl font-light mb-6">
         Select an SBC 👇🏼
       </h1>
-      <div className="grid grid-cols-2 gap-4 pb-4">
+      <div className="grid grid-cols-2 gap-4 pb-2">
         {sbcs.length > 0 ? sbcs.map((sbc, index) =>
           <CardSBC title={sbc.name} key={sbc.name} changeImg={index % 2 === 0}
                    onClick={() => setSelectedSBC(index === selectedSBC ? -1 : index)}
@@ -267,10 +267,10 @@ const Home = () => {
           Oh no, we couldn't find a solution 😔
         </h1>
         <p>
-          We can see that you only have {numberOfPlayers} players in the club that can be used for SBCs.
+          {solution?.solution_message}
         </p>
         <p>
-          With your current players, we couldn't find a solution - you can try to see if another SBC can be solved.
+          You can try to see if another SBC can be solved!
         </p>
         <div className="top-10 bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {

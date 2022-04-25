@@ -15,3 +15,4 @@ export { solveSBC } from "./requests/solveSBC";
 export { signIn } from "./requests/signIn";
 export { signUp } from "./requests/signUp";
 export { sendMessage } from "./requests/sendMessage"
+export { verifyUser } from "./requests/verifyUser"
