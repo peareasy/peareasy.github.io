@@ -128,9 +128,8 @@ const Home = () => {
     setLoading(true)
     api.solveSBC(userId, sbcs[selectedSBC])
       .then((solution: Solution) => {
-
-        const {formation, players, cost, solution_message} = solution;
-        setSolution({players, cost, formation, solution_message})
+        const {formation, players, cost, chem, rating, solution_message} = solution;
+        setSolution({players, cost, chem, rating, formation, solution_message})
         setLoading(false)
       })
       .catch(() => {
@@ -138,7 +137,7 @@ const Home = () => {
       })
   }
 
-  const emptySolution = (): Solution => ({cost: 0, players: [], formation: "", solution_message: ""})
+  const emptySolution = (): Solution => ({cost: 0, chem: 0, rating: 0, players: [], formation: "", solution_message: ""})
 
   const onClearPlayers = () => {
     api.deletePlayersUsedInSBCs(userId, solution?.players)
@@ -238,27 +237,30 @@ const Home = () => {
         <Formation players={solution.players} rawFormation={solution.formation}/>
         <p className="mt-12 text-xl">Approximate cost of players involved is {solution?.cost}</p>
         <br/>
-        <div className="top-10 bottom-10 left-0 right-0">
+        <div className="top-10 bottom-10 left-0">
           <PrimaryButton onClick={() => {
             setShowModal(true)
           }} title={"Try another one! 😎"}/>
         </div>
-        {showModal ? <Modal header={"Did you use this solution?"}
+        {showModal ? <Modal header={"❗ Did you use this solution?"}
                             body={"If you want to solve a new SBC we want to make sure that your old players are removed from our database. " +
-                            "If you used the generated solution, please clear the players."}
-                            onCloseClicked={() => {
+                            "Please indicate if you used our generated solution"}
+                            onNegativeActionClicked={() => {
                               setSolution(emptySolution)
                               setSelectedSBC(-1)
                               setStep(Steps.ChooseSBC)
                               setShowModal(false)
                             }}
-                            onActionClicked={() => {
+                            onPositiveActionClicked={() => {
                               onClearPlayers()
                               setSolution(emptySolution)
                               setSelectedSBC(-1)
                               setStep(Steps.ChooseSBC)
                               setShowModal(false)
                             }}
+                            onCloseClicked={() => setShowModal(false)}
+                            positiveActionButtonLabel="Yes"
+                            negativeActionButtonLabel="No"
         /> : null }
       </div>
     )
