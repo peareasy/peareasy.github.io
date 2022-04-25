@@ -18,6 +18,7 @@ module.exports = {
     textColor: {
       primary: colors.indigo,
       secondary: colors.white,
+      gray: colors.gray,
       tertiary: colors.purple,
       error: colors.red,
       teal: colors.teal

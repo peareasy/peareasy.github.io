@@ -11,6 +11,7 @@ import {isMobile} from 'react-device-detect';
 import Modal from "../components/UI/Modal";
 import { NavLink } from 'react-router-dom';
 import { open_link as openLinkIcon } from '../components/UI/icons';
+import Info from "../components/UI/Info";
 
 
 const Home = () => {
@@ -127,10 +128,9 @@ const Home = () => {
     setLoading(true)
     api.solveSBC(userId, sbcs[selectedSBC])
       .then((solution: Solution) => {
-        const formation = solution.formation
-        const players = solution.players
-        const cost = solution.cost
-        setSolution({players, cost, formation})
+
+        const {formation, players, cost, solution_message} = solution;
+        setSolution({players, cost, formation, solution_message})
         setLoading(false)
       })
       .catch(() => {
@@ -138,7 +138,7 @@ const Home = () => {
       })
   }
 
-  const emptySolution = (): Solution => ({cost: 0, players: [], formation: ""})
+  const emptySolution = (): Solution => ({cost: 0, players: [], formation: "", solution_message: ""})
 
   const onClearPlayers = () => {
     api.deletePlayersUsedInSBCs(userId, solution?.players)
@@ -146,46 +146,47 @@ const Home = () => {
 
   const importPlayersView = (
     <div className="flex flex-col">
-    <p className="m-auto text-3xl pb-8">Import your players from the FUT Web App</p>
+    <p className="m-auto text-3xl pb-2">Import your players</p>
+    <p className="m-auto text-gray-300 italic text-l pb-8">How to import your players from the FUT Web App in 5 easy steps</p>
     <div className="flex flex-row space-between space-x-2 pl-32 pr-32 w-screen ">
       <div className="bg-gray-900 flex flex-col mt-2 mb-24 w-1/5 shadow-2xl laptop:h-64">
         <div className="ml-4 mr-4 mt-8 h-16 shadow-2xl">
           <SecondaryButton title={"Open FUT App"} icon={openLinkIcon} onClick={onImportPlayersClicked}/>
         </div>
-        <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
-          <p className="text-secondary m-auto text-2xl text-bold">1</p>
+        <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
+          <p className="text-secondary m-auto text-l text-bold">1</p>
         </div>
       </div>
       <div className="flex flex-col bg-gray-600 justify-around rounded w-3/5">
         <div className="flex flex-row space-x-2 justify-center pr-2 pl-2">
           <div className="bg-gray-900 w-1/3 flex flex-col z-10 mt-2 shadow-2xl laptop:h-64">
             <img alt="club" className="p-4" src={process.env.PUBLIC_URL+'/club.png'}/>
-            <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
-              <p className="text-secondary m-auto text-2xl text-bold">2</p>
+            <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
+              <p className="text-secondary m-auto text-l text-bold">2</p>
             </div>
           </div>
           <div className="bg-gray-900 w-1/3 flex flex-col z-10 mt-2 shadow-2xl laptop:h-64">
           {/* <div className="bg-primary-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-16 w-80 h-4 z-20 "></div> */}
             <img alt="players" className="p-4" src={process.env.PUBLIC_URL+'/players.png'}/>
-            <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
-              <p className="text-secondary m-auto text-2xl text-bold">3</p>
+            <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
+              <p className="text-secondary m-auto text-l text-bold">3</p>
             </div>
           </div>
           <div className="bg-gray-900 w-1/3 flex flex-col z-10 mt-2 shadow-2xl laptop:h-64">
             <img alt="import players" className="p-4" src={process.env.PUBLIC_URL+'/import_players.gif'}/>
-            <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
-              <p className="text-secondary m-auto text-2xl text-bold">4</p>
+            <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
+              <p className="text-secondary m-auto text-l text-bold">4</p>
             </div>
           </div>
         </div>
-        <p className="m-auto text-3xl pt-8 pb-8">Inside the FUT App</p>
+        <p className="m-auto text-2xl pt-8 font-light pb-8">Inside the FUT App</p>
       </div>
       <div className="bg-gray-900 flex flex-col mt-2 mb-24 w-1/5 shadow-2xl laptop:h-64">
         <div className="ml-4 mr-4 mt-8 h-16">
           <SecondaryButton title={"Next"} onClick={onGetPlayers} disabled={!nextEnabled}/>
         </div>
-        <div className="bg-primary-500 rounded-full w-16 h-16 m-auto mb-4 flex">
-          <p className="text-secondary m-auto text-2xl text-bold z-40">5</p>
+        <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
+          <p className="text-secondary m-auto text-l text-bold z-40">5</p>
         </div>
       </div>
     </div>
@@ -207,26 +208,19 @@ const Home = () => {
 
   let sbcsView = (
     <div className="space-y-2">
-      <h1 className="text-3xl mb-6">
-        Select an SBC
+      <h1 className="text-3xl font-light mb-6">
+        Select an SBC 👇🏼
       </h1>
-      <div className="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-2 shadow-md mx-20 mb-10" role="alert">
-        <div className="flex">
-          <div className="py-1">
-            <svg className="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg"
-                 viewBox="0 0 20 20">
-              <path
-                d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
-            </svg>
-          </div>
-          <div>
-            <p className="font-bold">Players have successfully been imported! 💥</p>
-            <p className="text-sm">We have imported {numberOfPlayers} players</p>
-          </div>
-        </div>
+      <div className="grid grid-cols-2 gap-4 pb-2">
+        {sbcs.length > 0 ? sbcs.map((sbc, index) =>
+          <CardSBC title={sbc} key={sbc} changeImg={index % 2 === 0}
+                   onClick={() => setSelectedSBC(index === selectedSBC ? -1 : index)}
+                   selected={selectedSBC === index}/>) : null}
       </div>
-      {sbcs.length > 0 ? sbcs.map((sbc, index) =>
-        <CardSBC title={sbc} key={sbc} changeImg={index % 2 === 0} onClick={() => setSelectedSBC(index === selectedSBC ? -1 : index)} selected={selectedSBC === index}/>) : null}
+      <Info content={<div>
+        <p className="font-bold">Players have successfully been imported! 💥</p>
+        <p className="text-sm">We have imported {numberOfPlayers} players</p>
+      </div>}/>
       <div className="pt-10 flex justify-around">
         <PrimaryButton onClick={() => {
           setStep(Steps.ImportPlayers)
@@ -275,10 +269,10 @@ const Home = () => {
           Oh no, we couldn't find a solution 😔
         </h1>
         <p>
-          We can see that you only have {numberOfPlayers} players in the club that can be used for SBCs.
+          {solution?.solution_message}
         </p>
         <p>
-          With your current players, we couldn't find a solution - you can try to see if another SBC can be solved.
+          You can try to see if another SBC can be solved!
         </p>
         <div className="top-10 bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {

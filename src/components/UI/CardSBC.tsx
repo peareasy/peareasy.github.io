@@ -6,21 +6,19 @@ type CardSBCProps = {
 };
 
 const CardSBC = ({title, onClick, selected, changeImg}: CardSBCProps) => {
-  const greenBorderClassName = ['rounded bg-gray-900 flex flex-row w-full m-auto cursor-pointer border-2']
+  const cardClassName = ['rounded-xl hover:bg-gray-800 flex flex-col m-auto cursor-pointer border-2 w-full']
   if (selected) {
-    greenBorderClassName.push('border-primary-500')
+    cardClassName.push('border-primary-500 bg-gray-800')
   } else {
-    greenBorderClassName.push('border-gray-900')
+    cardClassName.push('bg-gray-900 border-gray-900')
   }
   return (
-    <div key={title} className={greenBorderClassName.join(' ')} onClick={onClick}>
-      <div className='flex-none mt-auto mb-auto w-16'>
-        <img alt={title} src={changeImg ? process.env.PUBLIC_URL+'/sbc.png' : process.env.PUBLIC_URL+'/sbc_gold.png' } />
-      </div>
-      <p className='m-auto text-xl'>
+    <div key={title} className={cardClassName.join(' ')} onClick={onClick}>
+      <p className='p-4 text-xl'>
         {title}
       </p>
-      <div className='flex-none mt-auto mb-auto w-16'>
+      <div className='m-auto w-24'>
+        <img alt={title} src={changeImg ? process.env.PUBLIC_URL+'/sbc.png' : process.env.PUBLIC_URL+'/sbc_gold.png' } />
       </div>
     </div>
   )
