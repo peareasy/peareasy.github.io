@@ -4,7 +4,7 @@ import * as api from "../api/api";
 import {SecondaryButton, PrimaryButton} from "../components/UI/Button";
 import Spinner from "../components/UI/Spinner/Spinner";
 import CardSBC from "../components/UI/CardSBC";
-import Formation from "../components/UI/Formation"
+import SolutionView from "../components/UI/SolutionView"
 import { Solution } from "../interfaces/Solution";
 import { SBC } from "../interfaces/SBC";
 import {isMobile} from 'react-device-detect';
@@ -41,7 +41,7 @@ const Home = () => {
   const [showModal, setShowModal] = useState(false)
 
   // data
-  const [sbcs, setSBCs] = useState<string[]>([])
+  const [sbcs, setSBCs] = useState<SBC[]>([])
   const [numberOfPlayers, setNumberOfPlayers] = useState(0)
   const [solution, setSolution] = useState<Solution>()
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
@@ -112,7 +112,7 @@ const Home = () => {
   const onGetSBCs = () => {
     setLoading(true)
     api.getSBCs().then((sbcs) => {
-      setSBCs(sbcs.map((sbc: SBC) => sbc.name))
+      setSBCs(sbcs)
       setLoading(false)
     }).catch(() => setLoading(false))
   }
@@ -125,7 +125,7 @@ const Home = () => {
     }
 
     setLoading(true)
-    api.solveSBC(userId, sbcs[selectedSBC])
+    api.solveSBC(userId, sbcs[selectedSBC].name)
       .then((solution: Solution) => {
         const formation = solution.formation
         const players = solution.players
@@ -213,7 +213,7 @@ const Home = () => {
       </h1>
       <div className="grid grid-cols-2 gap-4 pb-4">
         {sbcs.length > 0 ? sbcs.map((sbc, index) =>
-          <CardSBC title={sbc} key={sbc} changeImg={index % 2 === 0}
+          <CardSBC title={sbc.name} key={sbc.name} changeImg={index % 2 === 0}
                    onClick={() => setSelectedSBC(index === selectedSBC ? -1 : index)}
                    selected={selectedSBC === index}/>) : null}
       </div>
@@ -235,13 +235,11 @@ const Home = () => {
   if (solution?.players && solution.players.length > 0) {
     solutionView = (
       <div>
-        <Formation players={solution.players} rawFormation={solution.formation}/>
-        <p className="mt-12 text-xl">Approximate cost of players involved is {solution?.cost}</p>
-        <br/>
-        <div className="top-10 bottom-10 left-0 right-0">
+        <SolutionView players={solution.players} solution={solution} sbc={sbcs[selectedSBC]} />
+        <div className="mt-10 top-10 bottom-10 left-10 right-0">
           <PrimaryButton onClick={() => {
             setShowModal(true)
-          }} title={"Try another one! 😎"}/>
+          }} title={"Solve another SBC"}/>
         </div>
         {showModal ? <Modal header={"Did you use this solution?"}
                             body={"If you want to solve a new SBC we want to make sure that your old players are removed from our database. " +
