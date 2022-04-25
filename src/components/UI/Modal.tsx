@@ -4,10 +4,13 @@ type _Modal = {
   header: string,
   body: string,
   onCloseClicked: () => void;
-  onActionClicked: () => void;
+  onNegativeActionClicked: () => void;
+  onPositiveActionClicked: () => void;
+  positiveActionButtonLabel: string,
+  negativeActionButtonLabel: string
 };
 
-const Modal = ({header, body, onCloseClicked, onActionClicked}: _Modal) => {
+const Modal = ({header, body, onNegativeActionClicked, onPositiveActionClicked, onCloseClicked, positiveActionButtonLabel, negativeActionButtonLabel}: _Modal) => {
   return (
     <div
       className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
@@ -38,16 +41,16 @@ const Modal = ({header, body, onCloseClicked, onActionClicked}: _Modal) => {
             <button
               className="background-transparent uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               type="button"
-              onClick={onCloseClicked}
+              onClick={onNegativeActionClicked}
             >
-              Close
+              {negativeActionButtonLabel}
             </button>
             <button
               className="bg-primary-700 hover:bg-primary-600 uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               type="button"
-              onClick={onActionClicked}
+              onClick={onPositiveActionClicked}
             >
-              Clear Players
+              {positiveActionButtonLabel}
             </button>
           </div>
         </div>
