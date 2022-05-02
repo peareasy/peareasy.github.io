@@ -46,40 +46,39 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
     )
   }
   return (
-  <div className={"mx-auto flex justify-center"}>
-    <div className="flex flex-row gap-x-16 w-1/3 items-center">
-      <div className="text-secondary w-1/5 text-center font-light text-2xl"/>
-      <div className="flex flex-col text-center gap-y-4 w-full">
-        {formationWithPlayers.reverse()}
-      </div>
+      <div className={"mx-auto flex justify-center"}>
+        <div className="flex flex-row gap-x-16">
+          <div className="text-secondary w-1/5 text-center font-light text-2xl"/>
+          <div className="flex flex-col gap-y-4">
+            {formationWithPlayers.reverse()}
+          </div>
 
-      <div className="space-y-4 text-center w-1/5">
-        <div className="text-secondary text-center font-light rounded-l bg-gray-800 flex flex-col gap-y-4 w-72 pb-4">
-          <h1 className="font-light mt-4 text-xl">Constraints</h1>
-          <p className="text-m flex flex-row mx-auto"><span className="pr-1">{copied}</span>Rating: {sbc.min_rating} ({solution.rating})</p>
-          <p className="text-m flex flex-row mx-auto"><span className="pr-1">{copied}</span>Chem: {sbc.min_chemistry} ({solution.chem})</p>
-          <p className="text-m flex flex-row mx-auto">Formation: {solution.formation}</p>
-          <p className="text-m flex flex-row mx-auto">Cost: {solution.cost}</p>
-        </div>
-        <div className="text-secondary text-center font-light rounded-l bg-gray-800 flex flex-col gap-y-4 w-72 pt-4">
-          <div className="flex flex-col m-auto gap-y-4">
-            <div className="flex flex-row mx-auto">
-              <div className="w-6 m-auto">
-                <img className="w-4" alt="loyalty" src={process.env.PUBLIC_URL + '/loyalty.png'}/>
-              </div>
-              <span>Loyalty</span>
+          <div className="space-y-4 text-center">
+            <div className="text-secondary text-center font-light rounded-l bg-gray-800 flex flex-col gap-y-4 w-72 pb-4">
+              <h1 className="font-light mt-4 text-xl">Constraints</h1>
+              <p className="text-m flex flex-row ml-2"><span className="pr-1">{copied}</span>Rating: {sbc.min_rating} ({solution.rating})</p>
+              <p className="text-m flex flex-row ml-2"><span className="pr-1">{copied}</span>Chem: {sbc.min_chemistry} ({solution.chem})</p>
+              <p className="text-m flex flex-row mx-auto">Formation: {solution.formation}</p>
+              <p className="text-m flex flex-row mx-auto">Cost: {solution.cost}</p>
             </div>
-            <div className="flex flex-row mx-auto mb-4">
-              <img className="w-6" alt="untradeable" src={process.env.PUBLIC_URL + '/untradeable.png'}/>
-              <span>Untradable</span>
+            <div className="text-secondary text-center font-light rounded-l bg-gray-800 flex flex-col gap-y-4 w-72 pt-4">
+              <div className="flex flex-col m-auto gap-y-4">
+                <div className="flex flex-row mx-auto">
+                  <div className="w-6 m-auto">
+                    <img className="w-4" alt="loyalty" src={process.env.PUBLIC_URL + '/loyalty.png'}/>
+                  </div>
+                  <span>Loyalty</span>
+                </div>
+                <div className="flex flex-row mx-auto mb-4">
+                  <img className="w-6" alt="untradeable" src={process.env.PUBLIC_URL + '/untradeable.png'}/>
+                  <span>Untradable</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
   )
-
 }
 
 export default SolutionView
