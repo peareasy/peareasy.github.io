@@ -8,6 +8,7 @@ type ButtonProps = {
 
 const CopyButton = ({value}: ButtonProps) => {
   const [clicked, setClicked] = useState(false);
+  const [showCopied, setShowCopied] = useState(true);
 
   return (
       <div className="flex flex-row text-center m-auto">
@@ -16,12 +17,13 @@ const CopyButton = ({value}: ButtonProps) => {
       onClick={() => {
           navigator.clipboard.writeText(value);
           setClicked(true);
+          setTimeout(() => setShowCopied(false), 3000)
     }}
     >
         {
             clicked ?
             <div className={styles.tooltip}>
-                <span className={styles.tooltiptext}>Copied!</span>
+                {showCopied ? <span className={styles.tooltiptext}>Copied!</span> : <div/>}
                 <span>{copied}</span>
             </div>
                 :
