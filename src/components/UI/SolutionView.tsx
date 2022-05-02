@@ -48,7 +48,7 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
   return (
       <div className={"mx-auto flex justify-center"}>
         <div className="flex flex-row gap-x-16">
-          <div className="text-secondary w-1/5 text-center font-light text-2xl"/>
+          <div className="text-secondary w-1/5 text-center font-light text-2xl min-w-full"/>
           <div className="flex flex-col gap-y-4">
             {formationWithPlayers.reverse()}
           </div>
