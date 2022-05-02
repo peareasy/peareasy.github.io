@@ -20,11 +20,11 @@ export const remove = (
 )
 
 export const copy = (
-    <svg fill="white" className="h-6 w-6 pt-1"  xmlns="http://www.w3.org/2000/svg"><path d="M6 6V2c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-4v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h4zm2 0h4a2 2 0 0 1 2 2v4h4V2H8v4zM2 8v10h10V8H2z"/></svg>
+    <svg fill="white" className="h-6 w-6"  xmlns="http://www.w3.org/2000/svg"><path d="M6 6V2c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-4v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h4zm2 0h4a2 2 0 0 1 2 2v4h4V2H8v4zM2 8v10h10V8H2z"/></svg>
 )
 
 export const copied = (
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 pt-1" fill="none" viewBox="0 0 20 20" stroke="#4caf50" strokeWidth="2">
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 20 20" stroke="#4caf50" strokeWidth="2">
   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
 </svg>
 )
