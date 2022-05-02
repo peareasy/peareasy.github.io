@@ -12,7 +12,7 @@ const CopyButton = ({value}: ButtonProps) => {
 
   return (
 
-      <div className="text-secondary">
+      <div className="flex flex-row text-center m-auto">
           <span className='mr-1'>{value}</span>
           <button className={clicked ? "cursor-default" : ""} disabled={clicked}
       onClick={() => {
