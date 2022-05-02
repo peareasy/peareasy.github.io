@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { copy, copied  } from '../UI/icons';
+import { copy, copied  } from './icons';
 import styles from "./Copy.module.css"
 
 
@@ -9,11 +9,6 @@ type ButtonProps = {
 
 const CopyButton = ({value}: ButtonProps) => {
   const [clicked, setClicked] = useState(false);
-  const tooltipStyle = ["rounded", "shadow-lg", "bg-primary-200", "p-1"];
-  tooltipStyle.push(styles.tooltip);
-  
-  const containerStyle = ["flex", "flex-row", "text-center"];
-  containerStyle.push(styles.hastooltip);
 
   return (
 
