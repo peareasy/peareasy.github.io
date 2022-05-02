@@ -53,7 +53,7 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
         {formationWithPlayers.reverse()}
       </div>
 
-      <div className="space-y-4 text-center">
+      <div className="space-y-4 text-center w-72">
         <div className="text-secondary text-center font-light rounded-l bg-gray-800 flex flex-col gap-y-4 w-72 pb-4">
           <h1 className="font-light mt-4 text-xl">Constraints</h1>
           <p className="text-m flex flex-row mx-auto"><span className="pr-1">{copied}</span>Rating: {sbc.min_rating} ({solution.rating})</p>
