@@ -51,7 +51,7 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
       <div className="flex flex-col gap-y-4">
         {formationWithPlayers.reverse()}
       </div>
-      <div className="text-secondary text-center font-light rounded-l bg-gray-800 border border-primary-300 flex flex-col gap-y-4 w-72">
+      <div className="text-secondary text-center font-light rounded-l bg-gray-800 flex flex-col gap-y-4 w-72">
         <h1 className="font-light mt-4 text-xl">Constraints</h1>
         <p className="text-m flex flex-row ml-2"><span className="pr-1">{copied}</span>Rating: {sbc.min_rating} ({solution.rating})</p>
         <p className="text-m flex flex-row ml-2"><span className="pr-1">{copied}</span>Chem: {sbc.min_chemistry} ({solution.chem})</p>
