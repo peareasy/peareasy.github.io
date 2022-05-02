@@ -56,8 +56,8 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
       <div className="space-y-4 text-center">
         <div className="text-secondary text-center font-light rounded-l bg-gray-800 flex flex-col gap-y-4 w-72 pb-4">
           <h1 className="font-light mt-4 text-xl">Constraints</h1>
-          <p className="text-m flex flex-row ml-2"><span className="pr-1">{copied}</span>Rating: {sbc.min_rating} ({solution.rating})</p>
-          <p className="text-m flex flex-row ml-2"><span className="pr-1">{copied}</span>Chem: {sbc.min_chemistry} ({solution.chem})</p>
+          <p className="text-m flex flex-row mx-auto"><span className="pr-1">{copied}</span>Rating: {sbc.min_rating} ({solution.rating})</p>
+          <p className="text-m flex flex-row mx-auto"><span className="pr-1">{copied}</span>Chem: {sbc.min_chemistry} ({solution.chem})</p>
           <p className="text-m flex flex-row mx-auto">Formation: {solution.formation}</p>
           <p className="text-m flex flex-row mx-auto">Cost: {solution.cost}</p>
         </div>
