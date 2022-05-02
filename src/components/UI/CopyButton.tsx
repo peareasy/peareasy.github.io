@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { copy, copied  } from '../UI/icons';
+import styles from "./Copy.module.css"
 
 
 type ButtonProps = {
@@ -7,11 +8,16 @@ type ButtonProps = {
 };
 
 const CopyButton = ({value}: ButtonProps) => {
-  const [clicked, setClicked] = useState(false)
+  const [clicked, setClicked] = useState(false);
+  const tooltipStyle = ["rounded", "shadow-lg", "bg-primary-200", "p-1"];
+  tooltipStyle.push(styles.tooltip);
+  
+  const containerStyle = ["flex", "flex-row", "text-center"];
+  containerStyle.push(styles.hastooltip);
 
   return (
-    
-      <div className="flex flex-row text-center m-auto">
+
+      <div className="text-secondary">
           <span className='mr-1'>{value}</span>
           <button className={clicked ? "cursor-default" : ""} disabled={clicked}
       onClick={() => {
@@ -19,7 +25,18 @@ const CopyButton = ({value}: ButtonProps) => {
           setClicked(true);
     }}
     >
-        {clicked ? <span>{copied}</span>: <span>{copy}</span>}
+        {clicked ? (
+            <div className={styles.tooltip}>
+                <span className={styles.tooltiptext}>Copied!</span>
+                <span>{copied}</span>
+
+            </div>
+
+        ): <div className={styles.tooltip}>
+            <span className={styles.tooltiptext}>Copy</span>
+            <span >{copy}</span>
+
+        </div>}
     </button>
     
       </div>
