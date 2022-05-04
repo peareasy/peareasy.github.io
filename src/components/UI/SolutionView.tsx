@@ -15,12 +15,21 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
   const formation = ("1-" + solution.formation).split('-').map(Number)
 
   const formationWithPlayers = []
+  let largeCards = players.findIndex((p) => {
+    return p.name.length >= 10
+  });
+  console.log("large card", largeCards);
+  
   let counter = 0;
+  const cardWitdh = largeCards >= 0 ? "w-48" : "w-40";
+  const cardClasses = "rounded-lg bg-primary-900 flex flex-row m-auto justify-between".split(" ");
+  cardClasses.push(cardWitdh)
+
   for (let i = 0; i < formation.length; i++) {
     const row = []
     for (let j = 0; j < formation[i]; j++) {
       row.push(
-        <div className="rounded-lg bg-primary-900 flex flex-row w-44 m-auto justify-between ">
+        <div className={cardClasses.join(" ")}>
           <div className="flex flex-col p-2">
             <CopyButton value={players[counter].name} />
             <div className="text-xs text-left">{players[counter].position+', '+players[counter].rating}</div>
