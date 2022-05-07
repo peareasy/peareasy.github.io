@@ -173,7 +173,7 @@ const Home = () => {
               <p className="text-secondary m-auto text-2xl text-bold">3</p>
             </div>
           </div>
-          <div className="bg-zinc-800 w-52 flex flex-col z-10 mt-2 shadow-2xl laptop:h-72 h-72 rounded-sm">
+          <div className="bg-zinc-800 w-52 flex flex-col z-10 mt-2 laptop:h-72 h-72 rounded-sm">
             <img alt="import players" className="p-4 " src={process.env.PUBLIC_URL+'/import_players.gif'}/>
             <div className="bg-primary-700 rounded-full w-12 h-12 m-auto mb-4 flex shadow shadow-gray-900">
               <p className="text-secondary m-auto text-2xl text-bold">4</p>
