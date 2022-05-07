@@ -16,7 +16,8 @@ module.exports = {
       error: colors.red,
       teal: colors.teal,
       cyan: colors.cyan,
-      blue: colors.blue
+      blue: colors.blue,
+      zinc: colors.zinc,
     },
     textColor: {
       primary: colors.indigo,
