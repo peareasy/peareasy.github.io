@@ -144,66 +144,148 @@ const Home = () => {
   }
 
   const importPlayersView = (
-    <div className="flex flex-col">
-    <p className="m-auto text-3xl pb-2">Import your players</p>
-    <p className="m-auto text-gray-300 italic text-l pb-8">How to import your players from the FUT Web App in 5 easy steps</p>
-    <div className="flex flex-row space-between space-x-2 pl-32 pr-32 w-screen ">
-      <div className="bg-gray-900 flex flex-col mt-2 mb-24 w-1/5 shadow-2xl laptop:h-64">
-        <div className="ml-4 mr-4 mt-8 h-16 shadow-2xl">
-          <SecondaryButton title={"Open FUT App"} icon={openLinkIcon} onClick={onImportPlayersClicked}/>
-        </div>
-        <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
-          <p className="text-secondary m-auto text-l text-bold">1</p>
-        </div>
-      </div>
-      <div className="flex flex-col bg-gray-600 justify-around rounded w-3/5">
-        <div className="flex flex-row space-x-2 justify-center pr-2 pl-2">
-          <div className="bg-gray-900 w-1/3 flex flex-col z-10 mt-2 shadow-2xl laptop:h-64">
-            <img alt="club" className="p-4" src={process.env.PUBLIC_URL+'/club.png'}/>
-            <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
-              <p className="text-secondary m-auto text-l text-bold">2</p>
+          <div className="flex  p-2 justify-center ">
+            <div className="h-56 w-40 pt-2 pb-4">
+              <div className="h-48 w-40 bg-gray-800 flex flex-row align-middle rounded-sm shadow-gray-900 shadow-md pt-20">
+
+                <div className="w-14"></div>
+                <div className="bg-primary-500 h-12 w-12 rounded-full flex m-auto ">
+                  <p className="m-auto text-2xl">1</p>
+                </div>
+                <div className="my-auto w-14 h-1.5 bg-primary-500 "></div>
+              </div>
             </div>
-          </div>
-          <div className="bg-gray-900 w-1/3 flex flex-col z-10 mt-2 shadow-2xl laptop:h-64">
-          {/* <div className="bg-primary-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-16 w-80 h-4 z-20 "></div> */}
-            <img alt="players" className="p-4" src={process.env.PUBLIC_URL+'/players.png'}/>
-            <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
-              <p className="text-secondary m-auto text-l text-bold">3</p>
+
+            <div className="w-2 h-56 flex flex-row ">
+              <div className=" h-full w-1 flex pt-16">
+                <div className="bg-primary-500 w-1 h-1.5 my-auto "></div>
+              </div>
+              <div className="bg-gray-900 h-full w-1 flex rounded-l pt-16">
+                <div className="bg-primary-500 w-1 h-1.5 my-auto translate-y-10"></div>
+              </div>
             </div>
-          </div>
-          <div className="bg-gray-900 w-1/3 flex flex-col z-10 mt-2 shadow-2xl laptop:h-64">
-            <img alt="import players" className="p-4" src={process.env.PUBLIC_URL+'/import_players.gif'}/>
-            <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
-              <p className="text-secondary m-auto text-l text-bold">4</p>
+
+            <div className="h-56 w-40 pt-2 pb-4 bg-gray-900">
+              <div className="h-48 flex flex-row bg-gray-800 rounded-sm shadow-gray-900 shadow-md pt-20">
+                <div className="w-14 my-auto h-1.5 bg-primary-500 "></div>
+                <div className="bg-primary-500 z-30 h-12 w-12 rounded-full flex m-auto ">
+                  <p className="m-auto text-2xl text-white">2</p>
+                </div>
+                <div className="my-auto w-14 h-1.5 bg-primary-500 "></div>
+              </div>
             </div>
-          </div>
-        </div>
-        <p className="m-auto text-2xl pt-8 font-light pb-8">Inside the FUT App</p>
+
+            <div className="bg-gray-900 w-2 h-56 flex pt-16">
+              <div className="bg-primary-500 w-2 h-1.5 my-auto "></div>
+            </div>
+
+            <div className="h-56 w-40 bg-gray-900 flex flex-col pt-2 ">
+              <div className="h-48 w-40 bg-gray-800 flex flex-row rounded-sm shadow-gray-900 shadow-md pt-20">
+                <div className="w-14 h-1.5 bg-primary-500 my-auto "></div>
+                <div className="bg-primary-500 z-30 h-12 w-12  rounded-full flex m-auto">
+                  <p className="m-auto text-2xl ">3</p>
+                </div>
+                <div className="w-14 h-1.5 bg-primary-500 my-auto "></div>
+              </div>
+              <div className="flex h-0 justify-center z-30 whitespace-nowrap">In the FUT Web App</div>
+
+            </div>
+
+            <div className="bg-gray-900 w-2 h-56 flex pt-16">
+              <div className="bg-primary-500 w-2 h-1.5 my-auto "></div>
+            </div>
+
+            <div className="h-56 w-40 pt-2 pb-4 bg-gray-900">
+              <div className="h-48 w-40 bg-gray-800 flex flex-row rounded-sm shadow-gray-900 shadow-md pt-20">
+                <div className="w-14 h-1.5 bg-primary-500 my-auto "></div>
+                <div className="bg-primary-500 z-30 h-12 w-12 rounded-full flex m-auto ">
+                  <p className="m-auto text-2xl">4</p>
+                </div>
+                <div className="w-14 h-1.5 bg-primary-500 my-auto "></div>
+              </div>
+            </div>
+
+            <div className="w-2 h-56 flex flex-row ">
+              <div className="bg-gray-900 h-full w-1 flex rounded-r pt-16">
+                <div className="bg-primary-500 w-1 h-1.5 my-auto translate-y-10"></div>
+              </div>
+              <div className="h-full w-1 flex pt-16">
+                <div className="bg-primary-500 w-1 h-1.5 my-auto "></div>
+              </div>
+            </div>
+
+            <div className="h-56 w-40 pt-2 pb-4 ">
+              <div className="h-48 w-40 bg-gray-800 flex flex-row rounded-sm shadow-gray-900 shadow-md pt-20">
+                <div className="w-14 h-1.5 bg-primary-500 my-auto"></div>
+                  <div className="bg-primary-500 z-30 h-12 w-12 rounded-full flex m-auto ">
+                    <p className="m-auto text-2xl">5</p>
+                  </div>
+                <div className="w-14"></div>
+              </div>
+            </div>
+
       </div>
-      <div className="bg-gray-900 flex flex-col mt-2 mb-24 w-1/5 shadow-2xl laptop:h-64">
-        <div className="ml-4 mr-4 mt-8 h-16">
-          <SecondaryButton title={"Next"} onClick={onGetPlayers} disabled={!nextEnabled}/>
-        </div>
-        <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
-          <p className="text-secondary m-auto text-l text-bold z-40">5</p>
-        </div>
-      </div>
-    </div>
-    { importError ? <div role="alert">
-      <div className='w-2/3 m-auto mt-10'>
-        <div className="bg-error-500 text-white font-bold rounded-t px-3 py-1">
-          Oh no
-        </div>
-        <div className="border border-t-0 border-error-400 rounded-b bg-red-100 px-4 py-3 text-red-700 ">
-          <p>It seems like your players weren't imported properly. Please try again or see
-            {<a rel="noreferrer"
-                href="https://www.youtube.com/watch?v=sFu6rMaSEDg"
-                target="_blank"> this </a>}
-            tutorial</p>
-        </div>
-      </div>
-    </div> : null}
-    </div>)
+    // <div className="flex flex-col">
+    // <p className="m-auto text-3xl pb-2">Import your players</p>
+    // <p className="m-auto text-gray-300 italic text-l pb-8">How to import your players from the FUT Web App in 5 easy steps</p>
+    // <div className="flex flex-row space-between space-x-2 pl-32 pr-32 w-screen ">
+    //   <div className="bg-gray-900 flex flex-col mt-2 mb-24 w-1/5 shadow-2xl laptop:h-64">
+    //     <div className="ml-4 mr-4 mt-8 h-16 shadow-2xl">
+    //       <SecondaryButton title={"Open FUT App"} icon={openLinkIcon} onClick={onImportPlayersClicked}/>
+    //     </div>
+    //     <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
+    //       <p className="text-secondary m-auto text-l text-bold">1</p>
+    //     </div>
+    //   </div>
+    //   <div className="flex flex-col bg-gray-600 justify-around rounded w-3/5">
+    //     <div className="flex flex-row space-x-2 justify-center pr-2 pl-2">
+    //       <div className="bg-gray-900 w-1/3 flex flex-col z-10 mt-2 shadow-2xl laptop:h-64">
+    //         <img alt="club" className="p-4" src={process.env.PUBLIC_URL+'/club.png'}/>
+    //         <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
+    //           <p className="text-secondary m-auto text-l text-bold">2</p>
+    //         </div>
+    //       </div>
+    //       <div className="bg-gray-900 w-1/3 flex flex-col z-10 mt-2 shadow-2xl laptop:h-64">
+    //       {/* <div className="bg-primary-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-16 w-80 h-4 z-20 "></div> */}
+    //         <img alt="players" className="p-4" src={process.env.PUBLIC_URL+'/players.png'}/>
+    //         <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
+    //           <p className="text-secondary m-auto text-l text-bold">3</p>
+    //         </div>
+    //       </div>
+    //       <div className="bg-gray-900 w-1/3 flex flex-col z-10 mt-2 shadow-2xl laptop:h-64">
+    //         <img alt="import players" className="p-4" src={process.env.PUBLIC_URL+'/import_players.gif'}/>
+    //         <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
+    //           <p className="text-secondary m-auto text-l text-bold">4</p>
+    //         </div>
+    //       </div>
+    //     </div>
+    //     <p className="m-auto text-2xl pt-8 font-light pb-8">Inside the FUT App</p>
+    //   </div>
+    //   <div className="bg-gray-900 flex flex-col mt-2 mb-24 w-1/5 shadow-2xl laptop:h-64">
+    //     <div className="ml-4 mr-4 mt-8 h-16">
+    //       <SecondaryButton title={"Next"} onClick={onGetPlayers} disabled={!nextEnabled}/>
+    //     </div>
+    //     <div className="bg-primary-500 rounded-full w-12 h-12 m-auto mb-4 flex">
+    //       <p className="text-secondary m-auto text-l text-bold z-40">5</p>
+    //     </div>
+    //   </div>
+    // </div>
+    // { importError ? <div role="alert">
+    //   <div className='w-2/3 m-auto mt-10'>
+    //     <div className="bg-error-500 text-white font-bold rounded-t px-3 py-1">
+    //       Oh no
+    //     </div>
+    //     <div className="border border-t-0 border-error-400 rounded-b bg-red-100 px-4 py-3 text-red-700 ">
+    //       <p>It seems like your players weren't imported properly. Please try again or see
+    //         {<a rel="noreferrer"
+    //             href="https://www.youtube.com/watch?v=sFu6rMaSEDg"
+    //             target="_blank"> this </a>}
+    //         tutorial</p>
+    //     </div>
+    //   </div>
+    // </div> : null}
+    // </div>
+  )
 
   let sbcsView = (
     <div className="space-y-2">
