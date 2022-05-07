@@ -1,4 +1,4 @@
-import { HashRouter, Route} from "react-router-dom";
+import { HashRouter, Route, Routes} from "react-router-dom";
 
 import "./App.css";
 import Home from "./pages/Home";
@@ -16,15 +16,18 @@ function App() {
     <div className="min-h-screen bg-cover bg-center bg-cover bg-pitch">
       <HashRouter basename="/">
         <div className="flex flex-col min-h-screen flex-start">
-          <NavigationBar />
-          <Route path={"/about"} component={About} />
-          <Route path={"/profile"} component={Profile} />
-          <Route path={"/contact"} component={Contact} />
-          <Route path={"/tos"} component={Tos} />
-          <Route path={"/tutorial"} component={Tutorial} />
-          <Route path={"/privacy"} component={Privacy} />
-          <Route exact path={"/"} component={Home} />
-          <Footer/>
+
+            <NavigationBar />
+            <Routes>
+                <Route path={"/about"} element={<About/>} />
+                <Route path={"/profile"} element={<Profile/>} />
+                <Route path={"/contact"} element={<Contact/>} />
+                <Route path={"/tos"} element={<Tos/>} />
+                <Route path={"/tutorial"} element={<Tutorial/>} />
+                <Route path={"/privacy"} element={<Privacy/>} />
+                <Route path={"/"} element={<Home/>} />
+            </Routes>
+            <Footer/>
         </div>
       </HashRouter>
     </div>
