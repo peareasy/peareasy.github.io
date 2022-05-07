@@ -11,7 +11,10 @@ const NavigationBar = () => {
         <div className="w-full relative flex justify-between mobile:w-auto mobile:static mobile:block mobile:justify-start">
           <NavLink
             className="text-xl leading-relaxed inline-block mr-4 py-2 whitespace-nowrap text-secondary"
-            to={'/'}
+            to={'/'} onClick={() => {
+              window.location.href = "#"
+              window.location.reload()
+          }}
           >
             easySBC ⚽
           </NavLink>
