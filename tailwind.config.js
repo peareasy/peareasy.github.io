@@ -13,7 +13,8 @@ module.exports = {
       tertiary: colors.purple,
       gray: colors.gray,
       error: colors.red,
-      teal: colors.teal
+      teal: colors.teal,
+      zinc: colors.zinc,
     },
     textColor: {
       primary: colors.indigo,

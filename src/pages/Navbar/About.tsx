@@ -12,13 +12,13 @@ const About = () => {
         Note that when we load the players in your club, we NEVER interact with the web-app. We only read the player names in order to tailor solutions to your club!
       </p>
       <p className="text-secondary text-m text-left">
-        Our AI will help you find a solution to almost any SBC, trying to use the players with least value in your club. All you have to do is sit back and enjoy opening your packs! 
+        Our AI will help you find a solution to almost any SBC, trying to use the players with least value in your club. All you have to do is sit back and enjoy opening your packs!
       </p>
       <p className="text-secondary text-m text-left">
         Our service is still at an early stage, but we are tirelessly working to improve the AI as well as the experience and services we offer.
       </p>
       <p className="text-secondary text-m text-left">
-       Please feel free to contact us with any feedback or ideas through our <NavLink
+        Please feel free to contact us with any feedback or ideas through our <NavLink
             to={'contact'}>
             Contact page</NavLink>.
       </p>
