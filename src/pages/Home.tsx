@@ -10,7 +10,7 @@ import { SBC } from "../interfaces/SBC";
 import {isMobile} from 'react-device-detect';
 import Modal from "../components/UI/Modal";
 import { NavLink } from 'react-router-dom';
-import {copied, open_link as openLinkIcon} from '../components/UI/icons';
+import { open_link as openLinkIcon} from '../components/UI/icons';
 import Info from "../components/UI/Info";
 import styles from "../components/UI/Tooltip.module.css";
 
