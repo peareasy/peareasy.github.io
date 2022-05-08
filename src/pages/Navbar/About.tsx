@@ -18,9 +18,9 @@ const About = () => {
         Our service is still at an early stage, but we are tirelessly working to improve the AI as well as the experience and services we offer.
       </p>
       <p className="text-secondary text-m text-left">
-            Please feel free to contact us with any feedback or ideas through our <NavLink
+        Please feel free to contact us with any feedback or ideas through our <NavLink
             to={'contact'}>
-        Contact page</NavLink>.
+            Contact page</NavLink>.
       </p>
       <h3 className="text-secondary text-2xl text-left">About us</h3>
       <p className="text-secondary text-m text-left">
