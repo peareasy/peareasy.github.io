@@ -10,6 +10,7 @@ import Tos from "./pages/Footer/Tos";
 import Privacy from "./pages/Footer/Privacy";
 import Footer from "./components/UI/Footer/Footer";
 import Tutorial from "./pages/Navbar/Tutorial";
+import Premium from "./pages/Navbar/Premium";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path={"/tos"} component={Tos} />
           <Route path={"/tutorial"} component={Tutorial} />
           <Route path={"/privacy"} component={Privacy} />
+          <Route path={"/premium"} component={Premium} />
           <Route exact path={"/"} component={Home} />
           <Footer/>
         </div>

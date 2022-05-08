@@ -11,6 +11,7 @@ export { getPlayers } from "./requests/getPlayers";
 export { deletePlayers } from "./requests/deletePlayers"
 export { deletePlayersUsedInSBCs } from "./requests/deletePlayersUsedInSBC"
 export { getSBCs } from "./requests/getSBCs";
+export { makePayment } from "./requests/makePayment";
 export { solveSBC } from "./requests/solveSBC";
 export { signIn } from "./requests/signIn";
 export { signUp } from "./requests/signUp";
