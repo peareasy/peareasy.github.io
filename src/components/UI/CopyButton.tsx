@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { copy, copied  } from './icons';
-import styles from "./Copy.module.css"
+import styles from "./Tooltip.module.css"
 
 type ButtonProps = {
   value: string;
