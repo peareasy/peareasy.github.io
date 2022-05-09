@@ -94,11 +94,10 @@ const Home = () => {
       sendUUIDToExtension()
       api.verifyUser(cookies["userId"]);
       onGetSBCs()
-      console.log("sbcs", sbcs);
       
       setUserId(cookies["userId"])
     }
-  }, [sendUUIDToExtension, onGetSBCs, sbcs, Steps.DownloadExtension, Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId, extensionInstalled])
+  }, [sendUUIDToExtension, onGetSBCs, Steps.DownloadExtension, Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId, extensionInstalled])
 
   const onTosAcceptChange = () => {
     setTosAccepted(!tosAccepted)
