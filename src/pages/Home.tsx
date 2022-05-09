@@ -68,19 +68,17 @@ const Home = () => {
 
   const onGetSBCs = useCallback( () => {
     setLoading(true)
-    console.log("sbcs", sbcs);
 
     api.getSBCs().then((sbcs) => {
       setSBCs(sbcs)
       setLoading(false)
-      console.log("sbcs", sbcs);
       sbcs[0].link = "/sbc1.png"
       sbcs[1].link = "/sbc2.png"
       sbcs[2].link = "/sbc3.png"
       sbcs[3].link = "/sbc4.png"
 
     }).catch(() => setLoading(false))
-  }, [sbcs])
+  }, [])
 
   useEffect(() => {
     if (!cookies["userId"]) {
