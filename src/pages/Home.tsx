@@ -10,8 +10,9 @@ import { SBC } from "../interfaces/SBC";
 import {isMobile} from 'react-device-detect';
 import Modal from "../components/UI/Modal";
 import { NavLink } from 'react-router-dom';
-import { open_link as openLinkIcon } from '../components/UI/icons';
+import { open_link as openLinkIcon} from '../components/UI/icons';
 import Info from "../components/UI/Info";
+import styles from "../components/UI/Tooltip.module.css";
 
 
 const Home = () => {
@@ -194,7 +195,11 @@ const Home = () => {
       </div>
       <div className="bg-zinc-800 flex flex-col mt-2 mb-24 w-52  laptop:h-72 h-72 rounded-sm shadow-md shadow-zinc-900">
         <div className="ml-4 mr-4 mt-8 h-16">
-          <SecondaryButton title={"Next"} onClick={onGetPlayers} disabled={!nextEnabled}/>
+
+          <div className={styles.tooltip + " w-44 h-16"}>
+            {!nextEnabled ? <span className={styles.tooltiptextnext}>Import your players first!</span> : <></>}
+            <SecondaryButton title={"Next"} onClick={onGetPlayers} disabled={!nextEnabled}/>
+          </div>
         </div>
         <div className="bg-primary-700 rounded-full w-12 h-12 m-auto mb-4 flex shadow shadow-gray-900">
           <p className="text-secondary m-auto text-2xl text-bold z-40">5</p>

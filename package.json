@@ -16,7 +16,11 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
     "@types/react-router": "^5.1.18",
+<<<<<<< HEAD
     "axios": "^0.21.4",
+=======
+    "axios": "^0.27.2",
+>>>>>>> main
     "daisyui": "^1.16.0",
     "gh-pages": "^3.2.3",
     "react": "^18.1.0",
