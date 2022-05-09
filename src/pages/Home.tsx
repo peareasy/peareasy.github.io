@@ -80,7 +80,7 @@ const Home = () => {
       sbcs[3].link = "/sbc4.png"
 
     }).catch(() => setLoading(false))
-  }, [])
+  }, [sbcs])
 
   useEffect(() => {
     if (!cookies["userId"]) {
