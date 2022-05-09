@@ -64,7 +64,23 @@ const Home = () => {
       setLoading(false)
       console.error("window.chrome not available");
     }
-  }, [cookies, extensionId])
+  }, [cookies, extensionId]);
+
+  const onGetSBCs = () => {
+    setLoading(true)
+    console.log("sbcs", sbcs);
+
+    api.getSBCs().then((sbcs) => {
+      setSBCs(sbcs)
+      setLoading(false)
+      console.log("sbcs", sbcs);
+      sbcs[0].link = "/sbc1.png"
+      sbcs[1].link = "/sbc2.png"
+      sbcs[2].link = "/sbc3.png"
+      sbcs[3].link = "/sbc4.png"
+
+    }).catch(() => setLoading(false))
+  }
 
   useEffect(() => {
     if (!cookies["userId"]) {
@@ -82,7 +98,7 @@ const Home = () => {
       
       setUserId(cookies["userId"])
     }
-  }, [sendUUIDToExtension, Steps.DownloadExtension, Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId, extensionInstalled])
+  }, [sendUUIDToExtension, onGetSBCs, sbcs, Steps.DownloadExtension, Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId, extensionInstalled])
 
   const onTosAcceptChange = () => {
     setTosAccepted(!tosAccepted)
@@ -110,22 +126,6 @@ const Home = () => {
         setImportError(false)
       }
       setLoading(false)
-    }).catch(() => setLoading(false))
-  }
-
-  const onGetSBCs = () => {
-    setLoading(true)
-    console.log("sbcs", sbcs);
-
-    api.getSBCs().then((sbcs) => {
-      setSBCs(sbcs)
-      setLoading(false)
-      console.log("sbcs", sbcs);
-      sbcs[0].link = "/sbc1.png"
-      sbcs[1].link = "/sbc2.png"
-      sbcs[2].link = "/sbc3.png"
-      sbcs[3].link = "/sbc4.png"
-
     }).catch(() => setLoading(false))
   }
 
