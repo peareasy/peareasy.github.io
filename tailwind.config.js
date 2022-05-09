@@ -11,6 +11,7 @@ module.exports = {
       primary: colors.indigo,
       secondary: colors.white,
       tertiary: colors.purple,
+      slate: colors.slate,
       gray: colors.gray,
       error: colors.red,
       teal: colors.teal,
