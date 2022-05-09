@@ -1,4 +1,3 @@
-import React, {ReactElement, ReactNode} from "react";
 import {NavLink} from "react-router-dom";
 
 const About = ()  => {
