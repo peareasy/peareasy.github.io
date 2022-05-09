@@ -66,7 +66,7 @@ const Home = () => {
     }
   }, [cookies, extensionId]);
 
-  const onGetSBCs = () => {
+  const onGetSBCs = useCallback( () => {
     setLoading(true)
     console.log("sbcs", sbcs);
 
@@ -80,7 +80,7 @@ const Home = () => {
       sbcs[3].link = "/sbc4.png"
 
     }).catch(() => setLoading(false))
-  }
+  }, [])
 
   useEffect(() => {
     if (!cookies["userId"]) {
