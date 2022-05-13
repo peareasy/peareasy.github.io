@@ -11,6 +11,8 @@ import Privacy from "./pages/Footer/Privacy";
 import Footer from "./components/UI/Footer/Footer";
 import Tutorial from "./pages/Navbar/Tutorial";
 import Premium from "./pages/Navbar/Premium";
+import PaymentSuccess from "./pages/Payments/PaymentSuccess";
+import PaymentCancelled from "./pages/Payments/PaymentCancelled";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path={"/tutorial"} component={Tutorial} />
           <Route path={"/privacy"} component={Privacy} />
           <Route path={"/premium"} component={Premium} />
+          <Route path={"/payment-success"} component={PaymentSuccess} />
+          <Route path={"/payment-cancelled"} component={PaymentCancelled} />
           <Route exact path={"/"} component={Home} />
           <Footer/>
         </div>

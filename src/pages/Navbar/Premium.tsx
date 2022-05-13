@@ -1,22 +1,24 @@
 import { useState } from "react"
 import StripeContainer from "../../components/Payments/StripeContainer"
 import { PrimaryButton } from "../../components/UI/Button"
-
+import { SubscriptionPlan } from "../../components/UI/Products/SubscriptionPlan"
 const Premium = () => {
-    const [showItem, setShowItem] = useState(false)
     return (
-        <main className={'container mx-auto w-1/2 space-y-5 pb-10 pt-10 p-20 overflow-visible'}>
-            <h1 className="text-secondary text-2xl text-left">Pick your plan</h1>
-            {
-                showItem ? <StripeContainer/>
-                : 
-                <>
-                    <h3 className="text-secondary text-2xl text-left">$10.00</h3> 
-                    <PrimaryButton onClick={() => setShowItem(true)} title={"Subscribe"}/>
-                </>
-            }
+        <main className={'text-secondary text-center m-auto relative z-10'}>
+            <div className='flex flex-row'>
+                <SubscriptionPlan 
+                  name={'Premium'}
+                  priceId={'price_1KxW36ATqmUvIGSp9HaaKJ1W'}
+                  features={['All SBCs', 'Standard Solver']}
+                />
+                <SubscriptionPlan 
+                  name={'Elite'}
+                  priceId={'price_1KxW3JATqmUvIGSpUNtkROG6'}
+                  features={['All SBCs', 'Improved Solver', 'Toggle Untradeables']}
+                />
+            </div>
         </main>
-    )
+    );
 }
 
 export default Premium

@@ -6,6 +6,7 @@ const instance = axios.create({
 
 export default instance;
 
+export { createCheckoutSession } from "./requests/createCheckoutSession";
 export { loginAsAnonymous } from "./requests/loginAsAnonymous";
 export { getPlayers } from "./requests/getPlayers";
 export { deletePlayers } from "./requests/deletePlayers"
