@@ -72,11 +72,6 @@ const Home = () => {
     api.getSBCs().then((sbcs) => {
       setSBCs(sbcs)
       setLoading(false)
-      sbcs[0].link = "/sbc1.png"
-      sbcs[1].link = "/sbc2.png"
-      sbcs[2].link = "/sbc3.png"
-      sbcs[3].link = "/sbc4.png"
-
     }).catch(() => setLoading(false))
   }, [])
 
@@ -226,7 +221,7 @@ const Home = () => {
       </h1>
       <div className="grid grid-cols-2 gap-4 pb-2">
         {sbcs.length > 0 ? sbcs.map((sbc, index) =>
-          <CardSBC title={sbc.name} key={sbc.name} changeImg={sbc.link}
+          <CardSBC title={sbc.name} key={sbc.name} changeImg={sbc.icon_url}
                    onClick={() => setSelectedSBC(index === selectedSBC ? -1 : index)}
                    selected={selectedSBC === index}/>) : null}
       </div>

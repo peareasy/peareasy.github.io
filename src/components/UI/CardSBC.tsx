@@ -15,7 +15,7 @@ const CardSBC = ({title, onClick, selected, changeImg}: CardSBCProps) => {
   // '/sbc.png' : process.env.PUBLIC_URL+'/sbc_gold.png' } />
   return (
     <div key={title} className={cardClassName.join(' ')} onClick={onClick}>
-      <p className='pt-4 text-l'>
+      <p className='pt-4 text-l mx-2'>
         {title}
       </p>
       <div className='mx-auto w-44'>
