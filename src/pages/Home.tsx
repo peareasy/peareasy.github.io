@@ -275,7 +275,7 @@ const Home = () => {
     solutionView = (
       <div className={'space-y-8'}>
         <h1 className="text-5xl font-bold m-auto">
-          No possible solution with your club!
+          No solution with your club!
         </h1>
         <p>
           {solution?.solution_message}
