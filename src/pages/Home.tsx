@@ -311,7 +311,7 @@ const Home = () => {
     <h1 className="text-2xl mx-auto h-4/5">
       Our AI is working hard to get you a good solution.
     </h1>
-    <h1 className="text-2xl mx-auto pb-12">This might take up to 60 seconds 👊🏽</h1>
+    <h1 className="text-2xl mx-auto pb-12">This might take up to 10 seconds 👊🏽</h1>
     <Spinner/>
   </div>)
 
