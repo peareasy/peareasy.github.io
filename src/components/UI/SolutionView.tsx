@@ -21,9 +21,9 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
   console.log("large card", largeCards);
   
   let counter = 0;
-  const cardWitdh = largeCards >= 0 ? "w-48" : "w-40";
-  const cardClasses = "rounded-lg bg-primary-900 flex flex-row m-auto justify-between".split(" ");
-  cardClasses.push(cardWitdh)
+  // const cardWitdh = largeCards >= 0 ? "w-48" : "w-40";
+  const cardClasses = "w-36 lg:w-42 xl:w-48 rounded-lg bg-primary-900 flex flex-row m-auto justify-between".split(" ");
+  // cardClasses.push(cardWitdh)
 
   for (let i = 0; i < formation.length; i++) {
     const row = []
@@ -32,7 +32,7 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
         <div className={cardClasses.join(" ")}>
           <div className="flex flex-col p-2">
             <CopyButton value={players[counter].name} />
-            <div className="text-xs text-left">{players[counter].position+', '+players[counter].rating}</div>
+            <div className="text-tiny lg:text-xs text-left">{players[counter].position+', '+players[counter].rating}</div>
           </div>
           <div className="flex flex-col p-2">
             {players[counter].loyalty ?
@@ -56,8 +56,8 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
   }
   return (
       <div className={"mx-auto flex justify-center"}>
-        <div className="flex flex-row gap-x-16 ">
-          <div className="text-secondary flex-2 w-48 text-center font-light text-2xl "></div>
+        <div className="flex flex-row gap-x-2 lg:gap-x-8 xl:gap-x-16 ">
+          <div className="text-secondary flex-2 lg:w-32 xl:w-48 text-center font-light text-2xl"></div>
           <div className="flex flex-col gap-y-4 flex-1 w-1/3">
             {formationWithPlayers.reverse()}
           </div>

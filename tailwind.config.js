@@ -37,9 +37,16 @@ module.exports = {
         'youtube-md': '640px',
         'youtube-lg': '853px'
       },
+      fontSize: {
+        'tiny': '.6rem',
+      },
     },
+
     screens: {
       'mobile': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
       'low-res': {'max': '1280px'},
       'laptop': {'max': '2000px'},
     },

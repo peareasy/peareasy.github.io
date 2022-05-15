@@ -12,7 +12,7 @@ const CopyButton = ({value}: ButtonProps) => {
 
   return (
       <div className="flex flex-row text-center m-auto">
-          <span className='mr-1'>{value}</span>
+          <span className='text-xs lg:text-base mr-1'>{value}</span>
           <button className={clicked ? "cursor-default" : ""} disabled={clicked}
       onClick={() => {
           navigator.clipboard.writeText(value);
