@@ -56,8 +56,8 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
             {formationWithPlayers.reverse()}
           </div>
 
-          <div className="space-y-4 text-center flex-2 w-48">
-            <div className="text-secondary text-center font-light rounded-lg bg-gray-800 flex flex-col gap-y-4 w-full pb-4">
+          <div className="space-y-4 text-center flex-2 w-32 lg:w-48">
+            <div className="text-secondary text-xs lg:text-base text-center font-light rounded-lg bg-gray-800 flex flex-col gap-y-4 w-full pb-4">
               <h1 className="font-light mt-4 text-xl">Constraints</h1>
               <p className="text-m flex flex-row mx-auto"><span className="pr-1">{copied}</span>Rating: {sbc.min_rating} ({solution.rating})</p>
               <p className="text-m flex flex-row mx-auto"><span className="pr-1">{copied}</span>Chem: {sbc.min_chemistry} ({solution.chem})</p>
@@ -65,7 +65,7 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
               <p className="text-m flex flex-row mx-auto">Cost: {solution.cost}</p>
             </div>
             <div className="text-secondary xl:text-base text-center font-light rounded-lg bg-gray-800 flex flex-col w-full gap-y-4  pt-4">
-              <div className="flex flex-col m-auto gap-y-4">
+              <div className="flex flex-col m-auto gap-y-4  text-xs lg:text-base">
                 <div className="flex flex-row mx-auto">
                   <div className="w-6 m-auto">
                     <img className="w-4" alt="loyalty" src={process.env.PUBLIC_URL + '/loyalty.png'}/>
