@@ -27,9 +27,9 @@ const Home = () => {
   }
 
   const extensionId = process.env.REACT_APP_EXTENSION_ID!
-
   // setup phase
   const [cookies, setCookie] = useCookies(["userId"]);
+  console.log(cookies)
   const [userId, setUserId] = useState("")
   const [tosAccepted, setTosAccepted] = useState(false)
   const [extensionInstalled, setExtensionInstalled] = useState(false)
@@ -50,7 +50,6 @@ const Home = () => {
   const sendUUIDToExtension = useCallback(() => {
     if (window.chrome?.runtime) {
       setLoading(true)
-
       window.chrome.runtime.sendMessage(
           extensionId,
           {

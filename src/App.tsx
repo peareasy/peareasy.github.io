@@ -10,6 +10,7 @@ import Tos from "./pages/Footer/Tos";
 import Privacy from "./pages/Footer/Privacy";
 import Footer from "./components/UI/Footer/Footer";
 import Tutorial from "./pages/Navbar/Tutorial";
+import SignInWithGoogle from "./pages/SignInWithGoogle";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
                 <Route path={"/tos"} element={<Tos/>} />
                 <Route path={"/tutorial"} element={<Tutorial/>} />
                 <Route path={"/privacy"} element={<Privacy/>} />
+                <Route path={"/login"} element={<SignInWithGoogle/>} />
                 <Route path={"/"} element={<Home/>} />
             </Routes>
             <Footer/>

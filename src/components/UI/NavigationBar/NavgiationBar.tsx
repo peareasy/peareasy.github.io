@@ -49,6 +49,14 @@ const NavigationBar = () => {
               about
             </NavigationItem>
           </ul>
+          <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
+            <NavigationItem
+              link={'/login'}
+              onClick={() => setNavbarOpen(!navbarOpen)}
+            >
+              login
+            </NavigationItem>
+          </ul>
         </div>
       </div>
     </nav>
