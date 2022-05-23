@@ -1,5 +1,5 @@
 import GoogleLogin from "react-google-login";
-import {login, signUp} from "../api/publicApi";
+import {login} from "../api/publicApi";
 import {useNavigate} from "react-router";
 import {useState} from "react";
 
@@ -23,22 +23,6 @@ const Login = ({setLogin}:LoginProps) => {
     })
   }
 
-  const responseGoogleSignUp = (response: any) => {
-    console.log('sign up called')
-    setError('')
-    signUp(response).then(res => {
-      setLogin(true);
-      navigate('/')
-    }).catch(err => {
-      console.log('login error: ', err);
-      if (err.response.status === 409) {
-        setError('User already exists. Try to login instead')
-      } else {
-        setError('Something went wrong. Try again later')
-      }
-    })
-  }
-
   return <div className='mx-auto flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded'>
     <div>
       <h1 className='text-xl text-secondary'>Log in to easySBC ⚽</h1>
@@ -47,7 +31,7 @@ const Login = ({setLogin}:LoginProps) => {
     <h3 className='text-xs font-light text-gray-300'>
       In order to utilize all the functionality provided, please log in below.
     </h3>
-    <div className='mx-auto flex flex-col gap-y-4'>
+    <div className='mx-auto flex flex-col pt-4'>
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
         buttonText="Login with Google"
@@ -55,13 +39,6 @@ const Login = ({setLogin}:LoginProps) => {
         onFailure={responseGoogleLogin}
         cookiePolicy={'single_host_origin'}
     />
-      <GoogleLogin
-        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
-        buttonText="Sign Up with Google"
-        onSuccess={responseGoogleSignUp}
-        onFailure={responseGoogleSignUp}
-        cookiePolicy={'single_host_origin'}
-      />
     </div>
     {<div className='text-sm text-error-500 mx-auto'>{error}</div>}
   </div>

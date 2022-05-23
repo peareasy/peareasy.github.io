@@ -13,6 +13,5 @@ export { deletePlayersUsedInSBCs } from "./publicRequests/deletePlayersUsedInSBC
 export { getSBCs } from "./publicRequests/getSBCs";
 export { solveSBC } from "./publicRequests/solveSBC";
 export { login } from "./publicRequests/login";
-export { signUp } from "./publicRequests/signUp";
 export { sendMessage } from "./publicRequests/sendMessage"
 export { verifyUser } from "./publicRequests/verifyUser"
