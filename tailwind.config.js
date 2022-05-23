@@ -11,6 +11,7 @@ module.exports = {
       primary: colors.indigo,
       secondary: colors.white,
       tertiary: colors.purple,
+      slate: colors.slate,
       gray: colors.gray,
       error: colors.red,
       teal: colors.teal,
@@ -36,9 +37,16 @@ module.exports = {
         'youtube-md': '640px',
         'youtube-lg': '853px'
       },
+      fontSize: {
+        'tiny': '.6rem',
+      },
     },
+
     screens: {
       'mobile': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
       'low-res': {'max': '1280px'},
       'laptop': {'max': '2000px'},
     },

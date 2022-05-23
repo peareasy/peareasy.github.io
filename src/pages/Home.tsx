@@ -61,7 +61,16 @@ const Home = () => {
       setLoading(false)
       console.error("window.chrome not available");
     }
-  }, [cookies, extensionId])
+  }, [cookies, extensionId]);
+
+  const onGetSBCs = useCallback( () => {
+    setLoading(true)
+
+    api.getSBCs().then((sbcs) => {
+      setSBCs(sbcs)
+      setLoading(false)
+    }).catch(() => setLoading(false))
+  }, [])
 
   useEffect(() => {
     if (!cookies["userId"]) {
@@ -75,9 +84,10 @@ const Home = () => {
       sendUUIDToExtension()
       api.verifyUser(cookies["userId"]);
       onGetSBCs()
+      
       setUserId(cookies["userId"])
     }
-  }, [sendUUIDToExtension, Steps.DownloadExtension, Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId, extensionInstalled])
+  }, [sendUUIDToExtension, onGetSBCs, Steps.DownloadExtension, Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId, extensionInstalled])
 
   const onTosAcceptChange = () => {
     setTosAccepted(!tosAccepted)
@@ -104,14 +114,6 @@ const Home = () => {
         setStep(Steps.ChooseSBC)
         setImportError(false)
       }
-      setLoading(false)
-    }).catch(() => setLoading(false))
-  }
-
-  const onGetSBCs = () => {
-    setLoading(true)
-    api.getSBCs().then((sbcs) => {
-      setSBCs(sbcs)
       setLoading(false)
     }).catch(() => setLoading(false))
   }
@@ -216,7 +218,7 @@ const Home = () => {
       </h1>
       <div className="grid grid-cols-2 gap-4 pb-2">
         {sbcs.length > 0 ? sbcs.map((sbc, index) =>
-          <CardSBC title={sbc.name} key={sbc.name} changeImg={index % 2 === 0}
+          <CardSBC title={sbc.name} key={sbc.name} changeImg={sbc.icon_url}
                    onClick={() => setSelectedSBC(index === selectedSBC ? -1 : index)}
                    selected={selectedSBC === index}/>) : null}
       </div>
@@ -270,7 +272,7 @@ const Home = () => {
     solutionView = (
       <div className={'space-y-8'}>
         <h1 className="text-5xl font-bold m-auto">
-          Oh no, we couldn't find a solution 😔
+          No solution with your club!
         </h1>
         <p>
           {solution?.solution_message}
@@ -306,7 +308,7 @@ const Home = () => {
     <h1 className="text-2xl mx-auto h-4/5">
       Our AI is working hard to get you a good solution.
     </h1>
-    <h1 className="text-2xl mx-auto pb-12">This might take up to 60 seconds 👊🏽</h1>
+    <h1 className="text-2xl mx-auto pb-12">This might take up to 10 seconds 👊🏽</h1>
     <Spinner/>
   </div>)
 

@@ -1,7 +1,6 @@
-import React from "react";
 import {NavLink} from "react-router-dom";
 
-const About = () => {
+const About = ()  => {
   return (
     <main className={'container mx-auto w-1/2 space-y-5 pb-10 pt-10 p-20 overflow-visible'}>
       <h3 className="text-secondary text-2xl text-left">What we offer</h3>
@@ -29,5 +28,6 @@ const About = () => {
     </main>
   )
 }
+
 
 export default About 

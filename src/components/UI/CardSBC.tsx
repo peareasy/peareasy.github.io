@@ -2,7 +2,7 @@ type CardSBCProps = {
   title: string;
   onClick: () => void;
   selected: boolean;
-  changeImg: boolean
+  changeImg: string;
 };
 
 const CardSBC = ({title, onClick, selected, changeImg}: CardSBCProps) => {
@@ -12,13 +12,15 @@ const CardSBC = ({title, onClick, selected, changeImg}: CardSBCProps) => {
   } else {
     cardClassName.push('bg-gray-900 border-gray-900')
   }
+  // '/sbc.png' : process.env.PUBLIC_URL+'/sbc_gold.png' } />
   return (
     <div key={title} className={cardClassName.join(' ')} onClick={onClick}>
-      <p className='p-4 text-l'>
+      <p className='pt-4 text-l mx-2'>
         {title}
       </p>
-      <div className='m-auto w-24'>
-        <img alt={title} src={changeImg ? process.env.PUBLIC_URL+'/sbc.png' : process.env.PUBLIC_URL+'/sbc_gold.png' } />
+      <div className='mx-auto w-44'>
+        
+        <img alt={title} src={process.env.PUBLIC_URL + changeImg}/>
       </div>
     </div>
   )
