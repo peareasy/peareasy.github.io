@@ -12,19 +12,25 @@ const Login = ({setLogin}:LoginProps) => {
   const [error, setError] = useState('')
 
   const responseGoogleLogin = (response: any) => {
+    console.log('login called')
     setError('')
     login(response).then(res => {
       setLogin(true);
       navigate('/')
-    }).catch(err => setError('Couldn\'t find user. Are you sure that you have signed up?'))
+    }).catch(err => {
+      console.log('login error: ', err);
+      setError('Couldn\'t find user. Are you sure that you have signed up?')
+    })
   }
 
   const responseGoogleSignUp = (response: any) => {
+    console.log('sign up called')
     setError('')
     signUp(response).then(res => {
       setLogin(true);
       navigate('/')
     }).catch(err => {
+      console.log('login error: ', err);
       if (err.response.status === 409) {
         setError('User already exists. Try to login instead')
       } else {
