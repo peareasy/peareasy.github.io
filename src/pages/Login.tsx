@@ -26,7 +26,7 @@ const Login = ({setLogin}:LoginProps) => {
       navigate('/')
     }).catch(err => {
       if (err.response.status === 409) {
-        setError('User already exists, try to login instead')
+        setError('User already exists. Try to login instead')
       } else {
         setError('Something went wrong. Try again later')
       }
