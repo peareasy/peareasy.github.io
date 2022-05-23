@@ -18,8 +18,7 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
   let largeCards = players.findIndex((p) => {
     return p.name.length >= 10
   });
-  console.log("large card", largeCards);
-  
+
   let counter = 0;
   const cardWitdh = largeCards >= 0 ? "w-48" : "w-40";
   const cardClasses = "rounded-lg bg-primary-900 flex flex-row m-auto justify-between".split(" ");

@@ -3,7 +3,11 @@ import { NavLink } from 'react-router-dom';
 import NavigationItem from './NavigationItem';
 import { menu as menuIcon } from '../icons';
 
-const NavigationBar = () => {
+type LoggedInProps = {
+  isLoggedIn: boolean;
+}
+
+const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-6 mb-8">
@@ -51,10 +55,10 @@ const NavigationBar = () => {
           </ul>
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
-              link={'/login'}
+              link={isLoggedIn ? '/profile' : '/login' }
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
-              login
+              {isLoggedIn ? 'profile' : 'login' }
             </NavigationItem>
           </ul>
         </div>

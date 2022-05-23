@@ -1,4 +1,4 @@
-import axios from "../api"
+import axios from "../publicApi"
 
 export const verifyUser = async (uuid) => {
     const response = await axios.get('/users/verify', { headers: { "x-auth-token": uuid } });
