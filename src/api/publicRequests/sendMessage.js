@@ -1,4 +1,4 @@
-import axios from "../api"
+import axios from "../publicApi"
 
 export const sendMessage = (message) => {
   return axios.post('/users/message', message).then(response => {

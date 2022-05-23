@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
-import * as api from "../api/api";
+import * as api from "../api/publicApi";
 import {SecondaryButton, PrimaryButton} from "../components/UI/Button";
 import Spinner from "../components/UI/Spinner/Spinner";
 import CardSBC from "../components/UI/CardSBC";
@@ -27,12 +27,11 @@ const Home = () => {
   }
 
   const extensionId = process.env.REACT_APP_EXTENSION_ID!
-
   // setup phase
   const [cookies, setCookie] = useCookies(["userId"]);
   const [userId, setUserId] = useState("")
   const [tosAccepted, setTosAccepted] = useState(false)
-  const [extensionInstalled, setExtensionInstalled] = useState(false)
+  const [extensionInstalled, setExtensionInstalled] = useState(true)
 
   // navigation
   const [step, setStep] = useState(Steps.Start)
@@ -50,7 +49,6 @@ const Home = () => {
   const sendUUIDToExtension = useCallback(() => {
     if (window.chrome?.runtime) {
       setLoading(true)
-
       window.chrome.runtime.sendMessage(
           extensionId,
           {
@@ -58,7 +56,6 @@ const Home = () => {
           }, (res) => {
             setLoading(false)
             setExtensionInstalled(res.msg === 'confirmation')
-            console.log("Response received from extension")
           });
     } else {
       setLoading(false)
@@ -229,7 +226,7 @@ const Home = () => {
         <p className="font-bold">Players have successfully been imported! 💥</p>
         <p className="text-sm">We have imported {numberOfPlayers} players</p>
       </div>}/>
-      <div className="pt-10 flex justify-around">
+      <div className="pt-10 flex justify-around pb-10">
         <PrimaryButton onClick={() => {
           setStep(Steps.ImportPlayers)
         }} title={"Back"}/>

@@ -1,4 +1,4 @@
-import axios from "../api"
+import axios from "../publicApi"
 
 export const solveSBC = (uuid, sbc) => {
 

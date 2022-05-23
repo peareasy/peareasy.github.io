@@ -1,4 +1,4 @@
-import axios from "../api";
+import axios from "../publicApi";
 
 export const deletePlayersUsedInSBCs = (uuid, players) => {
   const playerIds = players.map(player => player.id)

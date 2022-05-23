@@ -15,7 +15,7 @@ const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
   const formation = ("1-" + solution.formation).split('-').map(Number)
 
   const formationWithPlayers = []
-  
+
   let counter = 0;
   const cardClasses = "w-36 lg:w-42 xl:w-48 rounded-lg bg-primary-900 flex flex-row m-auto justify-between".split(" ");
 
