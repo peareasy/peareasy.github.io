@@ -12,16 +12,26 @@ const Login = ({setLogin}:LoginProps) => {
   const navigate = useNavigate();
   const divRef = useRef<HTMLDivElement>(null);
 
-  const handleGoogleSignIn = (res: CredentialResponse) => {
-    if (!res.clientId || !res.credential) {
-      setError('Couldn\'t login to your Google account');
-    } else {
-      handleBackendSignIn(res.credential)
-    }
-  }
-
   useEffect(() => {
     if (scriptLoaded) return undefined;
+
+    const handleBackendSignIn = (credential: string) => {
+      login(credential).then(_ => {
+        setLogin(true);
+        navigate('/')
+      }).catch(err => {
+        console.log('login error: ', err);
+        setError('Couldn\'t find user. Are you sure that you have signed up?')
+      })
+    }
+
+    const handleGoogleSignIn = (res: CredentialResponse) => {
+      if (!res.clientId || !res.credential) {
+        setError('Couldn\'t login to your Google account');
+      } else {
+        handleBackendSignIn(res.credential)
+      }
+    }
 
     const initializeGoogle = () => {
       if (!window.google || scriptLoaded) return;
@@ -37,7 +47,6 @@ const Login = ({setLogin}:LoginProps) => {
       window.google.accounts.id.renderButton(divRef.current!, {
         theme: 'outline',
         type: 'standard',
-        // shape: 'circle',
         width: '200px',
       })
       setScriptLoaded(true);
@@ -55,18 +64,8 @@ const Login = ({setLogin}:LoginProps) => {
       window.google?.accounts.id.cancel();
       document.getElementById("google-client-script")?.remove();
     };
-  }, [handleGoogleSignIn, scriptLoaded]);
+  }, [navigate, scriptLoaded, setLogin]);
 
-
-  const handleBackendSignIn = (credential: string) => {
-    login(credential).then(_ => {
-      setLogin(true);
-      navigate('/')
-    }).catch(err => {
-      console.log('login error: ', err);
-      setError('Couldn\'t find user. Are you sure that you have signed up?')
-    })
-  }
   return <div className='mx-auto flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded'>
     <div>
       <h1 className='text-xl text-secondary'>Log in to easySBC ⚽</h1>
