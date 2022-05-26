@@ -31,7 +31,7 @@ const Home = () => {
   const [cookies, setCookie] = useCookies(["userId"]);
   const [userId, setUserId] = useState("")
   const [tosAccepted, setTosAccepted] = useState(false)
-  const [extensionInstalled, setExtensionInstalled] = useState(true)
+  const [extensionInstalled, setExtensionInstalled] = useState(false)
 
   // navigation
   const [step, setStep] = useState(Steps.Start)
