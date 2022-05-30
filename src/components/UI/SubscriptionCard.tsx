@@ -20,7 +20,7 @@ const SubscriptionCard = ({tier, price, boxColor, content, currentSubscription, 
         <div className={'flex flex-col text-right'}>
           <span>{tier}</span>
           <span>
-            $ <span className={'font-semibold text-3xl'}>{price}</span>
+            $ <span className={'font-semibold text-3xl'}>{price}</span>  <span>{'/mo'}</span>
           </span>
         </div>
       </h1>
