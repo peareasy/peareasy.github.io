@@ -12,6 +12,9 @@ import Footer from "./components/UI/Footer/Footer";
 import Tutorial from "./pages/Navbar/Tutorial";
 import Login from "./pages/Login";
 import {useState} from "react";
+import Premium from "./pages/Navbar/Premium";
+import PaymentSuccess from "./pages/Payments/PaymentSuccess";
+import PaymentCancelled from "./pages/Payments/PaymentCancelled";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -31,6 +34,9 @@ function App() {
               <Route path={"/tutorial"} element={<Tutorial/>} />
               <Route path={"/privacy"} element={<Privacy/>} />
               <Route path={"/login"} element={<Login setLogin={setIsLoggedIn}/>} />
+              <Route path={"/premium"} element={<Premium/>} />
+              <Route path={"/payment-success"} element={<PaymentSuccess/>} />
+              <Route path={"/payment-cancelled"} element={<PaymentCancelled/>} />
               <Route path={"/"} element={<Home/>} />
             </Routes>
             <Footer/>

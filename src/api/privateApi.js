@@ -14,3 +14,5 @@ export default private_api;
 
 export { logout } from "./privateRequests/logout";
 export { getProfile } from "./privateRequests/getProfile";
+export { makePayment } from "./privateRequests/makePayment"
+export { createCheckoutSession } from "./privateRequests/createCheckoutSession"
