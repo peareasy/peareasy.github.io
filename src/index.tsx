@@ -4,7 +4,8 @@ import App from './App';
 import Bugsnag from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
 import ReactDOM from 'react-dom/client';
-
+import { Provider } from 'react-redux';
+import store from "./redux/store";
 
 Bugsnag.start({
   apiKey: process.env.REACT_APP_BUGSNAG_API_KEY!!,
@@ -20,7 +21,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ErrorBoundary>
+      <Provider store={store}>
         <App />
+      </Provider>
     </ErrorBoundary>
   </React.StrictMode>,
 );

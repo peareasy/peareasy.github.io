@@ -1,6 +1,9 @@
 import {login} from "../api/publicApi";
 import {useNavigate} from "react-router";
 import {useEffect, useRef, useState} from "react";
+import {fetchUser} from "../redux/user/userSlice";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "../redux/store";
 
 type LoginProps = {
   setLogin: (isLoggedIn: boolean) => void;
@@ -9,6 +12,7 @@ type LoginProps = {
 const Login = ({setLogin}:LoginProps) => {
   const [error, setError] = useState('')
   const [scriptLoaded, setScriptLoaded] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -16,7 +20,9 @@ const Login = ({setLogin}:LoginProps) => {
     if (scriptLoaded) return undefined;
 
     const handleBackendSignIn = (credential: string) => {
+      // TODO: update such that login itself is using redux as well
       login(credential).then(_ => {
+        dispatch(fetchUser())
         setLogin(true);
         navigate('/')
       }).catch(err => {
