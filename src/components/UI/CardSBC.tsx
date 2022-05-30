@@ -3,20 +3,20 @@ import {getUserSelector} from "../../redux/user/userSlice";
 
 type CardSBCProps = {
   title: string;
-  onClick: (clickedRestrictedSBC: boolean) => void;
+  onClick: (clickedSBC: boolean, is_marquee_match_up: boolean | undefined) => void;
   selected: boolean;
   changeImg: string;
   restricted: boolean;
+  is_marquee_match_up: boolean | undefined
 };
 
-const CardSBC = ({title, onClick, selected, changeImg, restricted}: CardSBCProps) => {
+const CardSBC = ({title, onClick, selected, changeImg, restricted, is_marquee_match_up}: CardSBCProps) => {
   const cardClassName = ['rounded-xl hover:bg-gray-800 flex flex-col m-auto cursor-pointer border-2 w-full']
 
   const user = useSelector(getUserSelector);
-  const denied = !user.data && restricted
 
-  const onCardClicked = (denied: boolean) => {
-    onClick(denied)
+  const onCardClicked = () => {
+    onClick(restricted, is_marquee_match_up)
   }
 
   if (selected) {
@@ -24,12 +24,12 @@ const CardSBC = ({title, onClick, selected, changeImg, restricted}: CardSBCProps
   } else {
     cardClassName.push('bg-gray-900 border-gray-900')
   }
-  if (denied) {
+  if (restricted && !(!user.data || is_marquee_match_up)) {
     cardClassName.push('bg-gray-400 border-gray-400 hover:bg-gray-500')
   }
 
   return (
-    <div key={title} className={cardClassName.join(' ')} onClick={() => onCardClicked(denied)}>
+    <div key={title} className={cardClassName.join(' ')} onClick={() => onCardClicked()}>
       <p className='pt-4 text-l mx-2'>
         {title}
       </p>

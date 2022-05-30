@@ -1,4 +1,3 @@
-import * as privateApi from "../api/privateApi";
 import {PrimaryButton} from "../components/UI/Button";
 import {useNavigate} from "react-router";
 import {useDispatch, useSelector} from 'react-redux';

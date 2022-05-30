@@ -5,5 +5,6 @@ export interface SBC {
   max_constraints: [],
   min_constraints: [],
   icon_url: string,
-  restricted: boolean
+  restricted: boolean,
+  marquee_match_up: boolean | undefined
 }

@@ -16,6 +16,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "../redux/store";
 import {fetchSbcs, getSBCsSelector} from "../redux/sbcs/sbcsSlice";
 import {useNavigate} from "react-router";
+import {getUserSelector} from "../redux/user/userSlice";
 
 
 const Home = () => {
@@ -48,6 +49,7 @@ const Home = () => {
   // data
   const dispatch = useDispatch<AppDispatch>();
   const sbcs = useSelector(getSBCsSelector);
+  const user = useSelector(getUserSelector)
   const [numberOfPlayers, setNumberOfPlayers] = useState(0)
   const [solution, setSolution] = useState<Solution>()
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
@@ -134,9 +136,16 @@ const Home = () => {
       })
   }
 
-  const onSBCClicked = (index: number, clickedRestrictedSBC: boolean) => {
-    if (clickedRestrictedSBC) {
-      setShowSbcRestrictedModal(true)
+  const onSBCClicked = (index: number, restricted: boolean, is_marquee_match_up?: boolean) => {
+    if (restricted) {
+      if (!is_marquee_match_up) {
+        setShowSbcRestrictedModal(true)
+      }
+      if (is_marquee_match_up && !user.data) {
+        setShowSbcRestrictedModal(true)
+      } else {
+        setSelectedSBC(index)
+      }
     } else {
       setSelectedSBC(index)
     }
@@ -215,29 +224,46 @@ const Home = () => {
       </div>
     </div> : null}
     </div>)
-
+  let sbcHeaderModal = ''
+  let sbcBodyModal = ''
+  let sbcModalNavigationModal = ''
+  let sbcPositiveActionButtonLabelModal = ''
+  if (showSbcRestrictedModal) {
+    if (user.data) {
+      sbcHeaderModal = '❗ You need a premium subscription in order to solve this SBC'
+      sbcBodyModal = 'We kindly ask you to upgrade your subscription in order to solve this SBC'
+      sbcModalNavigationModal = '/subscription'
+      sbcPositiveActionButtonLabelModal = 'See Subscriptions'
+    } else {
+      sbcHeaderModal = '❗ You need to login in order to access to solve this SBC'
+      sbcBodyModal = 'We kindly ask you to login in order to solve solve this SBC'
+      sbcModalNavigationModal = '/login'
+      sbcPositiveActionButtonLabelModal = 'Login'
+    }
+  }
   let sbcsView = (
     <div className="space-y-2">
       <>
         <h1 className="text-3xl font-light mb-6">
           Select an SBC 👇🏼
         </h1>
-          {showSbcRestrictedModal ? <Modal header={"❗ You need to login in order to access the rest of the SBCs"}
-                                          body={"We kindly ask you to login in order to solve the rest of the SBCs"}
-                                          onNegativeActionClicked={() => setShowSbcRestrictedModal(false)}
-                                          onPositiveActionClicked={() => {
-                                            setShowSbcRestrictedModal(false)
-                                            navigate('/login')
-                                          }}
-                                          onCloseClicked={() => setShowSbcRestrictedModal(false)}
-                                          positiveActionButtonLabel="Login"
-                                          negativeActionButtonLabel="No"/> :
+          {showSbcRestrictedModal ?
+            <Modal header={sbcHeaderModal}
+                    body={sbcBodyModal}
+                    onNegativeActionClicked={() => setShowSbcRestrictedModal(false)}
+                    onPositiveActionClicked={() => {
+                      setShowSbcRestrictedModal(false)
+                      navigate(sbcModalNavigationModal)
+                    }}
+                    onCloseClicked={() => setShowSbcRestrictedModal(false)}
+                    positiveActionButtonLabel={sbcPositiveActionButtonLabelModal}
+                    negativeActionButtonLabel="Cancel"/> :
         <>
         <div className="grid grid-cols-2 gap-4 pb-2">
           {sbcs.data.length > 0 ? sbcs.data.map((sbc, index) =>
-            <CardSBC title={sbc.name} key={sbc.name} changeImg={sbc.icon_url} restricted={sbc.restricted}
-                     onClick={(restrictedSBCClicked) => {
-                       onSBCClicked(index === selectedSBC ? -1 : index, restrictedSBCClicked)
+            <CardSBC title={sbc.name} key={sbc.name} changeImg={sbc.icon_url} restricted={sbc.restricted} is_marquee_match_up={sbc.marquee_match_up}
+                     onClick={(description, is_marquee_match_up?: boolean) => {
+                       onSBCClicked(index === selectedSBC ? -1 : index, description, is_marquee_match_up)
                      }}
                      selected={selectedSBC === index}/>) : null}
         </div>
