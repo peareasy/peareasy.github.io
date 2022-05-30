@@ -46,7 +46,6 @@ const userSlice = createSlice({
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.user.status = APIStatus.FULFILLED;
-        console.log("action payload: ", action.payload)
         if (action.payload) {
           state.user.data = action.payload
         } else {
