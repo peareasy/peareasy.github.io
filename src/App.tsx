@@ -15,6 +15,7 @@ import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "./redux/store";
 import {fetchUser} from "./redux/user/userSlice";
+import Subscription from "./pages/Subscription";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -37,6 +38,7 @@ function App() {
               <Route path={"/tutorial"} element={<Tutorial/>} />
               <Route path={"/privacy"} element={<Privacy/>} />
               <Route path={"/login"} element={<Login setLogin={setIsLoggedIn}/>} />
+              <Route path={"/subscription"} element={<Subscription/>}/>
               <Route path={"/"} element={<Home/>} />
             </Routes>
             <Footer/>
