@@ -59,7 +59,6 @@ const Login = ({setLogin}:LoginProps) => {
     script.id = "google-client-script";
     document.querySelector("body")?.appendChild(script);
 
-    console.log('execute')
     return () => {
       window.google?.accounts.id.cancel();
       document.getElementById("google-client-script")?.remove();
