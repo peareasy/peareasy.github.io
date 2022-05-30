@@ -18,7 +18,7 @@ const About = ()  => {
       </p>
       <p className="text-secondary text-m text-left">
         Please feel free to contact us with any feedback or ideas through our <NavLink
-            to={'contact'}>
+            to={'/contact'}>
             Contact page</NavLink>.
       </p>
       <h3 className="text-secondary text-2xl text-left">About us</h3>
