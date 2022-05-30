@@ -1,5 +1,3 @@
-import {PrimaryButton} from "./Button";
-
 type SubscriptionCardProps = {
   tier: string;
   price: number;

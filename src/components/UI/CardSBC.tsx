@@ -24,7 +24,7 @@ const CardSBC = ({title, onClick, selected, changeImg, restricted, is_marquee_ma
   } else {
     cardClassName.push('bg-gray-900 border-gray-900')
   }
-  if (restricted && !(!user.data || is_marquee_match_up)) {
+  if (restricted && !(is_marquee_match_up && user.data)) {
     cardClassName.push('bg-gray-400 border-gray-400 hover:bg-gray-500')
   }
 

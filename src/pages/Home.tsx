@@ -137,18 +137,11 @@ const Home = () => {
   }
 
   const onSBCClicked = (index: number, restricted: boolean, is_marquee_match_up?: boolean) => {
-    if (restricted) {
-      if (!is_marquee_match_up) {
-        setShowSbcRestrictedModal(true)
-      }
-      if (is_marquee_match_up && !user.data) {
+    if (restricted && !(is_marquee_match_up && user.data)) {
         setShowSbcRestrictedModal(true)
       } else {
         setSelectedSBC(index)
       }
-    } else {
-      setSelectedSBC(index)
-    }
   }
 
   const emptySolution = (): Solution => ({cost: 0, chem: 0, rating: 0, players: [], formation: "", solution_message: ""})

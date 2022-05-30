@@ -69,7 +69,7 @@ const Login = ({setLogin}:LoginProps) => {
       window.google?.accounts.id.cancel();
       document.getElementById("google-client-script")?.remove();
     };
-  }, [navigate, scriptLoaded, setLogin]);
+  }, [dispatch, navigate, scriptLoaded, setLogin]);
 
   return <div className='mx-auto flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded'>
     <div>
