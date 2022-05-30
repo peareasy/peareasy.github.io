@@ -4,5 +4,6 @@ export interface SBC {
   min_chemistry: number,
   max_constraints: [],
   min_constraints: [],
-  icon_url: string
+  icon_url: string,
+  restricted: boolean
 }

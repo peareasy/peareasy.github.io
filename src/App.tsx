@@ -12,10 +12,16 @@ import Footer from "./components/UI/Footer/Footer";
 import Tutorial from "./pages/Navbar/Tutorial";
 import Login from "./pages/Login";
 import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "./redux/store";
+import {fetchUser} from "./redux/user/userSlice";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+
   if (localStorage['name'] && !isLoggedIn) {
+    dispatch(fetchUser())
     setIsLoggedIn(true)
   }
   return (

@@ -13,4 +13,4 @@ const private_api = setupInterceptorsTo(
 export default private_api;
 
 export { logout } from "./privateRequests/logout";
-export { getProfile } from "./privateRequests/getProfile";
+export { getUser } from "./privateRequests/getUser";

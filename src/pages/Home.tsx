@@ -6,13 +6,16 @@ import Spinner from "../components/UI/Spinner/Spinner";
 import CardSBC from "../components/UI/CardSBC";
 import SolutionView from "../components/UI/SolutionView"
 import { Solution } from "../interfaces/Solution";
-import { SBC } from "../interfaces/SBC";
 import {isMobile} from 'react-device-detect';
 import Modal from "../components/UI/Modal";
 import { NavLink } from 'react-router-dom';
 import { open_link as openLinkIcon} from '../components/UI/icons';
 import Info from "../components/UI/Info";
 import styles from "../components/UI/Tooltip.module.css";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch} from "../redux/store";
+import {fetchSbcs, getSBCsSelector} from "../redux/sbcs/sbcsSlice";
+import {useNavigate} from "react-router";
 
 
 const Home = () => {
@@ -34,14 +37,17 @@ const Home = () => {
   const [extensionInstalled, setExtensionInstalled] = useState(false)
 
   // navigation
+  const navigate = useNavigate();
   const [step, setStep] = useState(Steps.Start)
   const [importError, setImportError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [nextEnabled, setNextEnabled] = useState(false)
-  const [showModal, setShowModal] = useState(false)
+  const [showClearPlayersModal, setShowClearPlayersModal] = useState(false)
+  const [showSbcRestrictedModal, setShowSbcRestrictedModal] = useState(false)
 
   // data
-  const [sbcs, setSBCs] = useState<SBC[]>([])
+  const dispatch = useDispatch<AppDispatch>();
+  const sbcs = useSelector(getSBCsSelector);
   const [numberOfPlayers, setNumberOfPlayers] = useState(0)
   const [solution, setSolution] = useState<Solution>()
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
@@ -63,15 +69,6 @@ const Home = () => {
     }
   }, [cookies, extensionId]);
 
-  const onGetSBCs = useCallback( () => {
-    setLoading(true)
-
-    api.getSBCs().then((sbcs) => {
-      setSBCs(sbcs)
-      setLoading(false)
-    }).catch(() => setLoading(false))
-  }, [])
-
   useEffect(() => {
     if (!cookies["userId"]) {
       setStep(Steps.HasNotAcceptedTos)
@@ -83,11 +80,11 @@ const Home = () => {
       }
       sendUUIDToExtension()
       api.verifyUser(cookies["userId"]);
-      onGetSBCs()
-      
+      dispatch(fetchSbcs())
+
       setUserId(cookies["userId"])
     }
-  }, [sendUUIDToExtension, onGetSBCs, Steps.DownloadExtension, Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId, extensionInstalled])
+  }, [sendUUIDToExtension, Steps.DownloadExtension, Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId, extensionInstalled, dispatch])
 
   const onTosAcceptChange = () => {
     setTosAccepted(!tosAccepted)
@@ -126,7 +123,7 @@ const Home = () => {
     }
 
     setLoading(true)
-    api.solveSBC(userId, sbcs[selectedSBC].name)
+    api.solveSBC(userId, sbcs.data[selectedSBC].name)
       .then((solution: Solution) => {
         const {formation, players, cost, chem, rating, solution_message} = solution;
         setSolution({players, cost, chem, rating, formation, solution_message})
@@ -135,6 +132,14 @@ const Home = () => {
       .catch(() => {
         setLoading(false)
       })
+  }
+
+  const onSBCClicked = (index: number, clickedRestrictedSBC: boolean) => {
+    if (clickedRestrictedSBC) {
+      setShowSbcRestrictedModal(true)
+    } else {
+      setSelectedSBC(index)
+    }
   }
 
   const emptySolution = (): Solution => ({cost: 0, chem: 0, rating: 0, players: [], formation: "", solution_message: ""})
@@ -213,25 +218,41 @@ const Home = () => {
 
   let sbcsView = (
     <div className="space-y-2">
-      <h1 className="text-3xl font-light mb-6">
-        Select an SBC 👇🏼
-      </h1>
-      <div className="grid grid-cols-2 gap-4 pb-2">
-        {sbcs.length > 0 ? sbcs.map((sbc, index) =>
-          <CardSBC title={sbc.name} key={sbc.name} changeImg={sbc.icon_url}
-                   onClick={() => setSelectedSBC(index === selectedSBC ? -1 : index)}
-                   selected={selectedSBC === index}/>) : null}
-      </div>
-      <Info content={<div>
-        <p className="font-bold">Players have successfully been imported! 💥</p>
-        <p className="text-sm">We have imported {numberOfPlayers} players</p>
-      </div>}/>
-      <div className="pt-10 flex justify-around pb-10">
-        <PrimaryButton onClick={() => {
-          setStep(Steps.ImportPlayers)
-        }} title={"Back"}/>
-        <PrimaryButton title={'Solve'} disabled={selectedSBC === -1} onClick={onSolveSBC}/>
-      </div>
+      <>
+        <h1 className="text-3xl font-light mb-6">
+          Select an SBC 👇🏼
+        </h1>
+          {showSbcRestrictedModal ? <Modal header={"❗ You need to login in order to access the rest of the SBCs"}
+                                          body={"We kindly ask you to login in order to solve the rest of the SBCs"}
+                                          onNegativeActionClicked={() => setShowSbcRestrictedModal(false)}
+                                          onPositiveActionClicked={() => {
+                                            setShowSbcRestrictedModal(false)
+                                            navigate('/login')
+                                          }}
+                                          onCloseClicked={() => setShowSbcRestrictedModal(false)}
+                                          positiveActionButtonLabel="Login"
+                                          negativeActionButtonLabel="No"/> :
+        <>
+        <div className="grid grid-cols-2 gap-4 pb-2">
+          {sbcs.data.length > 0 ? sbcs.data.map((sbc, index) =>
+            <CardSBC title={sbc.name} key={sbc.name} changeImg={sbc.icon_url} restricted={sbc.restricted}
+                     onClick={(restrictedSBCClicked) => {
+                       onSBCClicked(index === selectedSBC ? -1 : index, restrictedSBCClicked)
+                     }}
+                     selected={selectedSBC === index}/>) : null}
+        </div>
+        <Info content={<div>
+          <p className="font-bold">Players have successfully been imported! 💥</p>
+          <p className="text-sm">We have imported {numberOfPlayers} players</p>
+        </div>}/>
+        <div className="pt-10 flex justify-around pb-10">
+          <PrimaryButton onClick={() => {
+            setStep(Steps.ImportPlayers)
+          }} title={"Back"}/>
+          <PrimaryButton title={'Solve'} disabled={selectedSBC === -1} onClick={onSolveSBC}/>
+        </div>
+        </>}
+      </>
     </div>
   )
 
@@ -240,29 +261,29 @@ const Home = () => {
   if (solution?.players && solution.players.length > 0) {
     solutionView = (
       <div>
-        <SolutionView players={solution.players} solution={solution} sbc={sbcs[selectedSBC]} />
+        <SolutionView players={solution.players} solution={solution} sbc={sbcs.data[selectedSBC]} />
         <div className="mt-10 top-10 bottom-10 left-0 right-0">
           <PrimaryButton onClick={() => {
-            setShowModal(true)
+            setShowClearPlayersModal(true)
           }} title={"Solve another SBC"}/>
         </div>
-        {showModal ? <Modal header={"❗ Did you use this solution?"}
+        {showClearPlayersModal ? <Modal header={"❗ Did you use this solution?"}
                             body={"If you want to solve a new SBC we want to make sure that your old players are removed from our database. " +
                             "Please indicate if you used our generated solution"}
                             onNegativeActionClicked={() => {
                               setSolution(emptySolution)
                               setSelectedSBC(-1)
                               setStep(Steps.ChooseSBC)
-                              setShowModal(false)
+                              setShowClearPlayersModal(false)
                             }}
                             onPositiveActionClicked={() => {
                               onClearPlayers()
                               setSolution(emptySolution)
                               setSelectedSBC(-1)
                               setStep(Steps.ChooseSBC)
-                              setShowModal(false)
+                              setShowClearPlayersModal(false)
                             }}
-                            onCloseClicked={() => setShowModal(false)}
+                            onCloseClicked={() => setShowClearPlayersModal(false)}
                             positiveActionButtonLabel="Yes"
                             negativeActionButtonLabel="No"
         /> : null }
