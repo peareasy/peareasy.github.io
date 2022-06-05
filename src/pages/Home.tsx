@@ -9,7 +9,7 @@ import { Solution } from "../interfaces/Solution";
 import {isMobile} from 'react-device-detect';
 import Modal from "../components/UI/Modal";
 import { NavLink } from 'react-router-dom';
-import { open_link as openLinkIcon} from '../components/UI/icons';
+import {copied, open_link as openLinkIcon} from '../components/UI/icons';
 import Info from "../components/UI/Info";
 import styles from "../components/UI/Tooltip.module.css";
 import {useDispatch, useSelector} from "react-redux";
@@ -17,6 +17,7 @@ import {AppDispatch} from "../redux/store";
 import {fetchSbcs, getSBCsSelector} from "../redux/sbcs/sbcsSlice";
 import {useNavigate} from "react-router";
 import {getUserSelector} from "../redux/user/userSlice";
+import SubscriptionCard from "../components/UI/SubscriptionCard";
 
 
 const Home = () => {
@@ -194,7 +195,7 @@ const Home = () => {
 
           <div className={styles.tooltip + " w-44 h-16"}>
             {!nextEnabled ? <span className={styles.tooltiptextnext}>Import your players first!</span> : <></>}
-            <SecondaryButton title={"Next"} onClick={onGetPlayers} disabled={!nextEnabled}/>
+            <SecondaryButton title={"Next"} onClick={onGetPlayers} disabled={false}/>
           </div>
         </div>
         <div className="bg-primary-700 rounded-full w-12 h-12 m-auto mb-4 flex shadow shadow-gray-900">
@@ -218,18 +219,38 @@ const Home = () => {
     </div> : null}
     </div>)
   let sbcHeaderModal = ''
-  let sbcBodyModal = ''
+  let sbcBodyModal = <></>
   let sbcModalNavigationModal = ''
   let sbcPositiveActionButtonLabelModal = ''
   if (showSbcRestrictedModal) {
     if (user.data) {
       sbcHeaderModal = '❗ You need a premium subscription in order to solve this SBC'
-      sbcBodyModal = 'We kindly ask you to upgrade your subscription in order to solve this SBC'
+      sbcBodyModal = <div className={'w-2/3 m-auto'}>
+        <SubscriptionCard boxColor={"#fb923c"} content={<>
+          <ul className={'flex flex-col gap-y-4'}>
+            <li className={'flex flex-row gap-x-2'}>
+              <span>{copied}</span> Marquee Matchups
+            </li>
+            <li className={'flex flex-row gap-x-2'}>
+              <span>{copied}</span> Include all SBCs
+            </li>
+            <li className={'flex flex-row gap-x-2'}>
+              <span>{copied}</span> Solve with untradeables
+            </li>
+            <li className={'flex flex-row gap-x-2'}>
+              <span>{copied}</span> Include players from transfer market
+            </li>
+            <li className={'flex flex-row gap-x-2'}>
+              <span>{copied}</span> Custom player exclusion
+            </li>
+          </ul>
+        </>} price={6} onClick={() => {}} tier={'Premium'} primaryButtonTitle={'Buy Now'} currentSubscription={true}/>
+      </div>
       sbcModalNavigationModal = '/subscription'
-      sbcPositiveActionButtonLabelModal = 'See Subscriptions'
+      sbcPositiveActionButtonLabelModal = 'Go To Subscriptions'
     } else {
       sbcHeaderModal = '❗ You need to login in order to access to solve this SBC'
-      sbcBodyModal = 'We kindly ask you to login in order to solve solve this SBC'
+      sbcBodyModal = <span>We kindly ask you to login in order to solve solve this SBC</span>
       sbcModalNavigationModal = '/login'
       sbcPositiveActionButtonLabelModal = 'Login'
     }
@@ -287,8 +308,8 @@ const Home = () => {
           }} title={"Solve another SBC"}/>
         </div>
         {showClearPlayersModal ? <Modal header={"❗ Did you use this solution?"}
-                            body={"If you want to solve a new SBC we want to make sure that your old players are removed from our database. " +
-                            "Please indicate if you used our generated solution"}
+                            body={<span>If you want to solve a new SBC we want to make sure that your old players are removed from our database. " +
+                            "Please indicate if you used our generated solution</span>}
                             onNegativeActionClicked={() => {
                               setSolution(emptySolution)
                               setSelectedSBC(-1)

@@ -53,14 +53,14 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
               about
             </NavigationItem>
           </ul>
-          {isLoggedIn ? <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
+          <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
               link={'/subscription'}
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
               subscriptions
             </NavigationItem>
-          </ul> : null}
+          </ul>
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
               link={isLoggedIn ? '/profile' : '/login' }

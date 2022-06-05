@@ -38,7 +38,7 @@ function App() {
               <Route path={"/tutorial"} element={<Tutorial/>} />
               <Route path={"/privacy"} element={<Privacy/>} />
               <Route path={"/login"} element={<Login setLogin={setIsLoggedIn}/>} />
-              <Route path={"/subscription"} element={<Subscription/>}/>
+              <Route path={"/subscription"} element={<Subscription isLoggedIn={isLoggedIn}/>}/>
               <Route path={"/"} element={<Home/>} />
             </Routes>
             <Footer/>

@@ -1,5 +1,5 @@
 import {login} from "../api/publicApi";
-import {useNavigate} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import {useEffect, useRef, useState} from "react";
 import {fetchUser} from "../redux/user/userSlice";
 import {useDispatch} from "react-redux";
@@ -13,6 +13,10 @@ const Login = ({setLogin}:LoginProps) => {
   const [error, setError] = useState('')
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
+
+  // @ts-ignore
+  const from = location.state?.pathname || '/'
   const navigate = useNavigate();
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +28,7 @@ const Login = ({setLogin}:LoginProps) => {
       login(credential).then(_ => {
         dispatch(fetchUser())
         setLogin(true);
-        navigate('/')
+        navigate(from)
       }).catch(err => {
         console.log('login error: ', err);
         setError('Couldn\'t find user. Are you sure that you have signed up?')
@@ -69,7 +73,7 @@ const Login = ({setLogin}:LoginProps) => {
       window.google?.accounts.id.cancel();
       document.getElementById("google-client-script")?.remove();
     };
-  }, [dispatch, navigate, scriptLoaded, setLogin]);
+  }, [dispatch, from, navigate, scriptLoaded, setLogin]);
 
   return <div className='mx-auto flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded'>
     <div>
