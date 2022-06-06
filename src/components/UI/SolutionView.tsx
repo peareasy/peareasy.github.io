@@ -1,4 +1,3 @@
-import { Player } from "../../interfaces/Player";
 import { CopyButton } from "./CopyButton";
 import {Solution} from "../../interfaces/Solution";
 import {SBC} from "../../interfaces/SBC";
@@ -6,14 +5,13 @@ import {copied} from "./icons";
 import React from "react";
 
 type SolutionViewProps = {
-  players: Player[]
   solution: Solution,
   sbc: SBC
 };
 
-const SolutionView = ({players, solution, sbc}: SolutionViewProps) => {
+const SolutionView = ({solution, sbc}: SolutionViewProps) => {
   const formation = ("1-" + solution.formation).split(/[\s-]+/).map(Number)
-
+  const players = solution.players
   const formationWithPlayers = []
 
   let counter = 0;

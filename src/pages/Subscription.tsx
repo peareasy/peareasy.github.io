@@ -40,8 +40,8 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
   let modalNavigation = ''
   let modalPositiveActionButtonLabel = ''
   if (showLoginModal) {
-    modalHeader = '❗ You just need to login in order to access the free tier'
-    modalBody = <span>We kindly ask you to login to access the free tier</span>
+    modalHeader = '❗ You just need to login in order to access subscriptions'
+    modalBody = <span>We kindly ask you to login to access subscriptions</span>
     modalNavigation = '/login'
     modalPositiveActionButtonLabel = 'Login'
   } else if (showSubscriptionComingSoonModal) {
@@ -66,22 +66,25 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
   const subscriptions = <div className={'flex flex-row justify-center gap-x-4'}>
     <SubscriptionCard boxColor={"#22d3ee"} content={<ul className={'flex flex-col gap-y-4'}>
       {isLoggedIn ? <div className={'text-primary-400 font-bold'}>
-        Current Subscripton
+        Current Subscription
       </div> : null }
       <li className={'flex flex-row gap-x-2'}>
         <span>{copied}</span> Marquee Matchups
       </li>
-      <li className={'flex flex-row gap-x-2 text-gray-400 '}>
-        Include all SBCs
+      <li className={'flex flex-row gap-x-2'}>
+        <span>{copied}</span> Unique solutions based on live player prices
       </li>
       <li className={'flex flex-row gap-x-2 text-gray-400 '}>
-        Solve with untradeables
+        All SBCs
       </li>
       <li className={'flex flex-row gap-x-2 text-gray-400 '}>
-        Include players from transfer market
+        Specify player(s) to include in solution
       </li>
       <li className={'flex flex-row gap-x-2 text-gray-400 '}>
-        Custom player exclusion
+        Prioritize leagues, nations or card types in solution
+      </li>
+      <li className={'flex flex-row gap-x-2 text-gray-400 '}>
+        Exclude leagues, nations and card types
       </li>
     </ul>} price={0} onClick={freeSubscriptionClicked} tier={'Free'} primaryButtonTitle={'Get Now'} currentSubscription={isLoggedIn}/>
 
@@ -92,23 +95,26 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
         <span>{copied}</span> Marquee Matchups
       </li>
       <li className={'flex flex-row gap-x-2'}>
-        <span>{copied}</span> Include all SBCs
+        <span>{copied}</span> Unique solutions based on live player prices
       </li>
       <li className={'flex flex-row gap-x-2'}>
-        <span>{copied}</span> Solve with untradeables
+        <span>{copied}</span> All SBCs
       </li>
       <li className={'flex flex-row gap-x-2'}>
-        <span>{copied}</span> Include players from transfer market
+        <span>{copied}</span> Specify player(s) to include in solution
       </li>
       <li className={'flex flex-row gap-x-2'}>
-        <span>{copied}</span> Custom player exclusion
+        <span>{copied}</span> Prioritize leagues, nations or card types in solution
+      </li>
+      <li className={'flex flex-row gap-x-2'}>
+        <span>{copied}</span> Exclude leagues, nations and card types
       </li>
     </ul>
-    </>} price={6} onClick={premiumSubscriptionClicked} tier={'Premium'} primaryButtonTitle={'Buy Now'} currentSubscription={false}/>
+    </>} price={1.99} onClick={premiumSubscriptionClicked} tier={'Premium'} primaryButtonTitle={'Buy Now'} currentSubscription={false}/>
   </div>
 
   return showModal ? modal :
-    <div className='container mx-auto w-1/3 flex font-light flex-col gap-y-8 p-8 bg-gray-900 rounded'>
+    <div className='container mx-auto w-3/5 flex font-light flex-col gap-y-8 p-8 bg-gray-900 rounded'>
       {header}
       {subHeader}
       {subscriptions}

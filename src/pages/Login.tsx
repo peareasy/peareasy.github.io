@@ -24,11 +24,10 @@ const Login = ({setLogin}:LoginProps) => {
     if (scriptLoaded) return undefined;
 
     const handleBackendSignIn = (credential: string) => {
-      // TODO: update such that login itself is using redux as well
       login(credential).then(_ => {
         dispatch(fetchUser())
         setLogin(true);
-        navigate(from)
+        navigate(from, { state: location.state })
       }).catch(err => {
         console.log('login error: ', err);
         setError('Couldn\'t find user. Are you sure that you have signed up?')
@@ -36,6 +35,7 @@ const Login = ({setLogin}:LoginProps) => {
     }
 
     const handleGoogleSignIn = (res: CredentialResponse) => {
+      console.log("Click")
       if (!res.clientId || !res.credential) {
         setError('Couldn\'t login to your Google account');
       } else {
@@ -80,12 +80,15 @@ const Login = ({setLogin}:LoginProps) => {
       <h1 className='text-xl text-secondary'>Log in to easySBC ⚽</h1>
       <h2 className='text-m italic font-thin text-gray-200'>easysbc.io</h2>
     </div>
-    <h3 className='text-xs font-light text-gray-300'>
-      In order to utilize all the functionality provided, please log in below.
-    </h3>
-    <div className='mx-auto flex flex-col pt-4'>
+    <p className='text-xs font-light text-gray-300'>
+      Login to access all functionality
+    </p>
+    <div className='mx-auto flex flex-col pt-4 pb-4'>
       <div ref={divRef} className={'w-[200px]'}/>
   </div>
+    <p className='text-xs font-light text-gray-300'>
+      By logging in you accept our <a href={'#/tos'}>Terms of Service</a> and <a href={'#/privacy'}>Privacy Policy</a>
+    </p>
   {<div className='text-sm text-error-500 mx-auto'>{error}</div>}
 </div>
 };

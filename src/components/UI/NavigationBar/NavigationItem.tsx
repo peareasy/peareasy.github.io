@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 type NavigationItemProps = {
   link: string;
   onClick: () => void;
-  children: string;
+  children: JSX.Element;
 };
 
 const NavigationItem = ({ link, onClick, children }: NavigationItemProps) => (

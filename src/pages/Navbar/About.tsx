@@ -3,16 +3,17 @@ import {NavLink} from "react-router-dom";
 const About = ()  => {
   return (
     <main className={'container mx-auto w-1/2 space-y-5 pb-10 pt-10 p-20 overflow-visible'}>
-      <h3 className="text-secondary text-2xl text-left">What we offer</h3>
+      <h3 className="text-secondary text-2xl text-center">What We Offer</h3>
       <p className="text-secondary text-m text-left">
-        Fast, automatic solutions to squad building challenges using players from your own club.
+        Fast and cheap solutions to squad building challenges based on live player prices.
       </p>
       <p className="text-secondary text-m text-left">
-        Note that when we load the players in your club, we NEVER interact with the web-app. We only read the player names in order to tailor solutions to your club!
+        Our AI generates unique solutions just for you. This means that players in your solution will not increase all of a sudden in price, because everyone gets different solutions.
       </p>
       <p className="text-secondary text-m text-left">
-        Our AI will help you find a solution to almost any SBC, trying to use the players with least value in your club. All you have to do is sit back and enjoy opening your packs!
+        The AI uses fresh player prices which are updated approximately every 15th minute.
       </p>
+      <h3 className="text-secondary text-2xl text-left text-center">Future Vision</h3>
       <p className="text-secondary text-m text-left">
         Our service is still at an early stage, but we are tirelessly working to improve the AI as well as the experience and services we offer.
       </p>
@@ -21,7 +22,7 @@ const About = ()  => {
             to={'/contact'}>
             Contact page</NavLink>.
       </p>
-      <h3 className="text-secondary text-2xl text-left">About us</h3>
+      <h3 className="text-secondary text-2xl text-left text-center">About Us</h3>
       <p className="text-secondary text-m text-left">
         We have played a lot of FIFA Ultimate Team ourselves and know the pain of having to solve new SBCs all the time. In recent years we have been wondering whether it would be possible to solve them automatically... And here we are!
       </p>

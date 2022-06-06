@@ -12,7 +12,10 @@ module.exports = {
       secondary: colors.white,
       tertiary: colors.purple,
       slate: colors.slate,
-      gray: colors.gray,
+      gray: {
+        ...colors.gray,
+        950: '#0b2746',
+      },
       error: colors.red,
       teal: colors.teal,
       zinc: colors.zinc,
