@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import NavigationItem from './NavigationItem';
 import { menu as menuIcon } from '../icons';
+import ReactGA from "react-ga4";
 
 type LoggedInProps = {
   isLoggedIn: boolean;
@@ -48,7 +49,15 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
               link={'/about'}
-              onClick={() => setNavbarOpen(!navbarOpen)}
+              onClick={() => {
+                ReactGA.event({
+                  category: "NavBar",
+                  action: "click_about",
+                  nonInteraction: false, // optional, true/false
+                });
+                
+                setNavbarOpen(!navbarOpen);
+              }}
             >
               about
             </NavigationItem>
