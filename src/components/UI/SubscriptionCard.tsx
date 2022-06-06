@@ -1,4 +1,4 @@
-import {PrimaryButton} from "./Button";
+import {DisabledButton, PrimaryButton} from "./Button";
 
 type SubscriptionCardProps = {
   tier: string;
@@ -13,9 +13,7 @@ type SubscriptionCardProps = {
 
 const SubscriptionCard = ({tier, price, boxColor, content, currentSubscription, primaryButtonTitle, onClick}: SubscriptionCardProps) => {
   const parentClassName = ['bg-gray-800 rounded-3xl text-secondary w-full p-5']
-  if (currentSubscription) {
-    parentClassName.push('border-2 border-primary-400')
-  }
+  
   return <div className={parentClassName.join(' ')}>
     <div className={'flex flex-col gap-y-4'}>
       <h1 className={'flex flex-row justify-between'}>
@@ -31,7 +29,8 @@ const SubscriptionCard = ({tier, price, boxColor, content, currentSubscription, 
     </div>
     {! currentSubscription ? <div className={'flex flex-col pt-5'}>
       <PrimaryButton title={primaryButtonTitle} onClick={onClick}/>
-    </div> : null}
+    </div> : <div className={'flex flex-col pt-5'}> <DisabledButton title="Already active" onClick={onClick} disabled={true}/> </div>
+}
   </div>
 }
 

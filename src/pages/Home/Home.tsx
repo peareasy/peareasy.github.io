@@ -81,21 +81,24 @@ const Home = () => {
             <li className={'flex flex-row gap-x-2'}>
               <span>{copied}</span> Marquee Matchups
             </li>
-            <li className={'flex flex-row gap-x-2 text-gray-400 '}>
-              Include all SBCs
+            <li className={'flex flex-row gap-x-2 text-gray-400'}>
+              <span className="pl-6"></span> Include all SBCs
             </li>
-            <li className={'flex flex-row gap-x-2 text-gray-400 '}>
-              Solve with untradeables
+            <li className={'flex flex-row gap-x-2 text-gray-400'}>
+              <span className="pl-6"></span> Solve with untradeables
             </li>
-            <li className={'flex flex-row gap-x-2 text-gray-400 '}>
-              Include players from transfer market
+            <li className={'flex flex-row gap-x-2 text-gray-400'}>
+              <span className="pl-6"></span> Include players from transfer market
             </li>
-            <li className={'flex flex-row gap-x-2 text-gray-400 '}>
-              Custom player exclusion
+            <li className={'flex flex-row gap-x-2 text-gray-400'}>
+              <span className="pl-6"></span> Custom player exclusion
             </li>
           </ul>} price={0} onClick={() => {}} tier={'Free'} currentSubscription={true} primaryButtonTitle={'yoo'}/>
           <SubscriptionCard boxColor={"#fb923c"} content={<>
             <ul className={'flex flex-col gap-y-4 text-left'}>
+              <div className={'text-primary-400 font-bold'} style={{color: "#fb923c"}}>
+                Premium Subscription
+              </div>
               <li className={'flex flex-row gap-x-2'}>
                 <span>{copied}</span> Marquee Matchups
               </li>

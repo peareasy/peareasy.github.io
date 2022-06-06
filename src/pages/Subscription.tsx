@@ -17,7 +17,7 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
   const [showModal, setShowModal] = useState(false)
 
   const header = <h1 className={'text-3xl font-light m-auto'}>
-    <span className={'text-primary-400 font-medium'}>EasySBC </span>
+    <span className={'text-primary-400 font-medium'}>easySBC </span>
     <span className={'text-secondary'}>Subscription</span>
   </h1>
 
@@ -67,30 +67,36 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
     <SubscriptionCard boxColor={"#22d3ee"} content={<ul className={'flex flex-col gap-y-4'}>
       {isLoggedIn ? <div className={'text-primary-400 font-bold'}>
         Current Subscription
-      </div> : null }
+      </div> : <div className={'text-primary-400 font-bold'}>
+        Free Subscription
+      </div> }
       <li className={'flex flex-row gap-x-2'}>
         <span>{copied}</span> Marquee Matchups
       </li>
       <li className={'flex flex-row gap-x-2'}>
         <span>{copied}</span> Unique solutions based on live player prices
       </li>
-      <li className={'flex flex-row gap-x-2 text-gray-400 '}>
-        All SBCs
+
+      <li className={'flex flex-row gap-x-2 text-gray-400'}>
+        <span className="pl-6"></span> All SBCs
       </li>
-      <li className={'flex flex-row gap-x-2 text-gray-400 '}>
-        Specify player(s) to include in solution
+      <li className={'flex flex-row gap-x-2 text-gray-400'}>
+        <span className="pl-6"></span> Specify player(s) to include in solution
       </li>
-      <li className={'flex flex-row gap-x-2 text-gray-400 '}>
-        Prioritize leagues, nations or card types in solution
+      <li className={'flex flex-row gap-x-2 text-gray-400'}>
+        <span className="pl-6"></span> Prioritize leagues, nations or card types in solution
       </li>
-      <li className={'flex flex-row gap-x-2 text-gray-400 '}>
-        Exclude leagues, nations and card types
+      <li className={'flex flex-row gap-x-2 text-gray-400'}>
+        <span className="pl-6"></span> Exclude leagues, nations and card types
       </li>
-    </ul>} price={0} onClick={freeSubscriptionClicked} tier={'Free'} primaryButtonTitle={'Get Now'} currentSubscription={isLoggedIn}/>
+    </ul>} price={0} onClick={freeSubscriptionClicked} tier={'Free'} primaryButtonTitle={'Log in to activate'} currentSubscription={isLoggedIn}/>
 
 
     <SubscriptionCard boxColor={"#fb923c"} content={<>
     <ul className={'flex flex-col gap-y-4'}>
+      <div className={'text-primary-400 font-bold'} style={{color: "#fb923c"}}>
+        Premium Subscription
+      </div>
       <li className={'flex flex-row gap-x-2'}>
         <span>{copied}</span> Marquee Matchups
       </li>
