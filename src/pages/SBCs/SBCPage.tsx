@@ -54,7 +54,10 @@ const SBCPage = () => {
   const solutionView = <div>
     <SolutionView solution={solution} sbc={sbcs[selectedSBC]} />
     <div className="pt-10 flex justify-around pb-10 ">
-      <PrimaryButton onClick={() => setSolution(emptySolution)} title={"Solve another SBC"}/>
+      <PrimaryButton onClick={() => {
+        setShowSolution(false)
+        setSolution(emptySolution)
+      }} title={"Solve another SBC"}/>
     </div>
   </div>
 
