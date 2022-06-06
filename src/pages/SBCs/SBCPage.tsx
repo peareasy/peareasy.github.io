@@ -10,6 +10,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import Modal from "../../components/UI/Modal";
 import {useSelector} from "react-redux";
 import {getUserSelector} from "../../redux/user/userSlice";
+import ReactGA from "react-ga4";
 
 const SBCPage = () => {
   const location = useLocation()
@@ -25,6 +26,10 @@ const SBCPage = () => {
 
   const onSolveSBC = () => {
     setLoading(true)
+      ReactGA.event({
+        category: "SolveSBC",
+        action: "click_solve_sbc",
+      });
     api.solveSBC(sbcs[selectedSBC].name)
       .then((solution: Solution) => {
         const {formation, players, cost, chem, rating, solution_message} = solution;

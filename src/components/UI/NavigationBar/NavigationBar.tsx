@@ -55,7 +55,7 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
                 });
                 setNavbarOpen(!navbarOpen)}}
             >
-              tutorial
+              <span>tutorial</span>
             </NavigationItem>
           </ul>
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
