@@ -81,17 +81,20 @@ const Home = () => {
             <li className={'flex flex-row gap-x-2'}>
               <span>{copied}</span> Marquee Matchups
             </li>
-            <li className={'flex flex-row gap-x-2 text-gray-400'}>
-              <span className="pl-6"></span> Include all SBCs
+            <li className={'flex flex-row gap-x-2'}>
+              <span>{copied}</span> Unique solutions based on live player prices
             </li>
             <li className={'flex flex-row gap-x-2 text-gray-400'}>
-              <span className="pl-6"></span> Solve with untradeables
+              <span className="pl-6"></span> All SBCs
             </li>
             <li className={'flex flex-row gap-x-2 text-gray-400'}>
-              <span className="pl-6"></span> Include players from transfer market
+              <span className="pl-6"></span> Specify player(s) to include in solution
             </li>
             <li className={'flex flex-row gap-x-2 text-gray-400'}>
-              <span className="pl-6"></span> Custom player exclusion
+              <span className="pl-6"></span> Prioritize leagues, nations or card types in solution
+            </li>
+            <li className={'flex flex-row gap-x-2 text-gray-400'}>
+              <span className="pl-6"></span> Exclude leagues, nations and card types
             </li>
           </ul>} price={0} onClick={() => {}} tier={'Free'} currentSubscription={true} primaryButtonTitle={'yoo'}/>
           <SubscriptionCard boxColor={"#fb923c"} content={<>
@@ -103,16 +106,19 @@ const Home = () => {
                 <span>{copied}</span> Marquee Matchups
               </li>
               <li className={'flex flex-row gap-x-2'}>
-                <span>{copied}</span> Include all SBCs
+                <span>{copied}</span> Unique solutions based on live player prices
               </li>
               <li className={'flex flex-row gap-x-2'}>
-                <span>{copied}</span> Solve with untradeables
+                <span>{copied}</span> Solve all SBCs
               </li>
               <li className={'flex flex-row gap-x-2'}>
-                <span>{copied}</span> Include players from transfer market
+                <span>{copied}</span> Specify player(s) to include in solution
               </li>
               <li className={'flex flex-row gap-x-2'}>
-                <span>{copied}</span> Custom player exclusion
+                <span>{copied}</span> Prioritize leagues, nations or card types in solution
+              </li>
+              <li className={'flex flex-row gap-x-2'}>
+                <span>{copied}</span> Exclude leagues, nations and card types
               </li>
             </ul>
           </>} price={1.99} onClick={onBuySubscriptionClicked}
