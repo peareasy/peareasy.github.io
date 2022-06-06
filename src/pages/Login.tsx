@@ -1,5 +1,5 @@
 import {login} from "../api/publicApi";
-import {useNavigate} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import {useEffect, useRef, useState} from "react";
 import {fetchUser} from "../redux/user/userSlice";
 import {useDispatch} from "react-redux";
@@ -14,21 +14,25 @@ const Login = ({setLogin}:LoginProps) => {
   const [error, setError] = useState('')
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
+
+  // @ts-ignore
+  const from = location.state?.pathname || '/'
   const navigate = useNavigate();
   const divRef = useRef<HTMLDivElement>(null);
-  
-  
+
+
 
   useEffect(() => {
     if (scriptLoaded) return undefined;
 
     const handleBackendSignIn = (credential: string) => {
-      
+
       // TODO: update such that login itself is using redux as well
       login(credential).then(_ => {
         dispatch(fetchUser())
         setLogin(true);
-        navigate('/')
+        navigate(from, { state: location.state })
       }).catch(err => {
         console.log('login error: ', err);
         setError('Couldn\'t find user. Are you sure that you have signed up?')
@@ -62,7 +66,7 @@ const Login = ({setLogin}:LoginProps) => {
     };
     const renderButton = () => {
       if (!window.google) return;
-      
+
       window.google.accounts.id.renderButton(divRef.current!, {
         theme: 'outline',
         type: 'standard',
@@ -82,19 +86,22 @@ const Login = ({setLogin}:LoginProps) => {
       window.google?.accounts.id.cancel();
       document.getElementById("google-client-script")?.remove();
     };
-  }, [dispatch, navigate, scriptLoaded, setLogin]);
+  }, [dispatch, from, navigate, scriptLoaded, setLogin, location.state]);
 
   return <div className='mx-auto flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded'>
-    <div >
+    <div>
       <h1 className='text-xl text-secondary'>Log in to easySBC ⚽</h1>
       <h2 className='text-m italic font-thin text-gray-200'>easysbc.io</h2>
     </div>
-    <h3 className='text-xs font-light text-gray-300'>
-      In order to utilize all the functionality provided, please log in below.
-    </h3>
-    <div className='mx-auto flex flex-col pt-4'>
+    <p className='text-xs font-light text-gray-300'>
+      Login to access all functionality
+    </p>
+    <div className='mx-auto flex flex-col pt-4 pb-4'>
       <div ref={divRef} className={'w-[200px]'}/>
   </div>
+    <p className='text-xs font-light text-gray-300'>
+      By logging in you accept our <a href={'#/tos'}>Terms of Service</a> and <a href={'#/privacy'}>Privacy Policy</a>
+    </p>
   {<div className='text-sm text-error-500 mx-auto'>{error}</div>}
 </div>
 };

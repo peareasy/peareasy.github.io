@@ -1,3 +1,5 @@
+import {PrimaryButton} from "./Button";
+
 type SubscriptionCardProps = {
   tier: string;
   price: number;
@@ -5,10 +7,11 @@ type SubscriptionCardProps = {
   content: JSX.Element;
   currentSubscription: boolean
   onClick: () => void;
+  primaryButtonTitle: string
 };
 
 
-const SubscriptionCard = ({tier, price, boxColor, content, currentSubscription, onClick}: SubscriptionCardProps) => {
+const SubscriptionCard = ({tier, price, boxColor, content, currentSubscription, primaryButtonTitle, onClick}: SubscriptionCardProps) => {
   const parentClassName = ['bg-gray-800 rounded-3xl text-secondary w-full p-5']
   if (currentSubscription) {
     parentClassName.push('border-2 border-primary-400')
@@ -26,9 +29,9 @@ const SubscriptionCard = ({tier, price, boxColor, content, currentSubscription, 
       </h1>
       {content}
     </div>
-    {/*<div className={'flex flex-col pt-5'}>*/}
-    {/*  <PrimaryButton title={"Choose"} onClick={() => {}} disabled={true}/>*/}
-    {/*</div>*/}
+    {! currentSubscription ? <div className={'flex flex-col pt-5'}>
+      <PrimaryButton title={primaryButtonTitle} onClick={onClick}/>
+    </div> : null}
   </div>
 }
 

@@ -12,7 +12,10 @@ module.exports = {
       secondary: colors.white,
       tertiary: colors.purple,
       slate: colors.slate,
-      gray: colors.gray,
+      gray: {
+        ...colors.gray,
+        950: '#06072a',
+      },
       error: colors.red,
       teal: colors.teal,
       zinc: colors.zinc,
@@ -26,6 +29,9 @@ module.exports = {
       teal: colors.teal
     },
     extend: {
+      opacity: {
+        '20': '0.2',
+      },
       backgroundImage: {
         pitch: "url('/src/img/background.svg')",
       },
@@ -44,7 +50,7 @@ module.exports = {
 
     screens: {
       'mobile': '640px',
-      'md': '768px',
+      'md': {'max': '768px'},
       'lg': '1024px',
       'xl': '1280px',
       'low-res': {'max': '1280px'},

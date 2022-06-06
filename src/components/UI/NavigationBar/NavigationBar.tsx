@@ -11,14 +11,15 @@ type LoggedInProps = {
 const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
-    <nav className="relative flex flex-wrap items-center justify-between px-2 py-6 mb-8">
+    <nav className="relative flex flex-wrap items-center justify-between px-2 py-6 mb-8 md:mb-0">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between mobile:w-auto mobile:static mobile:block mobile:justify-start">
           <NavLink
             className="text-xl leading-relaxed inline-block mr-4 py-2 whitespace-nowrap text-secondary"
             to={'/'} onClick={() => {
-              window.location.href = "#"
-              window.location.reload()
+              // Find better way to do this
+              // window.location.href = "#"
+              // window.location.reload()
           }}
           >
             easySBC ⚽
@@ -30,7 +31,7 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
               ReactGA.event({
                 category: "NavBar",
                 action: "click_navbar_home",
-              });  
+              });
               setNavbarOpen(!navbarOpen)
             }}
           >
@@ -54,7 +55,7 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
                 });
                 setNavbarOpen(!navbarOpen)}}
             >
-              tutorial
+              <span>tutorial</span>
             </NavigationItem>
           </ul>
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
@@ -65,14 +66,14 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
                   category: "NavBar",
                   action: "click_navbar_about",
                 });
-                
+
                 setNavbarOpen(!navbarOpen);
               }}
             >
-              about
+              <span>about</span>
             </NavigationItem>
           </ul>
-          {isLoggedIn ? <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
+          <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
               link={'/subscription'}
               onClick={() => {
@@ -83,9 +84,12 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
                 setNavbarOpen(!navbarOpen)}
               }
             >
-              subscriptions
+              <div className={'flex flex-row gap-x-2'}>
+                <div className={'w-4 h-4 rounded-full my-auto'} style={{backgroundColor: "#fb923c"}}/>
+                <span className={'my-auto'}>premium</span>
+              </div>
             </NavigationItem>
-          </ul> : null}
+          </ul>
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
               link={isLoggedIn ? '/profile' : '/login' }
@@ -97,7 +101,7 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
                 setNavbarOpen(!navbarOpen)}
               }
             >
-              {isLoggedIn ? 'profile' : 'login' }
+              {isLoggedIn ? <span>profile</span> : <span>login</span> }
             </NavigationItem>
           </ul>
         </div>
