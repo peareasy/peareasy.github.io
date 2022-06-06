@@ -53,7 +53,7 @@ const SBCPage = () => {
 
   const solutionView = <div>
     <SolutionView solution={solution} sbc={sbcs[selectedSBC]} />
-    <div className="mt-10 top-10 bottom-10 left-0 right-0">
+    <div className="pt-10 flex justify-around pb-10 ">
       <PrimaryButton onClick={() => setSolution(emptySolution)} title={"Solve another SBC"}/>
     </div>
   </div>
@@ -62,7 +62,7 @@ const SBCPage = () => {
     <h1 className="text-2xl mx-auto h-4/5 font-light">
       Our AI is working hard to get you a good solution.
     </h1>
-    <h1 className="text-xl mx-auto pb-12 font-light text-gray-200">This might take up to 10 seconds 👊🏽</h1>
+    <h1 className="text-xl mx-auto pb-12 font-light text-gray-200">This might take up to 20 seconds 👊🏽</h1>
     <Spinner/>
   </div>
 

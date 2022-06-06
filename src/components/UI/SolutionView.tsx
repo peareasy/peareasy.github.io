@@ -15,7 +15,7 @@ const SolutionView = ({solution, sbc}: SolutionViewProps) => {
   const formationWithPlayers = []
 
   let counter = 0;
-  const cardClasses = "w-36 lg:w-42 xl:w-48 rounded-lg bg-primary-900 flex flex-row m-auto justify-between".split(" ");
+  const cardClasses = "w-30 lg:w-36 xl:w-44 rounded-lg bg-primary-900 flex flex-row m-auto justify-between".split(" ");
 
   for (let i = 0; i < formation.length; i++) {
     const row = []
@@ -47,7 +47,7 @@ const SolutionView = ({solution, sbc}: SolutionViewProps) => {
     )
   }
   return (
-      <div className={"mx-auto flex justify-center"}>
+      <div className={"mx-auto flex justify-center text-secondary"}>
         <div className="flex flex-row gap-x-2 lg:gap-x-8 xl:gap-x-16 ">
           <div className="text-secondary flex-2 lg:w-32 xl:w-48 text-center font-light text-2xl"></div>
           <div className="flex flex-col gap-y-4 flex-1 w-1/3">
@@ -62,20 +62,7 @@ const SolutionView = ({solution, sbc}: SolutionViewProps) => {
               <p className="text-m flex flex-row mx-auto">Formation: {solution.formation}</p>
               <p className="text-m flex flex-row mx-auto">Cost: {solution.cost}</p>
             </div>
-            <div className="text-secondary xl:text-base text-center font-light rounded-lg bg-gray-800 flex flex-col w-full gap-y-4  pt-4">
-              <div className="flex flex-col m-auto gap-y-4  text-xs lg:text-base">
-                <div className="flex flex-row mx-auto">
-                  <div className="w-6 m-auto">
-                    <img className="w-4" alt="loyalty" src={process.env.PUBLIC_URL + '/loyalty.png'}/>
-                  </div>
-                  <span>Loyalty</span>
-                </div>
-                <div className="flex flex-row mx-auto mb-4">
-                  <img className="w-6" alt="untradeable" src={process.env.PUBLIC_URL + '/untradeable.png'}/>
-                  <span>Untradable</span>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>
