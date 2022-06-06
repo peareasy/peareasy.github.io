@@ -13,17 +13,17 @@ import SubscriptionCard from "../../components/UI/SubscriptionCard";
 const Home = () => {
 
   const mockedSBCs = [
-    { name: 'Live', icon_url: process.env.PUBLIC_URL+'/sbc_gold.png',
+    { name: 'Live', icon_url: "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_10004027-04bffd4e-5416.png",
       restricted: true, marquee_match_up: false},
-    { name: 'Team of the Season', icon_url: process.env.PUBLIC_URL+'/sbc_gold.png',
+    { name: 'Team of the Season', icon_url: "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_10004021-57fa2a14-ff91.png",
       restricted: true, marquee_match_up: false},
-    { name: 'Foundation', icon_url: process.env.PUBLIC_URL+'/sbc_gold.png',
+    { name: 'Foundation', icon_url: 'https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_1000012-a0792673-8155.png',
       restricted: true, marquee_match_up: false},
-    { name: 'Swaps', icon_url: process.env.PUBLIC_URL+'/sbc_gold.png',
+    { name: 'Swaps', icon_url: "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_1000186-c359be10-b287.png",
       restricted: true, marquee_match_up: false},
-    { name: 'Leagues', icon_url: process.env.PUBLIC_URL+'/sbc_gold.png',
+    { name: 'Leagues', icon_url: "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_1000099-4bfd0ff3-3b5c.png",
       restricted: true, marquee_match_up: false},
-    { name: 'Icons', icon_url: process.env.PUBLIC_URL+'/sbc_gold.png',
+    { name: 'Icons', icon_url: "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_10003998-ce27e340-1ee8.png",
       restricted: true, marquee_match_up: false}
   ]
 
@@ -130,9 +130,15 @@ const Home = () => {
   let sbcsView = (
     <div className="space-y-2">
       <>
-        <h1 className="text-2xl font-light mb-8 md:pr-4 md:pl-4">
-          Cheap and unique AI solutions to any SBC based on live player prices
-        </h1>
+        <div className="mb-8">
+          <h1 className="text-2xl font-light mb-2 md:pr-4 md:pl-4">
+            Cheap and unique AI solutions to any SBC based on live player prices
+          </h1>
+          <h3>
+            Select an SBC below!👇🏼
+          </h3>
+        </div>
+       
           {clickedRestrictedSBC ?
             <Modal header={modalHeader}
                     body={modalBody}
@@ -157,8 +163,8 @@ const Home = () => {
           <div className={'m-auto w-2/3 pb-4'}>
             <CardSBC title={'Marquee Matchups'}
                      onClick={() => {navigate('/sbc', { state: marquee_matchups})}}
-                     selected={true}
-                     changeImg={"https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/challenges/images/sbc_challenge_image_340172-8cf923b4-1877.png"}
+                     selected={false}
+                     changeImg={"https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_1000013-67af5e79-ce1b.png"}
                      restricted={false}
                      is_marquee_match_up={true}/>
           </div>
