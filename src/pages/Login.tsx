@@ -4,6 +4,7 @@ import {useEffect, useRef, useState} from "react";
 import {fetchUser} from "../redux/user/userSlice";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../redux/store";
+import ReactGA from "react-ga4";
 
 type LoginProps = {
   setLogin: (isLoggedIn: boolean) => void;
@@ -15,11 +16,14 @@ const Login = ({setLogin}:LoginProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const divRef = useRef<HTMLDivElement>(null);
+  
+  
 
   useEffect(() => {
     if (scriptLoaded) return undefined;
 
     const handleBackendSignIn = (credential: string) => {
+      
       // TODO: update such that login itself is using redux as well
       login(credential).then(_ => {
         dispatch(fetchUser())
@@ -33,8 +37,16 @@ const Login = ({setLogin}:LoginProps) => {
 
     const handleGoogleSignIn = (res: CredentialResponse) => {
       if (!res.clientId || !res.credential) {
+        ReactGA.event({
+          category: "Login",
+          action: "Google Sign In Error",
+        })
         setError('Couldn\'t login to your Google account');
       } else {
+        ReactGA.event({
+          category: "Login",
+          action: "user_signed_up",
+        });
         handleBackendSignIn(res.credential)
       }
     }
@@ -50,6 +62,7 @@ const Login = ({setLogin}:LoginProps) => {
     };
     const renderButton = () => {
       if (!window.google) return;
+      
       window.google.accounts.id.renderButton(divRef.current!, {
         theme: 'outline',
         type: 'standard',
@@ -72,7 +85,7 @@ const Login = ({setLogin}:LoginProps) => {
   }, [dispatch, navigate, scriptLoaded, setLogin]);
 
   return <div className='mx-auto flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded'>
-    <div>
+    <div >
       <h1 className='text-xl text-secondary'>Log in to easySBC ⚽</h1>
       <h2 className='text-m italic font-thin text-gray-200'>easysbc.io</h2>
     </div>

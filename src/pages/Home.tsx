@@ -17,6 +17,7 @@ import {AppDispatch} from "../redux/store";
 import {fetchSbcs, getSBCsSelector} from "../redux/sbcs/sbcsSlice";
 import {useNavigate} from "react-router";
 import {getUserSelector} from "../redux/user/userSlice";
+import ReactGA from "react-ga4";
 
 
 const Home = () => {
@@ -118,6 +119,10 @@ const Home = () => {
   }
 
   const onSolveSBC = () => {
+    ReactGA.event({
+      category: "SolveSBC",
+      action: "click_solve_sbc",
+    });
     setStep(Steps.Solution)
     if (numberOfPlayers === 0) {
       setSolution(emptySolution)

@@ -26,7 +26,13 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
           <button
             className="text-secondary cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block mobile:hidden outline-none focus:outline-none"
             type="button"
-            onClick={() => setNavbarOpen(!navbarOpen)}
+            onClick={() => {
+              ReactGA.event({
+                category: "NavBar",
+                action: "click_navbar_home",
+              });  
+              setNavbarOpen(!navbarOpen)
+            }}
           >
             {menuIcon}
           </button>
@@ -41,7 +47,12 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
               link={'/tutorial'}
-              onClick={() => setNavbarOpen(!navbarOpen)}
+              onClick={() => {
+                ReactGA.event({
+                  category: "NavBar",
+                  action: "click_navbar_tutorial",
+                });
+                setNavbarOpen(!navbarOpen)}}
             >
               tutorial
             </NavigationItem>
@@ -52,8 +63,7 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
               onClick={() => {
                 ReactGA.event({
                   category: "NavBar",
-                  action: "click_about",
-                  nonInteraction: false, // optional, true/false
+                  action: "click_navbar_about",
                 });
                 
                 setNavbarOpen(!navbarOpen);
@@ -65,7 +75,13 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
           {isLoggedIn ? <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
               link={'/subscription'}
-              onClick={() => setNavbarOpen(!navbarOpen)}
+              onClick={() => {
+                ReactGA.event({
+                  category: "NavBar",
+                  action: "click_navbar_premium",
+                });
+                setNavbarOpen(!navbarOpen)}
+              }
             >
               subscriptions
             </NavigationItem>
@@ -73,7 +89,13 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
               link={isLoggedIn ? '/profile' : '/login' }
-              onClick={() => setNavbarOpen(!navbarOpen)}
+              onClick={() => {
+                ReactGA.event({
+                  category: "NavBar",
+                  action: "click_navbar_profile_login",
+                });
+                setNavbarOpen(!navbarOpen)}
+              }
             >
               {isLoggedIn ? 'profile' : 'login' }
             </NavigationItem>
