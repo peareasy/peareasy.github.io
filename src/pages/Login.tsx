@@ -4,6 +4,7 @@ import {useEffect, useRef, useState} from "react";
 import {fetchUser} from "../redux/user/userSlice";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../redux/store";
+import ReactGA from "react-ga4";
 
 type LoginProps = {
   setLogin: (isLoggedIn: boolean) => void;
@@ -20,10 +21,14 @@ const Login = ({setLogin}:LoginProps) => {
   const navigate = useNavigate();
   const divRef = useRef<HTMLDivElement>(null);
 
+
+
   useEffect(() => {
     if (scriptLoaded) return undefined;
 
     const handleBackendSignIn = (credential: string) => {
+
+      // TODO: update such that login itself is using redux as well
       login(credential).then(_ => {
         dispatch(fetchUser())
         setLogin(true);
@@ -35,10 +40,17 @@ const Login = ({setLogin}:LoginProps) => {
     }
 
     const handleGoogleSignIn = (res: CredentialResponse) => {
-      console.log("Click")
       if (!res.clientId || !res.credential) {
+        ReactGA.event({
+          category: "Login",
+          action: "Google Sign In Error",
+        })
         setError('Couldn\'t login to your Google account');
       } else {
+        ReactGA.event({
+          category: "Login",
+          action: "user_signed_up",
+        });
         handleBackendSignIn(res.credential)
       }
     }
@@ -54,6 +66,7 @@ const Login = ({setLogin}:LoginProps) => {
     };
     const renderButton = () => {
       if (!window.google) return;
+
       window.google.accounts.id.renderButton(divRef.current!, {
         theme: 'outline',
         type: 'standard',

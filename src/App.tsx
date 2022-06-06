@@ -16,6 +16,8 @@ import {useDispatch} from "react-redux";
 import {AppDispatch} from "./redux/store";
 import {fetchUser} from "./redux/user/userSlice";
 import Subscription from "./pages/Subscription";
+import TagManager from 'react-gtm-module';
+import ReactGA from "react-ga4";
 import SBCPage from "./pages/SBCs/SBCPage";
 import CookieConsent from "react-cookie-consent";
 
@@ -23,6 +25,14 @@ import CookieConsent from "react-cookie-consent";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+
+  const tagManagerArgs = {
+    gtmId: 'GTM-MLMG3W4'
+  };
+
+  TagManager.initialize(tagManagerArgs)
+
+  ReactGA.initialize("G-VVZ00C9GVY");
 
   if (localStorage['name'] && !isLoggedIn) {
     dispatch(fetchUser())
