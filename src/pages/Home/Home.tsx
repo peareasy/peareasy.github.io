@@ -75,7 +75,7 @@ const Home = () => {
         modalBody = <div className={'w-full m-auto flex flex-row md:flex md:flex-col gap-8'}>
           <SubscriptionCard boxColor={"#22d3ee"} content={
             <ul className={'flex flex-col gap-y-4 text-left'}>
-            <div className={'text-primary-400 font-bold'}>
+            <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
               Current Subscription
             </div>
             <li className={'flex flex-row gap-x-2'}>

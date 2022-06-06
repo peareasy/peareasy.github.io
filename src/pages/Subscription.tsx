@@ -65,9 +65,9 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
 
   const subscriptions = <div className={'flex flex-row justify-center gap-x-4'}>
     <SubscriptionCard boxColor={"#22d3ee"} content={<ul className={'flex flex-col gap-y-4'}>
-      {isLoggedIn ? <div className={'text-primary-400 font-bold'}>
+      {isLoggedIn ? <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
         Current Subscription
-      </div> : <div className={'text-primary-400 font-bold'}>
+      </div> : <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
         Free Subscription
       </div> }
       <li className={'flex flex-row gap-x-2'}>
