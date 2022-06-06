@@ -32,10 +32,10 @@ const CardSBC = ({title, onClick, selected, changeImg, restricted, is_marquee_ma
 
   return (
     <div key={title} className={cardClassName.join(' ')} onClick={() => onCardClicked()}>
-      <p className='pt-4 text-l mx-2 flex flex-row justify-between gap-x-4'>
+      <div className='pt-4 text-l mx-2 flex flex-row justify-between gap-x-4'>
         {title}
         {subscriptionIcon}
-      </p>
+      </div>
       <div className='mx-auto w-44'>
         <img alt={title} src={process.env.PUBLIC_URL + changeImg}/>
       </div>

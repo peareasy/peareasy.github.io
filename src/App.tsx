@@ -1,4 +1,4 @@
-import {HashRouter, NavLink, Route, Routes} from "react-router-dom";
+import {HashRouter, Route, Routes} from "react-router-dom";
 
 import "./App.css";
 import Home from "./pages/Home/Home";
@@ -18,7 +18,7 @@ import {fetchUser} from "./redux/user/userSlice";
 import Subscription from "./pages/Subscription";
 import SBCPage from "./pages/SBCs/SBCPage";
 import CookieConsent from "react-cookie-consent";
-import styles from './Logo.module.css'
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

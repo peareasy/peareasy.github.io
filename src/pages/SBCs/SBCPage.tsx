@@ -100,7 +100,7 @@ const SBCPage = () => {
   if (loading) {
     view = loadingView
   } else if (showSolution) {
-    view = solution
+    view = solutionView
   } else {
     view = SBCsView
   }

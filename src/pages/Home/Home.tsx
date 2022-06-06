@@ -126,7 +126,7 @@ const Home = () => {
     }
   }
   const marquee_matchups = sbcs.data.filter(sbc => sbc.marquee_match_up)
-  const filteredSBCs = sbcs.data.filter(sbc => !sbc.marquee_match_up)
+  // const filteredSBCs = sbcs.data.filter(sbc => !sbc.marquee_match_up)
   let sbcsView = (
     <div className="space-y-2">
       <>
