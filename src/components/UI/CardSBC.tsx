@@ -33,9 +33,9 @@ const CardSBC = ({title, onClick, selected, changeImg, restricted, is_marquee_ma
   return (
     <div key={title} className={cardClassName.join(' ')} onClick={() => onCardClicked()}>
       <div className='px-2 pt-4 text-l mx-2 flex flex-row justify-between gap-x-4'>
-        <div></div>
+        <div className="w-4"></div>
         {title}
-        <div>{subscriptionIcon}</div>
+        <div className="w-4">{subscriptionIcon}</div>
         
       </div>
       <div className='mx-auto w-44'>
