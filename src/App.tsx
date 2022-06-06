@@ -4,7 +4,7 @@ import "./App.css";
 import Home from "./pages/Home/Home";
 import About from "./pages/Navbar/About";
 import Profile from "./pages/Profile";
-import NavigationBar from "./components/UI/NavigationBar/NavgiationBar";
+import NavigationBar from "./components/UI/NavigationBar/NavigationBar";
 import Contact from "./pages/Footer/Contact";
 import Tos from "./pages/Footer/Tos";
 import Privacy from "./pages/Footer/Privacy";
@@ -18,6 +18,7 @@ import {fetchUser} from "./redux/user/userSlice";
 import Subscription from "./pages/Subscription";
 import SBCPage from "./pages/SBCs/SBCPage";
 import CookieConsent from "react-cookie-consent";
+import styles from './Logo.module.css'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

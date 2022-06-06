@@ -17,7 +17,7 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
   const [showModal, setShowModal] = useState(false)
 
   const header = <h1 className={'text-3xl font-light m-auto'}>
-    <span className={'text-primary-400 font-medium'}>Easy </span>
+    <span className={'text-primary-400 font-medium'}>EasySBC </span>
     <span className={'text-secondary'}>Subscription</span>
   </h1>
 
@@ -114,7 +114,7 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
   </div>
 
   return showModal ? modal :
-    <div className='container mx-auto w-3/5 flex font-light flex-col gap-y-8 p-8 bg-gray-900 rounded'>
+    <div className='container mx-auto w-3/5 md:w-full flex font-light flex-col gap-y-8 md:p-2 p-8 bg-gray-900 rounded'>
       {header}
       {subHeader}
       {subscriptions}

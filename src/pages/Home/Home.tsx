@@ -72,7 +72,7 @@ const Home = () => {
       } else {
         modalNotShowFooter = true
         modalHeader = '❗ You need a premium subscription'
-        modalBody = <div className={'w-full m-auto flex flex-row gap-x-8'}>
+        modalBody = <div className={'w-full m-auto flex flex-row md:flex md:flex-col gap-8'}>
           <SubscriptionCard boxColor={"#22d3ee"} content={
             <ul className={'flex flex-col gap-y-4 text-left'}>
             <div className={'text-primary-400 font-bold'}>
@@ -120,7 +120,7 @@ const Home = () => {
       }
     } else {
       modalHeader = '❗ You need to login in order to solve this SBC'
-      modalBody = <span>We kindly ask you to login</span>
+      modalBody = <span>You need to login to solve this SBC</span>
       modalNavigation = '/login'
       modalPositiveButton = 'Login'
     }
@@ -130,7 +130,7 @@ const Home = () => {
   let sbcsView = (
     <div className="space-y-2">
       <>
-        <h1 className="text-2xl font-light mb-8">
+        <h1 className="text-2xl font-light mb-8 md:pr-4 md:pl-4">
           Cheap and unique AI solutions to any SBC based on live player prices
         </h1>
           {clickedRestrictedSBC ?
@@ -162,7 +162,7 @@ const Home = () => {
                      restricted={false}
                      is_marquee_match_up={true}/>
           </div>
-          <div className="grid grid-cols-3 gap-4 pb-8">
+          <div className="grid grid-cols-3 md:grid-cols-1 md:w-4/5 m-auto gap-4 pb-8">
             {/*{filteredSBCs.length > 0 ? filteredSBCs.map((sbc, index) =>*/}
             {mockedSBCs.length > 0 ? mockedSBCs.map((sbc, index) =>
               <CardSBC title={sbc.name}

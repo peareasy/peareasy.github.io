@@ -21,7 +21,7 @@ const Profile = ({setLogin}: LogoutProps) => {
       navigate('/')
     })
   }
-  return <div className='container mx-auto w-1/3 flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded'>
+  return <div className='container mx-auto w-1/3 md:w-full flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded'>
     {!user.data ? <Spinner/>: <>
     <div>
         <h1 className='text-xl text-secondary'>Hi, {user.data?.name} 👋</h1>

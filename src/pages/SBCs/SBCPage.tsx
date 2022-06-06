@@ -62,7 +62,7 @@ const SBCPage = () => {
   </div>
 
   const SBCsView = <>
-    <div className="grid grid-cols-2 gap-4 pb-2 w-1/2 m-auto">
+    <div className="grid grid-cols-2 md:grid-cols-1 md:w-3/5 gap-4 pb-2 w-1/2 m-auto">
       {sbcs.length > 0 ? sbcs.map((sbc, index) =>
         <CardSBC title={sbc.name}
                  key={sbc.name}
@@ -82,7 +82,7 @@ const SBCPage = () => {
   let modal
   if (clickedRestrictedSBC && !user.data) {
     modal = <Modal header={'❗ You need to login in order to solve this SBC'}
-                   body={<span>We kindly ask you to login</span>}
+                   body={<span>You need to login to solve this SBC</span>}
                    onNegativeActionClicked={() => {
                      setClickedRestrictedSBC(false)
                    }}

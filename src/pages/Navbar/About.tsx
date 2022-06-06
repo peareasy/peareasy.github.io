@@ -2,7 +2,7 @@ import {NavLink} from "react-router-dom";
 
 const About = ()  => {
   return (
-    <main className={'container mx-auto w-1/2 space-y-5 pb-10 pt-10 p-20 overflow-visible'}>
+    <main className={'container mx-auto w-1/2 md:w-4/5 space-y-5 pb-10 pt-10 overflow-visible'}>
       <h3 className="text-secondary text-2xl text-center">What We Offer</h3>
       <p className="text-secondary text-m text-left">
         Fast and cheap solutions to squad building challenges based on live player prices.

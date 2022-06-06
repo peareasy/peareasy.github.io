@@ -10,7 +10,7 @@ type LoggedInProps = {
 const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
-    <nav className="relative flex flex-wrap items-center justify-between px-2 py-6 mb-8">
+    <nav className="relative flex flex-wrap items-center justify-between px-2 py-6 mb-8 md:mb-0">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between mobile:w-auto mobile:static mobile:block mobile:justify-start">
           <NavLink

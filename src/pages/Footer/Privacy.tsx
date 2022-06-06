@@ -2,7 +2,7 @@ import React from "react";
 
 const Privacy = () => {
     return (
-                <main className={'container mx-auto w-1/2 space-y-5 pb-10 pt-10 p-20 overflow-visible text-secondary'}>
+                <main className={'container mx-auto w-1/2 space-y-5 pb-10 pt-10 p-20 md:pl-4 md:pr-8  md:w-full overflow-visible text-secondary'}>
             <div>
 
             <div className="WordSection1">
@@ -4037,7 +4037,7 @@ const Privacy = () => {
     <span lang="EN-US">
       <a href="https://support.google.com/analytics/answer/6004245">
         <span style={{ fontFamily: '"Arial",sans-serif' }}>
-          https://support.google.com/analytics/answer/6004245
+          google analytics
         </span>
       </a>
     </span>
