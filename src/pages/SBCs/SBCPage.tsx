@@ -32,12 +32,20 @@ const SBCPage = () => {
       });
     api.solveSBC(sbcs[index].name)
       .then((solution: Solution) => {
+        ReactGA.event({
+          category: "SolveSBC",
+          action: "solve_sbc_success",
+        })
         const {formation, players, cost, chem, rating, solution_message} = solution;
         setSolution({players, cost, chem, rating, formation, solution_message})
         setShowSolution(true)
         setLoading(false)
       })
       .catch(() => {
+        ReactGA.event({
+          category: "SolveSBC",
+          action: "solve_sbc_error",
+        })
         setShowSolution(false)
         setLoading(false)
       })
@@ -82,9 +90,6 @@ const SBCPage = () => {
                    onSBCClicked(index === selectedSBC ? -1 : index, description, is_marquee_match_up)
                  }} />) : null}
     </div>
-    {/*<div className="pt-10 flex justify-around pb-10">*/}
-    {/*  <PrimaryButton title={'Solve'} disabled={selectedSBC === -1} onClick={onSolveSBC}/>*/}
-    {/*</div>*/}
   </>
 
   let modal

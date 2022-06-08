@@ -48,7 +48,7 @@ function App() {
         buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
         expires={150}
       >
-        This website uses cookies to enhance the user experience. Read more {<a href={'#/tos'}>here</a>}
+        This website uses cookies to enhance the user experience. Read more {<a href={'#/privacy'}>here</a>}
       </CookieConsent>
       <HashRouter basename="/">
         <div className="flex flex-col min-h-screen flex-start">

@@ -8,7 +8,7 @@ import {fetchSbcs, getSBCsSelector} from "../../redux/sbcs/sbcsSlice";
 import {useNavigate} from "react-router";
 import {getUserSelector} from "../../redux/user/userSlice";
 import SubscriptionCard from "../../components/UI/SubscriptionCard";
-
+import ReactGA from "react-ga4";
 
 const Home = () => {
 
@@ -152,15 +152,27 @@ const Home = () => {
             <Modal header={modalHeader}
                     body={modalBody}
                     onNegativeActionClicked={() => {
+                      ReactGA.event({
+                        category: "HomePage_login_popup",
+                        action: "click_popup_login_cancel"
+                      });
                       setClickedRestrictedSBC(false)
                       setShowPremiumSubscriptionComingSoon(false)
                     }}
                     onPositiveActionClicked={() => {
+                      ReactGA.event({
+                        category: "HomePage_login_popup",
+                        action: "click_popup_login"
+                      });
                       setShowPremiumSubscriptionComingSoon(false)
                       setClickedRestrictedSBC(false)
                       navigate(modalNavigation)
                     }}
                     onCloseClicked={() => {
+                      ReactGA.event({
+                        category: "HomePage_login_popup",
+                        action: "click_popup_login_close"
+                      });
                       setShowPremiumSubscriptionComingSoon(false)
                       setClickedRestrictedSBC(false)
                     }}
@@ -171,7 +183,13 @@ const Home = () => {
         <>
           <div className={'m-auto w-2/3 pb-4'}>
             <CardSBC title={'Marquee Matchups'}
-                     onClick={() => {navigate('/sbc', { state: marquee_matchups})}}
+                     onClick={() => {
+                      ReactGA.event({
+                        category: "HomePage",
+                        action: "click_sbc_marquee_matchups",
+                      });
+                       navigate('/sbc', { state: marquee_matchups})
+                      }}
                      changeImg={"https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_1000013-67af5e79-ce1b.png"}
                      restricted={false}
                      is_marquee_match_up={true}/>
@@ -184,8 +202,15 @@ const Home = () => {
                        changeImg={sbc.icon_url}
                        restricted={sbc.restricted}
                        is_marquee_match_up={sbc.marquee_match_up}
-                       onClick={(description, is_marquee_match_up?: boolean) => {
-                         onSBCClicked(index === selectedSBC ? -1 : index, description, is_marquee_match_up)
+                       onClick={(restricted, is_marquee_match_up?: boolean) => {
+
+                         const gaAction = restricted ? 'click_sbc_restricted' : is_marquee_match_up ? 'click_sbc_marquee' : "click_sbc_free"
+
+                        ReactGA.event({
+                          category: "HomePage",
+                          action: gaAction,
+                        });
+                         onSBCClicked(index === selectedSBC ? -1 : index, restricted, is_marquee_match_up)
                        }} />) : null}
           </div>
         </>

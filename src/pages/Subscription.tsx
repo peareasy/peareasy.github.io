@@ -3,6 +3,8 @@ import {copied} from "../components/UI/icons";
 import Modal from "../components/UI/Modal";
 import React, {useState} from "react";
 import {useLocation, useNavigate} from "react-router";
+import ReactGA from "react-ga4";
+
 
 type LoggedInProps = {
   isLoggedIn: boolean;
@@ -12,7 +14,6 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
   const navigate = useNavigate()
   const location = useLocation();
 
-  const [showLoginModal, setShowLoginModal] = useState(false)
   const [showSubscriptionComingSoonModal, setShowSubscriptionComingSoonModal] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
@@ -26,42 +27,63 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
   </h2>
 
   const premiumSubscriptionClicked = () => {
+    ReactGA.event({
+      category: "PremiumPage",
+      action: "click_premium_page_buy_now",
+    });
     setShowModal(true)
     setShowSubscriptionComingSoonModal(true)
   }
 
   const freeSubscriptionClicked = () => {
-    setShowModal(true)
-    setShowLoginModal(true)
+    ReactGA.event({
+      category: "PremiumPage",
+      action: "click_premium_page_login",
+    });
+    navigate("/login",{state: location})
   }
 
   let modalHeader = ''
   let modalBody = <></>
   let modalNavigation = ''
   let modalPositiveActionButtonLabel = ''
-  if (showLoginModal) {
-    modalHeader = '❗ You just need to login in order to access subscriptions'
-    modalBody = <span>We kindly ask you to login to access subscriptions</span>
-    modalNavigation = '/login'
-    modalPositiveActionButtonLabel = 'Login'
-  } else if (showSubscriptionComingSoonModal) {
+  if (showSubscriptionComingSoonModal) {
     modalHeader = '❗ Thank you so much for your interest'
-    modalBody = <span>We are working hard on the full release which will be out soon. If you have signed-up with your e-mail
-      we will let you know once we’re fully live and if not, please sign up</span>
-    modalNavigation = '/login'
-    modalPositiveActionButtonLabel = 'Sign-up'
+    modalBody = <span>Thank you so much for validating our product! 
+      We are working hard on the final details of the premium subscription features. 
+      If you sign up we will let you know when it is ready! 🍾</span>
+    modalNavigation = '/login' 
+    modalPositiveActionButtonLabel = 'Sign me up!'
   }
 
   let modal = <Modal header={modalHeader}
                      body={modalBody}
-                     onNegativeActionClicked={() => setShowModal(false)}
+                     onNegativeActionClicked={() => {
+                      ReactGA.event({
+                        category: "BuyPremiumPopup",
+                        action: "click_buy_premium_popup_no_thanks"
+                      }); 
+                      setShowModal(false)
+                    }}
                      onPositiveActionClicked={() => {
+                      ReactGA.event({
+                        category: "BuyPremiumPopup",
+                        action: "click_buy_premium_popup_sign_up"
+                      });
                        setShowModal(false)
-                       navigate(modalNavigation,{state: location})
+                       if (!isLoggedIn){
+                         navigate(modalNavigation,{state: location});
+                       }
                      }}
-                     onCloseClicked={() => setShowModal(false)}
+                     onCloseClicked={() => {
+                      ReactGA.event({
+                        category: "BuyPremiumPopup",
+                        action: "click_buy_premium_popup_close"
+                      }); 
+                      setShowModal(false)
+                    }}
                      positiveActionButtonLabel={modalPositiveActionButtonLabel}
-                     negativeActionButtonLabel="Cancel"/>
+                     negativeActionButtonLabel="No thanks!"/>
 
   const subscriptions = <div className={'flex flex-row justify-center gap-x-4'}>
     <SubscriptionCard boxColor={"#22d3ee"} content={<ul className={'flex flex-col gap-y-4'}>
