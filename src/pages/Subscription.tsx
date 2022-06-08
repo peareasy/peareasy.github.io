@@ -41,13 +41,13 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
   let modalPositiveActionButtonLabel = ''
   if (showLoginModal) {
     modalHeader = '❗ You just need to login in order to access subscriptions'
-    modalBody = <span>We kindly ask you to login to access subscriptions</span>
+    modalBody = <span>We kindly ask you to log in to access subscriptions</span>
     modalNavigation = '/login'
     modalPositiveActionButtonLabel = 'Login'
   } else if (showSubscriptionComingSoonModal) {
     modalHeader = '❗ Thank you so much for your interest'
-    modalBody = <span>We are working hard on the full release which will be out soon. If you have signed-up with your e-mail
-      we will let you know once we’re fully live and if not, please sign up</span>
+    modalBody = <span>We are working hard on the full release which will be out soon. If you sign up with your e-mail,
+      we will let you know once we are fully live.</span>
     modalNavigation = '/login'
     modalPositiveActionButtonLabel = 'Sign-up'
   }
