@@ -13,6 +13,7 @@ const SolutionView = ({solution, sbc}: SolutionViewProps) => {
   const formation = ("1-" + solution.formation).split(/[\s-]+/).map(Number)
   const players = solution.players
   const formationWithPlayers = []
+  console.log(solution)
 
   let counter = 0;
   const cardClasses = "w-30 lg:w-36 xl:w-44 rounded-lg bg-primary-900 flex flex-row m-auto justify-between".split(" ");
@@ -25,6 +26,9 @@ const SolutionView = ({solution, sbc}: SolutionViewProps) => {
           <div className="flex flex-col p-2">
             <CopyButton value={players[counter].name} />
             <div className="text-tiny xl:text-xs text-left">{players[counter].position+', '+players[counter].rating}</div>
+            <div className="text-tiny xl:text-xs text-left flex flex-row gap-x-1">{players[counter].price}
+              <img className="w-3 h-3 my-auto" alt="coins-bin" src={process.env.PUBLIC_URL + '/coins_bin.png'}/>
+            </div>
           </div>
           <div className="flex flex-col p-2">
             {players[counter].loyalty ?
@@ -60,7 +64,7 @@ const SolutionView = ({solution, sbc}: SolutionViewProps) => {
               <p className="text-m flex flex-row mx-auto"><span className="pr-1">{copied}</span>Rating: {sbc.min_rating} ({solution.rating})</p>
               <p className="text-m flex flex-row mx-auto"><span className="pr-1">{copied}</span>Chem: {sbc.min_chemistry} ({solution.chem})</p>
               <p className="text-m flex flex-row mx-auto">Formation: {solution.formation}</p>
-              <p className="text-m flex flex-row mx-auto">Cost: {solution.cost}</p>
+              <p className="text-m flex flex-row mx-auto">{solution.cost} <img className="w-5 h-5 my-auto ml-2" alt="coins-bin" src={process.env.PUBLIC_URL + '/coins_bin.png'}/></p>
             </div>
             
           </div>

@@ -172,7 +172,6 @@ const Home = () => {
           <div className={'m-auto w-2/3 pb-4'}>
             <CardSBC title={'Marquee Matchups'}
                      onClick={() => {navigate('/sbc', { state: marquee_matchups})}}
-                     selected={false}
                      changeImg={"https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_1000013-67af5e79-ce1b.png"}
                      restricted={false}
                      is_marquee_match_up={true}/>
@@ -187,8 +186,7 @@ const Home = () => {
                        is_marquee_match_up={sbc.marquee_match_up}
                        onClick={(description, is_marquee_match_up?: boolean) => {
                          onSBCClicked(index === selectedSBC ? -1 : index, description, is_marquee_match_up)
-                       }}
-                       selected={selectedSBC === index}/>) : null}
+                       }} />) : null}
           </div>
         </>
       </>

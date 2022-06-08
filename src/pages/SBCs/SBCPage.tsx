@@ -24,13 +24,13 @@ const SBCPage = () => {
   const [loading, setLoading] = useState(false)
   const user = useSelector(getUserSelector)
 
-  const onSolveSBC = () => {
+  const onSolveSBC = (index: number) => {
     setLoading(true)
       ReactGA.event({
         category: "SolveSBC",
         action: "click_solve_sbc",
       });
-    api.solveSBC(sbcs[selectedSBC].name)
+    api.solveSBC(sbcs[index].name)
       .then((solution: Solution) => {
         const {formation, players, cost, chem, rating, solution_message} = solution;
         setSolution({players, cost, chem, rating, formation, solution_message})
@@ -48,6 +48,7 @@ const SBCPage = () => {
       setClickedRestrictedSBC(true)
     } else {
       setSelectedSBC(index)
+      onSolveSBC(index)
     }
   }
 
@@ -79,12 +80,11 @@ const SBCPage = () => {
                  is_marquee_match_up={sbc.marquee_match_up}
                  onClick={(description, is_marquee_match_up?: boolean) => {
                    onSBCClicked(index === selectedSBC ? -1 : index, description, is_marquee_match_up)
-                 }}
-                 selected={selectedSBC === index}/>) : null}
+                 }} />) : null}
     </div>
-    <div className="pt-10 flex justify-around pb-10">
-      <PrimaryButton title={'Solve'} disabled={selectedSBC === -1} onClick={onSolveSBC}/>
-    </div>
+    {/*<div className="pt-10 flex justify-around pb-10">*/}
+    {/*  <PrimaryButton title={'Solve'} disabled={selectedSBC === -1} onClick={onSolveSBC}/>*/}
+    {/*</div>*/}
   </>
 
   let modal

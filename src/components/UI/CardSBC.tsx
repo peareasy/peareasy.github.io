@@ -3,24 +3,20 @@ import React from "react";
 type CardSBCProps = {
   title: string;
   onClick: (clickedSBC: boolean, is_marquee_match_up: boolean | undefined) => void;
-  selected: boolean;
   changeImg: string;
   restricted: boolean;
   is_marquee_match_up: boolean | undefined
 };
 
-const CardSBC = ({title, onClick, selected, changeImg, restricted, is_marquee_match_up}: CardSBCProps) => {
+const CardSBC = ({title, onClick, changeImg, restricted, is_marquee_match_up}: CardSBCProps) => {
   const cardClassName = ['rounded-xl hover:bg-gray-800 flex flex-col m-auto cursor-pointer border-2 w-full text-secondary']
 
   const onCardClicked = () => {
     onClick(restricted, is_marquee_match_up)
   }
 
-  if (selected) {
-    cardClassName.push('border-primary-500 bg-gray-800')
-  } else {
-    cardClassName.push('bg-gray-900 border-gray-900')
-  }
+  cardClassName.push('bg-gray-900 border-gray-900')
+
   let subscriptionIcon;
   if (restricted) {
     if (is_marquee_match_up) {
