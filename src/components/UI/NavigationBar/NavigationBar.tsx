@@ -47,19 +47,6 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
         >
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
-              link={'/tutorial'}
-              onClick={() => {
-                ReactGA.event({
-                  category: "NavBar",
-                  action: "click_navbar_tutorial",
-                });
-                setNavbarOpen(!navbarOpen)}}
-            >
-              <span>tutorial</span>
-            </NavigationItem>
-          </ul>
-          <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
-            <NavigationItem
               link={'/about'}
               onClick={() => {
                 ReactGA.event({

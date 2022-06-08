@@ -9,7 +9,6 @@ import Contact from "./pages/Footer/Contact";
 import Tos from "./pages/Footer/Tos";
 import Privacy from "./pages/Footer/Privacy";
 import Footer from "./components/UI/Footer/Footer";
-import Tutorial from "./pages/Navbar/Tutorial";
 import Login from "./pages/Login";
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
@@ -58,7 +57,6 @@ function App() {
               <Route path={"/profile"} element={<Profile setLogin={setIsLoggedIn}/>} />
               <Route path={"/contact"} element={<Contact/>} />
               <Route path={"/tos"} element={<Tos/>} />
-              <Route path={"/tutorial"} element={<Tutorial/>} />
               <Route path={"/sbc"} element={<SBCPage/>} />
               <Route path={"/privacy"} element={<Privacy/>} />
               <Route path={"/login"} element={<Login setLogin={setIsLoggedIn}/>} />

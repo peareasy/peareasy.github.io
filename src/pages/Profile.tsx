@@ -2,9 +2,9 @@ import {PrimaryButton} from "../components/UI/Button";
 import {useNavigate} from "react-router";
 import {useDispatch, useSelector} from 'react-redux';
 import {getUserSelector, logoutUser} from '../redux/user/userSlice';
-import Spinner from "../components/UI/Spinner/Spinner";
 import {AppDispatch} from "../redux/store";
 import {NavLink} from "react-router-dom";
+import {useEffect} from "react";
 
 type LogoutProps = {
   setLogin: (isLoggedIn: boolean) => void;
@@ -21,8 +21,15 @@ const Profile = ({setLogin}: LogoutProps) => {
       navigate('/')
     })
   }
+  useEffect(() => {
+    if (!user.data) {
+      navigate('/login')
+    }
+  }, [navigate, user.data])
+
+  console.log(user.data)
   return <div className='container mx-auto w-1/3 md:w-full flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded'>
-    {!user.data ? <Spinner/>: <>
+    {/*{!user.data ? <Spinner/> : <>*/}
     <div>
         <h1 className='text-xl text-secondary'>Hi, {user.data?.name} 👋</h1>
       </div>
@@ -46,7 +53,6 @@ const Profile = ({setLogin}: LogoutProps) => {
       <div className={'m-auto'}>
         <PrimaryButton onClick={() => logout()} title={'Logout'}/>
       </div>
-    </>}
     </div>
 }
 export default Profile
