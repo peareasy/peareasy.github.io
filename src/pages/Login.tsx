@@ -43,13 +43,13 @@ const Login = ({setLogin}:LoginProps) => {
       if (!res.clientId || !res.credential) {
         ReactGA.event({
           category: "Login",
-          action: "Google Sign In Error",
+          action: "google_login_error",
         })
         setError('Couldn\'t login to your Google account');
       } else {
         ReactGA.event({
           category: "Login",
-          action: "user_signed_up",
+          action: "google_login_success",
         });
         handleBackendSignIn(res.credential)
       }

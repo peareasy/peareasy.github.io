@@ -26,18 +26,26 @@ const SBCPage = () => {
 
   const onSolveSBC = () => {
     setLoading(true)
-      ReactGA.event({
-        category: "SolveSBC",
-        action: "click_solve_sbc",
-      });
+    ReactGA.event({
+      category: "SolveSBC",
+      action: "click_solve_sbc",
+    });
     api.solveSBC(sbcs[selectedSBC].name)
       .then((solution: Solution) => {
+        ReactGA.event({
+          category: "SolveSBC",
+          action: "solve_sbc_success",
+        })
         const {formation, players, cost, chem, rating, solution_message} = solution;
         setSolution({players, cost, chem, rating, formation, solution_message})
         setShowSolution(true)
         setLoading(false)
       })
       .catch(() => {
+        ReactGA.event({
+          category: "SolveSBC",
+          action: "solve_sbc_error",
+        })
         setShowSolution(false)
         setLoading(false)
       })
