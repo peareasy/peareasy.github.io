@@ -29,17 +29,17 @@ const SolutionView = ({solution, sbc}: SolutionViewProps) => {
               <img className="w-3 h-3 my-auto" alt="coins-bin" src={process.env.PUBLIC_URL + '/coins_bin.png'}/>
             </div>
           </div>
-          <div className="flex flex-col p-2">
-            {players[counter].loyalty ?
-              <div className="w-6 h-6">
-                <img className="w-4 m-auto" alt="loyalty" src={process.env.PUBLIC_URL + '/loyalty.png'}/>
-              </div>
-              : null }
-            {players[counter].untradeable ?
-              <div className="w-6 h-6">
-              <img className="w-6" alt="untradeable" src={process.env.PUBLIC_URL + '/untradeable.png'}/>
-            </div>: null }
-          </div>
+          {/*<div className="flex flex-col p-2">*/}
+          {/*  {players[counter].loyalty ?*/}
+          {/*    <div className="w-6 h-6">*/}
+          {/*      <img className="w-4 m-auto" alt="loyalty" src={process.env.PUBLIC_URL + '/loyalty.png'}/>*/}
+          {/*    </div>*/}
+          {/*    : null }*/}
+          {/*  {players[counter].untradeable ?*/}
+          {/*    <div className="w-6 h-6">*/}
+          {/*    <img className="w-6" alt="untradeable" src={process.env.PUBLIC_URL + '/untradeable.png'}/>*/}
+          {/*  </div>: null }*/}
+          {/*</div>*/}
         </div>)
       counter++
     }
@@ -51,13 +51,13 @@ const SolutionView = ({solution, sbc}: SolutionViewProps) => {
   }
   return (
       <div className={"mx-auto flex justify-center text-secondary"}>
-        <div className="flex flex-row gap-x-2 lg:gap-x-8 xl:gap-x-16 ">
-          <div className="text-secondary flex-2 lg:w-32 xl:w-48 text-center font-light text-2xl"></div>
-          <div className="flex flex-col gap-y-4 flex-1 w-1/3">
+        <div className="flex flex-row md:flex-col gap-x-2 lg:gap-x-8 xl:gap-x-16 ">
+          <div className="text-secondary flex-2 lg:w-32 xl:w-48 text-center font-light text-2xl md:hidden"></div>
+          <div className="flex flex-col gap-y-4 flex-1 w-1/3 md:w-full">
             {formationWithPlayers.reverse()}
           </div>
 
-          <div className="space-y-4 text-center flex-2 w-32 lg:w-48">
+          <div className="space-y-4 text-center flex-2 w-32 lg:w-48 md:mx-auto md:mt-8 md:w-2/3">
             <div className="text-secondary text-xs lg:text-base text-center font-light rounded-lg bg-gray-800 flex flex-col gap-y-4 w-full pb-4">
               <h1 className="font-light mt-4 text-xl">Constraints</h1>
               <p className="text-m flex flex-row mx-auto"><span className="pr-1">{copied}</span>Rating: {sbc.min_rating} ({solution.rating})</p>

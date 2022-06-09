@@ -22,15 +22,19 @@ const CopyButton = ({value}: ButtonProps) => {
     >
         {
             clicked ?
-            <div className={styles.tooltip}>
-                {showCopied ? <span className={styles.tooltiptext}>Copied!</span> : <div/>}
-                <span>{copied}</span>
-            </div>
+              <span className='md:hidden'>
+                  <div className={styles.tooltip}>
+                      {showCopied ? <span className={styles.tooltiptext}>Copied!</span> : <div/>}
+                      <span className='md:hidden'>{copied}</span>
+                  </div>
+                </span>
                 :
+              <span className='md:hidden'>
             <div className={styles.tooltip}>
                 <span className={styles.tooltiptext}>Copy</span>
                 <span>{copy}</span>
             </div>
+                </span>
         }
     </button>
     
