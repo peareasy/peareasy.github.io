@@ -9,6 +9,8 @@ import {useNavigate} from "react-router";
 import {getUserSelector} from "../../redux/user/userSlice";
 import SubscriptionCard from "../../components/UI/SubscriptionCard";
 import ReactGA from "react-ga4";
+import {useCookies} from "react-cookie";
+import {setNotifyTrue} from "../../api/privateApi";
 
 const Home = () => {
 
@@ -31,7 +33,7 @@ const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
   const sbcs = useSelector(getSBCsSelector);
   const user = useSelector(getUserSelector)
-
+  const [, setCookie] = useCookies(["notify"]);
   const [showPremiumSubscriptionComingSoon, setShowPremiumSubscriptionComingSoon] = useState(false)
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
   const [clickedRestrictedSBC, setClickedRestrictedSBC] = useState(false)
@@ -67,8 +69,8 @@ const Home = () => {
         modalHeader = '❗ Thank you so much for your interest'
         modalBody = <span>We are working hard on the full release which will be out soon. If you have signed-up with your e-mail
       we will let you know once we’re fully live and if not, please sign up</span>
-        modalNavigation = '/login'
-        modalPositiveButton = 'Sign-up'
+        modalNavigation = '/'
+        modalPositiveButton = 'Notify me'
       } else {
         modalNotShowFooter = true
         modalHeader = '❗ You need a premium subscription'
@@ -160,6 +162,10 @@ const Home = () => {
                       setShowPremiumSubscriptionComingSoon(false)
                     }}
                     onPositiveActionClicked={() => {
+                      if (modalPositiveButton === "Notify me") {
+                        setCookie("notify", true);
+                        setNotifyTrue();
+                      }
                       ReactGA.event({
                         category: "HomePage_login_popup",
                         action: "click_popup_login"

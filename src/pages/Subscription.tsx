@@ -4,7 +4,8 @@ import Modal from "../components/UI/Modal";
 import React, {useState} from "react";
 import {useLocation, useNavigate} from "react-router";
 import ReactGA from "react-ga4";
-
+import {useCookies} from "react-cookie";
+import {setNotifyTrue} from "../api/privateRequests/setNotifyTrue";
 
 type LoggedInProps = {
   isLoggedIn: boolean;
@@ -13,6 +14,7 @@ type LoggedInProps = {
 const Subscription = ({isLoggedIn}: LoggedInProps) => {
   const navigate = useNavigate()
   const location = useLocation();
+  const [, setCookie] = useCookies(["notify"]);
 
   const [showSubscriptionComingSoonModal, setShowSubscriptionComingSoonModal] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -48,12 +50,22 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
   let modalNavigation = ''
   let modalPositiveActionButtonLabel = ''
   if (showSubscriptionComingSoonModal) {
-    modalHeader = '❗ Thank you so much for your interest'
-    modalBody = <span>Thank you so much for validating our product! 
-      We are working hard on the final details of the premium subscription features. 
-      If you sign up we will let you know when it is ready! 🍾</span>
-    modalNavigation = '/login' 
-    modalPositiveActionButtonLabel = 'Sign me up!'
+    if (isLoggedIn) {
+      modalHeader = '❗ Thank you so much for your interest'
+      modalBody = <span>Thank you so much for validating our product!
+        We are working hard on the final details of the premium subscription features.
+        Get a notified when it is ready</span>
+      modalNavigation = '/'
+      modalPositiveActionButtonLabel = 'Notify me'
+    }
+     else {
+      modalHeader = '❗ Thank you so much for your interest'
+      modalBody = <span>Thank you so much for validating our product!
+        We are working hard on the final details of the premium subscription features.
+        If you sign in we will let you know when it is ready! 🍾</span>
+      modalNavigation = '/login'
+      modalPositiveActionButtonLabel = 'Sign in'
+    }
   }
 
   let modal = <Modal header={modalHeader}
@@ -70,9 +82,12 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
                         category: "BuyPremiumPopup",
                         action: "click_buy_premium_popup_sign_up"
                       });
+                       setCookie("notify", true);
                        setShowModal(false)
                        if (!isLoggedIn){
                          navigate(modalNavigation,{state: location});
+                       } else {
+                         setNotifyTrue()
                        }
                      }}
                      onCloseClicked={() => {

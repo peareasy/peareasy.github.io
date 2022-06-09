@@ -13,7 +13,6 @@ const SolutionView = ({solution, sbc}: SolutionViewProps) => {
   const formation = ("1-" + solution.formation).split(/[\s-]+/).map(Number)
   const players = solution.players
   const formationWithPlayers = []
-  console.log(solution)
 
   let counter = 0;
   const cardClasses = "w-30 lg:w-36 xl:w-44 rounded-lg bg-primary-900 flex flex-row m-auto justify-between".split(" ");
@@ -45,7 +44,7 @@ const SolutionView = ({solution, sbc}: SolutionViewProps) => {
       counter++
     }
     formationWithPlayers.push(
-      <div className="flex flex-row justify-center gap-x-4">
+      <div className="flex flex-row justify-center gap-x-4" key={i}>
         {row}
       </div>
     )

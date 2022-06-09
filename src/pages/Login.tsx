@@ -5,6 +5,7 @@ import {fetchUser} from "../redux/user/userSlice";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../redux/store";
 import ReactGA from "react-ga4";
+import {useCookies} from "react-cookie";
 
 type LoginProps = {
   setLogin: (isLoggedIn: boolean) => void;
@@ -20,16 +21,18 @@ const Login = ({setLogin}:LoginProps) => {
   const from = location.state?.pathname || '/'
   const navigate = useNavigate();
   const divRef = useRef<HTMLDivElement>(null);
-
-
+  const [cookies] = useCookies(['notify'])
 
   useEffect(() => {
     if (scriptLoaded) return undefined;
 
     const handleBackendSignIn = (credential: string) => {
-
+      let notify = false;
+      if (cookies['notify']) {
+        notify = true
+      }
       // TODO: update such that login itself is using redux as well
-      login(credential).then(_ => {
+      login(credential, notify).then(_ => {
         dispatch(fetchUser())
         setLogin(true);
         navigate(from, { state: location.state })

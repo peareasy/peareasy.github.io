@@ -61,6 +61,14 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
             </NavigationItem>
           </ul>
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
+            <a href={'https://discord.gg/hcvAa8ve'}
+               target="_blank" rel="noreferrer"
+               className="px-3 py-2 flex items-center text-sm uppercase leading-snug text-secondary hover:opacity-75"
+            >
+              <span>discord</span>
+            </a>
+          </ul>
+          <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
               link={'/subscription'}
               onClick={() => {

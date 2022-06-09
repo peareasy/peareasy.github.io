@@ -87,7 +87,7 @@ const SBCPage = () => {
                  restricted={sbc.restricted}
                  is_marquee_match_up={sbc.marquee_match_up}
                  onClick={(description, is_marquee_match_up?: boolean) => {
-                   onSBCClicked(index === selectedSBC ? -1 : index, description, is_marquee_match_up)
+                   onSBCClicked(index, description, is_marquee_match_up)
                  }} />) : null}
     </div>
   </>
