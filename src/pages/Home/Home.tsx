@@ -39,6 +39,10 @@ const Home = () => {
   const [clickedRestrictedSBC, setClickedRestrictedSBC] = useState(false)
 
   const onBuySubscriptionClicked = () => {
+    ReactGA.event({
+      category: "click_buy_now",
+      action: "click_buy_now"
+    });
     setShowPremiumSubscriptionComingSoon(true)
   }
 
