@@ -74,7 +74,7 @@ const Home = () => {
       } else {
         modalNotShowFooter = true
         modalHeader = '❗ You need a premium subscription'
-        modalBody = <div className={'w-full m-auto flex flex-row md:flex md:flex-col gap-8'}>
+        modalBody = <div className={'w-full m-auto flex flex-row md:flex md:flex-col-reverse gap-8'}>
           <SubscriptionCard boxColor={"#22d3ee"} content={
             <ul className={'flex flex-col gap-y-4 text-left'}>
             <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
