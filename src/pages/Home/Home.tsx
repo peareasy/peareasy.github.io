@@ -158,10 +158,17 @@ const Home = () => {
             <Modal header={modalHeader}
                     body={modalBody}
                     onNegativeActionClicked={() => {
-                      ReactGA.event({
-                        category: "HomePage_login_popup",
-                        action: "click_popup_login_cancel"
-                      });
+                      if (modalPositiveButton === "Notify me") {
+                        ReactGA.event({
+                          category: "HomePage_notify_popup",
+                          action: "click_popup_notify_cancel"
+                        });  
+                      } else {
+                        ReactGA.event({
+                          category: "HomePage_login_popup",
+                          action: "click_popup_login_cancel"
+                        });  
+                      }
                       setClickedRestrictedSBC(false)
                       setShowPremiumSubscriptionComingSoon(false)
                     }}
@@ -177,11 +184,10 @@ const Home = () => {
                         setNotifyTrue();
                       } else {
                         
-                        
-                        // ReactGA.event({
-                        //   category: "HomePage_login_popup",
-                        //   action: "click_popup_login"
-                        // });
+                        ReactGA.event({
+                          category: "HomePage_login_popup",
+                          action: "click_popup_login"
+                        });
                       }
                       
                       setShowPremiumSubscriptionComingSoon(false)
@@ -189,10 +195,17 @@ const Home = () => {
                       navigate(modalNavigation)
                     }}
                     onCloseClicked={() => {
-                      ReactGA.event({
-                        category: "HomePage_login_popup",
-                        action: "click_popup_login_close"
-                      });
+                      if (modalPositiveButton === "Notify me") {
+                        ReactGA.event({
+                          category: "HomePage_notify_popup",
+                          action: "click_popup_notify_close"
+                        });
+                      } else {
+                        ReactGA.event({
+                          category: "HomePage_login_popup",
+                          action: "click_popup_login_close"
+                        });
+                      }
                       setShowPremiumSubscriptionComingSoon(false)
                       setClickedRestrictedSBC(false)
                     }}
