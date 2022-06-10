@@ -166,14 +166,24 @@ const Home = () => {
                       setShowPremiumSubscriptionComingSoon(false)
                     }}
                     onPositiveActionClicked={() => {
+                      console.log(modalPositiveButton);
                       if (modalPositiveButton === "Notify me") {
+                        ReactGA.event({
+                          category: "HomePage_notify_popup",
+                          action: "click_popup_notify_notify"
+                        });
+
                         setCookie("notify", true);
                         setNotifyTrue();
+                      } else {
+                        
+                        
+                        // ReactGA.event({
+                        //   category: "HomePage_login_popup",
+                        //   action: "click_popup_login"
+                        // });
                       }
-                      ReactGA.event({
-                        category: "HomePage_login_popup",
-                        action: "click_popup_login"
-                      });
+                      
                       setShowPremiumSubscriptionComingSoon(false)
                       setClickedRestrictedSBC(false)
                       navigate(modalNavigation)
