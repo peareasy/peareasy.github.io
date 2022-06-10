@@ -2,7 +2,7 @@ import {SBC} from "../../interfaces/SBC";
 import {useLocation, useNavigate} from "react-router";
 import CardSBC from "../../components/UI/CardSBC";
 import {PrimaryButton} from "../../components/UI/Button";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import SolutionView from "../../components/UI/SolutionView";
 import {Solution} from "../../interfaces/Solution";
 import * as api from "../../api/publicApi";
@@ -23,6 +23,11 @@ const SBCPage = () => {
   const [showSolution, setShowSolution] = useState(false)
   const [loading, setLoading] = useState(false)
   const user = useSelector(getUserSelector)
+
+  useEffect(() => {
+    if (!sbcs)
+      navigate('/')
+  }, [sbcs, navigate]);
 
   const onSolveSBC = (index: number) => {
     setLoading(true)
@@ -61,7 +66,8 @@ const SBCPage = () => {
   }
 
   const solutionView = <div>
-    <SolutionView solution={solution} sbc={sbcs[selectedSBC]} />
+
+    {sbcs ? <SolutionView solution={solution} sbc={sbcs[selectedSBC]} /> : <></>}
     <div className="pt-10 flex justify-around pb-10 ">
       <PrimaryButton onClick={() => {
         setShowSolution(false)
@@ -80,7 +86,7 @@ const SBCPage = () => {
 
   const SBCsView = <>
     <div className="grid grid-cols-2 md:grid-cols-1 md:w-3/5 gap-4 pb-2 w-1/2 m-auto">
-      {sbcs.length > 0 ? sbcs.map((sbc, index) =>
+      {sbcs && sbcs.length > 0 ? sbcs.map((sbc, index) =>
         <CardSBC title={sbc.name}
                  key={sbc.name}
                  changeImg={sbc.icon_url}
