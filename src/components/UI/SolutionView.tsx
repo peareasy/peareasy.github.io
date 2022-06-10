@@ -22,29 +22,18 @@ const SolutionView = ({solution, sbc}: SolutionViewProps) => {
     for (let j = 0; j < formation[i]; j++) {
       row.push(
         <div className={cardClasses.join(" ")}>
-          <div className="flex flex-col p-2">
+          <div className="flex flex-col p-2 md:p-1">
             <CopyButton value={players[counter].name} />
             <div className="text-tiny xl:text-xs text-left">{players[counter].position+', '+players[counter].rating}</div>
             <div className="text-tiny xl:text-xs text-left flex flex-row gap-x-1">{players[counter].price}
               <img className="w-3 h-3 my-auto" alt="coins-bin" src={process.env.PUBLIC_URL + '/coins_bin.png'}/>
             </div>
           </div>
-          {/*<div className="flex flex-col p-2">*/}
-          {/*  {players[counter].loyalty ?*/}
-          {/*    <div className="w-6 h-6">*/}
-          {/*      <img className="w-4 m-auto" alt="loyalty" src={process.env.PUBLIC_URL + '/loyalty.png'}/>*/}
-          {/*    </div>*/}
-          {/*    : null }*/}
-          {/*  {players[counter].untradeable ?*/}
-          {/*    <div className="w-6 h-6">*/}
-          {/*    <img className="w-6" alt="untradeable" src={process.env.PUBLIC_URL + '/untradeable.png'}/>*/}
-          {/*  </div>: null }*/}
-          {/*</div>*/}
         </div>)
       counter++
     }
     formationWithPlayers.push(
-      <div className="flex flex-row justify-center gap-x-4" key={i}>
+      <div className="flex flex-row justify-center gap-x-4 md:gap-x-1" key={i}>
         {row}
       </div>
     )
