@@ -90,7 +90,7 @@ const Login = ({setLogin}:LoginProps) => {
       window.google?.accounts.id.cancel();
       document.getElementById("google-client-script")?.remove();
     };
-  }, [dispatch, from, navigate, scriptLoaded, setLogin, location.state, cookies]);
+  }, [dispatch, from, navigate, scriptLoaded, setLogin, location.state, cookies, getNotifications]);
 
   function handleChange() {
     setGetNotifications(!getNotifications);
