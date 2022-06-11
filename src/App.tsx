@@ -31,7 +31,8 @@ function App() {
 
   TagManager.initialize(tagManagerArgs)
 
-  ReactGA.initialize("G-VVZ00C9GVY");
+  ReactGA.initialize("G-VVZ00C9GVY", {testMode: process.env.ENVIRONMENT === 'dev'});
+  
 
   if (localStorage['name'] && !isLoggedIn) {
     dispatch(fetchUser())
