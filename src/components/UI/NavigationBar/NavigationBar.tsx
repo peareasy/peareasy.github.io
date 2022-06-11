@@ -61,7 +61,7 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
             </NavigationItem>
           </ul>
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
-            <a href={'https://discord.gg/hcvAa8ve'}
+            <a href={'https://discord.gg/mmNtdnUcJf'}
               onClick={() => {
                 ReactGA.event({
                   category: "NavBar",
