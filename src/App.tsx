@@ -31,9 +31,9 @@ function App() {
 
   TagManager.initialize(tagManagerArgs)
 
-  ReactGA.initialize("G-VVZ00C9GVY", {testMode: process.env.ENVIRONMENT === 'dev'});
-  
+  ReactGA.initialize("G-VVZ00C9GVY", {testMode: process.env.REACT_APP_ENVIRONMENT === 'dev'});
 
+    console.log("ho", process.env.REACT_APP_ENVIRONMENT)
   if (localStorage['name'] && !isLoggedIn) {
     dispatch(fetchUser())
     setIsLoggedIn(true)
