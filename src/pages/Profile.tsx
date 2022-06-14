@@ -4,7 +4,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getUserSelector, logoutUser} from '../redux/user/userSlice';
 import {AppDispatch} from "../redux/store";
 import {NavLink} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import ChoosePlatform from "./ChoosePlatform";
 
 type LogoutProps = {
   setLogin: (isLoggedIn: boolean) => void;
@@ -14,7 +15,7 @@ const Profile = ({setLogin}: LogoutProps) => {
   const user = useSelector(getUserSelector);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-
+  
   const logout = () => {
     dispatch(logoutUser()).then(_ => {
       setLogin(false)
@@ -32,18 +33,21 @@ const Profile = ({setLogin}: LogoutProps) => {
         <h1 className='text-xl text-secondary'>Hi, {user.data?.name} 👋</h1>
       </div>
       <div className={'text-m text-gray-200 font-bold'}>
-        📧 Email
+        Email
       </div>
       <div className={'text-m text-gray-300'}>
         {user.data?.email}
       </div>
       <div className={'text-m text-gray-200 font-bold'}>
-        💰 Current subscription
+        Current subscription
       </div>
       <div className={'text-m text-gray-300'}>
         Free tier. You can upgrade {<NavLink to={'/subscription'}>here!</NavLink>}
       </div>
-      <br/>
+      <div className="text-m text-gray-200 font-bold">
+        Choose your platform
+      </div>
+      <ChoosePlatform />
       <div className={'text-m text-gray-300'}>
         In order to <span className={'text-error-600 font-bold'}>delete</span> your account, please {<NavLink to={'/contact'}>contact us</NavLink>} and we will
         do it as soon as possible

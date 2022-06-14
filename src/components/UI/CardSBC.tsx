@@ -32,7 +32,6 @@ const CardSBC = ({title, onClick, changeImg, restricted, is_marquee_match_up}: C
         <div className="w-4"></div>
         {title}
         <div className="w-4">{subscriptionIcon}</div>
-        
       </div>
       <div className='mx-auto w-44'>
         <img alt={title} src={process.env.PUBLIC_URL + changeImg}/>

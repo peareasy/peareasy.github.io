@@ -15,3 +15,4 @@ export default private_api;
 export { logout } from "./privateRequests/logout";
 export { getUser } from "./privateRequests/getUser";
 export { setNotifyTrue } from "./privateRequests/setNotifyTrue";
+export { patchUser } from "./privateRequests/patchUser";
