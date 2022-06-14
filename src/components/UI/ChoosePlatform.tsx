@@ -4,9 +4,11 @@ import { getUserSelector } from "../../redux/user/userSlice";
 
 type Props = {
     onSelected: (chosenPlatform: string) => void;
+    selected?: string;
 }
 
-const ChoosePlatform = ({onSelected}: Props) => {
+const ChoosePlatform = ({onSelected, selected}: Props) => {
+
 
     const platforms_data = [
         'Ps',
@@ -14,7 +16,7 @@ const ChoosePlatform = ({onSelected}: Props) => {
         'Pc'
     ]
     const user = useSelector(getUserSelector);
-    console.log(user.data)
+    //TODO: Wait for backend to return correct data (i.e. Ps, Xbox etc.)
     let idx 
     if (user.data?.platform) {
         platforms_data.indexOf(user.data?.platform);

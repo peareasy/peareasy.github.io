@@ -253,12 +253,10 @@ const Home = () => {
   )
   console.log(user.data)
 
+  // TODO: Remember to update THIS
   if (user.data) {
     sbcsView = <Modal header={'Welcome to Easy SBC!'}
     body={<div>
-      {/* <img className='w-24 h-32'src={process.env.PUBLIC_URL + 'easy-sbc.png'} alt='discord'>
-
-      </img> */}
      <div className='container mx-auto md:w-full flex font-light flex-col gap-y-8 rounded text-left'>
      <div className={'text-m text-gray-200'}>
      Select your platform to base live player prices on
