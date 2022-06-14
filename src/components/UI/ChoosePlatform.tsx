@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import * as privateApi from "../api/privateApi";
-import { getUserSelector } from "../redux/user/userSlice";
+import * as privateApi from "../../api/privateApi";
+import { getUserSelector } from "../../redux/user/userSlice";
 import {useDispatch} from "react-redux";
-import {AppDispatch} from "../redux/store";
-import {fetchUser} from "../redux/user/userSlice";
+import {AppDispatch} from "../../redux/store";
+import {fetchUser} from "../../redux/user/userSlice";
 
-const ChoosePlatform = () => {
+type Props = {
+    onSelected: (chosenPlatform: string) => void;
+}
+
+const ChoosePlatform = ({onSelected}: Props) => {
 
     const platforms_data = [
         'ps',
@@ -26,8 +30,7 @@ const ChoosePlatform = () => {
 
     const onPlatformSelected = (idx: number) => {
         setSelectedPlatform(idx);
-        privateApi.patchUser({ platform: platforms_data[idx] });
-        dispatch(fetchUser())
+        onSelected(platforms_data[idx]);
     }
     
     const platforms = platforms_data.map((platform, idx) => {
