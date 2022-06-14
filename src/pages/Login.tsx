@@ -6,6 +6,10 @@ import {useDispatch} from "react-redux";
 import {AppDispatch} from "../redux/store";
 import ReactGA from "react-ga4";
 import {useCookies} from "react-cookie";
+import Modal from "../components/UI/Modal";
+import ChoosePlatform from "../components/UI/ChoosePlatform";
+import * as privateApi from "../api/privateApi";
+import { platform } from "os";
 
 type LoginProps = {
   setLogin: (isLoggedIn: boolean) => void;
@@ -14,7 +18,6 @@ type LoginProps = {
 const Login = ({setLogin}:LoginProps) => {
   const [error, setError] = useState('')
   const [scriptLoaded, setScriptLoaded] = useState(false);
-  const [getNotifications, setGetNotifications] = useState(true);
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
 
@@ -33,7 +36,7 @@ const Login = ({setLogin}:LoginProps) => {
         notify = true
       }
       // TODO: update such that login itself is using redux as well
-      login(credential, notify, getNotifications).then(_ => {
+      login(credential, notify, true).then(_ => {
         dispatch(fetchUser())
         setLogin(true);
         navigate(from, { state: location.state })
@@ -90,11 +93,8 @@ const Login = ({setLogin}:LoginProps) => {
       window.google?.accounts.id.cancel();
       document.getElementById("google-client-script")?.remove();
     };
-  }, [dispatch, from, navigate, scriptLoaded, setLogin, location.state, cookies, getNotifications]);
+  }, [dispatch, from, navigate, scriptLoaded, setLogin, location.state, cookies]);
 
-  function handleChange() {
-    setGetNotifications(!getNotifications);
-  }
 
   return <div className='mx-auto flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded'>
     <div>

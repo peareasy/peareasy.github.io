@@ -14,6 +14,7 @@ const ChoosePlatform = ({onSelected}: Props) => {
         'Pc'
     ]
     const user = useSelector(getUserSelector);
+    console.log(user.data)
     let idx 
     if (user.data?.platform) {
         platforms_data.indexOf(user.data?.platform);

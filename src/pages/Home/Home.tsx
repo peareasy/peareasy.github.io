@@ -10,7 +10,8 @@ import {getUserSelector} from "../../redux/user/userSlice";
 import SubscriptionCard from "../../components/UI/SubscriptionCard";
 import ReactGA from "react-ga4";
 import {useCookies} from "react-cookie";
-import {setNotifyTrue} from "../../api/privateApi";
+import * as privateApi from "../../api/privateApi";
+import ChoosePlatform from "../../components/UI/ChoosePlatform";
 
 const Home = () => {
 
@@ -33,10 +34,34 @@ const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
   const sbcs = useSelector(getSBCsSelector);
   const user = useSelector(getUserSelector)
-  const [, setCookie] = useCookies(["notify"]);
+  const [cookies, setCookie] = useCookies(["notify"]);
   const [showPremiumSubscriptionComingSoon, setShowPremiumSubscriptionComingSoon] = useState(false)
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
   const [clickedRestrictedSBC, setClickedRestrictedSBC] = useState(false)
+  const [getNotifications, setGetNotifications] = useState(false);
+  const [platform, setPlatform] = useState('')
+  const [okClickedWithoutPlatform, setOkClickedWithoutPlatform] = useState(false)
+
+  const onPlatformChosen = (platform: string) => {
+    setPlatform(platform)
+  }
+
+  const handleChange = () => {
+    setGetNotifications(!getNotifications);
+  }
+
+  const onOkClick = () => {
+    if (!platform) {
+      setOkClickedWithoutPlatform(true)
+    } else {
+      setOkClickedWithoutPlatform(false) 
+      privateApi.patchUser({
+        platform,
+        notifications_email: getNotifications,
+        notify: !!cookies['notify']
+      })
+    }
+  }
 
   const onBuySubscriptionClicked = () => {
     ReactGA.event({
@@ -168,7 +193,6 @@ const Home = () => {
                     onPositiveActionClicked={() => {
                       if (modalPositiveButton === "Notify me") {
                         setCookie("notify", true);
-                        setNotifyTrue();
                       }
                       ReactGA.event({
                         category: "HomePage_login_popup",
@@ -227,6 +251,47 @@ const Home = () => {
       </>
     </div>
   )
+  console.log(user.data)
+
+  if (user.data) {
+    sbcsView = <Modal header={'Welcome to Easy SBC!'}
+    body={<div>
+      {/* <img className='w-24 h-32'src={process.env.PUBLIC_URL + 'easy-sbc.png'} alt='discord'>
+
+      </img> */}
+     <div className='container mx-auto md:w-full flex font-light flex-col gap-y-8 rounded text-left'>
+     <div className={'text-m text-gray-200'}>
+     Select your platform to base live player prices on
+     </div>
+     <ChoosePlatform onSelected={(platform) => onPlatformChosen(platform)}/>
+     {okClickedWithoutPlatform ? <div className={'text-m text-error-500'}>Please choose platform</div> : null}
+       <div className={'flex flex-row gap-x-2 m-auto'}>
+         <input className='my-auto' type={"checkbox"} checked={getNotifications} onChange={handleChange}/>
+         <p className='text-m text-gray-200 my-auto'>
+           Get email notifications when new features are released
+         </p>
+       </div>
+       <div>
+         <img className='w-25 h-6'src={process.env.PUBLIC_URL + 'discord-logo.png'} alt='discord'></img>
+         <p>
+           Join our discord <a href={'https://discord.gg/hcvAa8ve'}
+           target="_blank" rel="noreferrer"
+         >
+           <span>here</span>
+         </a>
+         </p>
+       </div>
+     </div>
+    </div>}
+    onNegativeActionClicked={() => { }}
+    onPositiveActionClicked={() => onOkClick()}
+    onCloseClicked={() => { }}
+    positiveActionButtonLabel={'Ok'}
+    negativeActionButtonLabel=""
+    notShowNegativeButton
+    notShowCloseButton
+    />
+  }
 
   return <main className='text-secondary text-center m-auto relative z-10'>
       <div className='mx-auto'>
