@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import * as privateApi from "../../api/privateApi";
 import { getUserSelector } from "../../redux/user/userSlice";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "../../redux/store";
-import {fetchUser} from "../../redux/user/userSlice";
 
 type Props = {
     onSelected: (chosenPlatform: string) => void;
@@ -18,7 +14,6 @@ const ChoosePlatform = ({onSelected}: Props) => {
         'pc'
     ]
     const user = useSelector(getUserSelector);
-    const dispatch = useDispatch<AppDispatch>();
     let idx 
     if (user.data?.platform) {
         platforms_data.indexOf(user.data?.platform);
