@@ -95,7 +95,7 @@ const Login = ({setLogin}:LoginProps) => {
   function handleChange() {
     setGetNotifications(!getNotifications);
   }
-  console.log(getNotifications)
+
   return <div className='mx-auto flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded'>
     <div>
       <h1 className='text-xl text-secondary'>Log in to easySBC ⚽</h1>
@@ -104,12 +104,6 @@ const Login = ({setLogin}:LoginProps) => {
     <p className='text-xs font-light text-gray-300'>
       Login to access all functionality
     </p>
-    <div className={'flex flex-row gap-x-2'}>
-      <input type={"checkbox"} checked={getNotifications} onChange={handleChange}/>
-      <p className='text-xs font-light text-gray-300'>
-        Get email notifications when new features are released
-      </p>
-    </div>
     <div className='mx-auto flex flex-col pt-4 pb-4'>
       <div ref={divRef} className={'w-[200px]'}/>
   </div>

@@ -9,9 +9,9 @@ type Props = {
 const ChoosePlatform = ({onSelected}: Props) => {
 
     const platforms_data = [
-        'ps',
-        'xbox',
-        'pc'
+        'Ps',
+        'Xbox',
+        'Pc'
     ]
     const user = useSelector(getUserSelector);
     let idx 
