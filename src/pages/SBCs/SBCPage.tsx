@@ -92,6 +92,7 @@ const SBCPage = () => {
                  changeImg={sbc.icon_url}
                  restricted={sbc.restricted}
                  platform={user.data?.platform}
+                 dontHidePlatformMessage={true}
                  is_marquee_match_up={sbc.marquee_match_up}
                  onClick={(description, is_marquee_match_up?: boolean) => {
                    onSBCClicked(index, description, is_marquee_match_up)
