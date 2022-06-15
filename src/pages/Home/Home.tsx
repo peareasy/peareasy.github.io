@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import CardSBC from "../../components/UI/CardSBC";
 import Modal from "../../components/UI/Modal";
 import {copied} from '../../components/UI/icons';
@@ -6,11 +6,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "../../redux/store";
 import {fetchSbcs, getSBCsSelector} from "../../redux/sbcs/sbcsSlice";
 import {useNavigate} from "react-router";
-import {getUserSelector} from "../../redux/user/userSlice";
+import {fetchUser, getUserSelector} from "../../redux/user/userSlice";
 import SubscriptionCard from "../../components/UI/SubscriptionCard";
 import ReactGA from "react-ga4";
-import {useCookies} from "react-cookie";
-import {setNotifyTrue} from "../../api/privateApi";
+import * as privateApi from "../../api/privateApi";
+import { NotifyClickedModal } from "../../components/UI/NotifyClickedModal";
+import ChoosePlatform from "../../components/UI/ChoosePlatform";
 
 const Home = () => {
 
@@ -33,10 +34,34 @@ const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
   const sbcs = useSelector(getSBCsSelector);
   const user = useSelector(getUserSelector)
-  const [, setCookie] = useCookies(["notify"]);
   const [showPremiumSubscriptionComingSoon, setShowPremiumSubscriptionComingSoon] = useState(false)
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
   const [clickedRestrictedSBC, setClickedRestrictedSBC] = useState(false)
+  const [getNotifications, setGetNotifications] = useState(false);
+  const [platform, setPlatform] = useState('Playstation')
+  const [okClickedWithoutPlatform, setOkClickedWithoutPlatform] = useState(false)
+  const [showNotifyClickedModal, setShowNotifyClickedModal] = useState(false)
+
+  const onPlatformChosen = (platform: string) => {
+    setPlatform(platform)
+  }
+
+  const handleChange = () => {
+    setGetNotifications(!getNotifications);
+  }
+
+  const onOkClick = async () => {
+    if (!platform) {
+      setOkClickedWithoutPlatform(true)
+    } else {
+      setOkClickedWithoutPlatform(false) 
+      await privateApi.patchUser({
+        platform,
+        email_notification: getNotifications,
+      })
+      dispatch(fetchUser())
+    }
+  }
 
   const onBuySubscriptionClicked = () => {
     ReactGA.event({
@@ -144,8 +169,10 @@ const Home = () => {
       modalNegativeButton = 'Cancel'
     }
   }
+  const notifyClickedModal = <NotifyClickedModal onClick={() => setShowNotifyClickedModal(false)}/>
+
   const marquee_matchups = sbcs.data.filter(sbc => sbc.marquee_match_up)
-  // const filteredSBCs = sbcs.data.filter(sbc => !sbc.marquee_match_up)
+
   let sbcsView = (
     <div className="space-y-2">
       <>
@@ -157,7 +184,7 @@ const Home = () => {
             Select an SBC below!👇🏼
           </h3>
         </div>
-       
+          {showNotifyClickedModal ? notifyClickedModal : null}
           {clickedRestrictedSBC ?
             <Modal header={modalHeader}
                     body={modalBody}
@@ -177,25 +204,22 @@ const Home = () => {
                       setShowPremiumSubscriptionComingSoon(false)
                     }}
                     onPositiveActionClicked={() => {
-                      console.log(modalPositiveButton);
                       if (modalPositiveButton === "Notify me") {
+                        setShowPremiumSubscriptionComingSoon(false)
+                        setClickedRestrictedSBC(false)
                         ReactGA.event({
                           category: "HomePage_notify_popup",
                           action: "click_popup_notify_notify"
                         });
-
-                        setCookie("notify", true);
-                        setNotifyTrue();
+                        privateApi.patchUser({notify: true})
+                        setShowNotifyClickedModal(true)
                       } else {
                         ReactGA.event({
                           category: "HomePage_login_popup",
                           action: "click_popup_login",
                         });
+                        navigate(modalNavigation)
                       }
-                      
-                      setShowPremiumSubscriptionComingSoon(false)
-                      setClickedRestrictedSBC(false)
-                      navigate(modalNavigation)
                     }}
                     onCloseClicked={() => {
                       if (modalPositiveButton === "Notify me") {
@@ -231,7 +255,6 @@ const Home = () => {
                      is_marquee_match_up={true}/>
           </div>
           <div className="grid grid-cols-3 md:grid-cols-1 md:w-4/5 m-auto gap-4 pb-8">
-            {/*{filteredSBCs.length > 0 ? filteredSBCs.map((sbc, index) =>*/}
             {mockedSBCs.length > 0 ? mockedSBCs.map((sbc, index) =>
               <CardSBC title={sbc.name}
                        key={sbc.name}
@@ -253,6 +276,43 @@ const Home = () => {
       </>
     </div>
   )
+
+  if (user.data && !user.data.platform) {
+    sbcsView = <Modal header={'Welcome to Easy SBC!'}
+    body={<div>
+     <div className='container mx-auto md:w-full flex font-light flex-col gap-y-8 rounded text-left'>
+     <div className={'text-m text-gray-200'}>
+     Select your platform to base live player prices on
+     </div>
+     <ChoosePlatform onSelected={(platform) => onPlatformChosen(platform)}/>
+     {okClickedWithoutPlatform ? <div className={'text-m text-error-500'}>Please choose platform</div> : null}
+       <div className={'flex flex-row gap-x-2 m-auto'}>
+         <input className='my-auto' type={"checkbox"} checked={getNotifications} onChange={handleChange}/>
+         <p className='text-m text-gray-200 my-auto'>
+           Get email notifications when new features are released
+         </p>
+       </div>
+       <div>
+         <img className='w-25 h-6'src={process.env.PUBLIC_URL + 'discord-logo.png'} alt='discord'></img>
+         <p>
+           Join our discord <a href={'https://discord.gg/hcvAa8ve'}
+           target="_blank" rel="noreferrer"
+         >
+           <span>here</span>
+         </a>
+         </p>
+       </div>
+     </div>
+    </div>}
+    onNegativeActionClicked={() => { }}
+    onPositiveActionClicked={() => onOkClick()}
+    onCloseClicked={() => { }}
+    positiveActionButtonLabel={'Ok'}
+    negativeActionButtonLabel=""
+    notShowNegativeButton
+    notShowCloseButton
+    />
+  }
 
   return <main className='text-secondary text-center m-auto relative z-10'>
       <div className='mx-auto'>

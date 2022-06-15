@@ -1,9 +1,9 @@
 import axios from "../publicApi"
 
-export const login = (credentials, notify, notifications) => {
+export const login = (credentials) => {
   // backend automatically sets the token in a http only cookie
   return axios.post('/auth/login', {
-    token: credentials, notify: notify, email_notification: notifications
+    token: credentials
   }).then(res => {
     localStorage.setItem("access_token", JSON.stringify(res.data['access_token']));
     localStorage.setItem("refresh_token", JSON.stringify(res.data['refresh_token']));

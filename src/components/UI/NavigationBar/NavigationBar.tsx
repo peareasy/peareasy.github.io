@@ -41,7 +41,7 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
         <div
           className={
             'mobile:flex flex-grow items-center' +
-            (navbarOpen ? ' flex' : ' hidden')
+            (navbarOpen ? ' flex' : ' hididden')
           }
           id="example-navbar-danger"
         >
