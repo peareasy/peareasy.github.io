@@ -37,7 +37,7 @@ const ChoosePlatform = ({onSelected, selected}: Props) => {
         }
         return ( 
         <button className={className.join(' ')} onClick={() => onPlatformSelected(idx)} key={idx}>
-            <img src={process.env.PUBLIC_URL + platform+'.png'} className='w-8 h-8' alt={platform}/>
+            <img src={process.env.PUBLIC_URL + '/' +  platform+'.png'} className='w-8 h-8' alt={platform}/>
         </button>
         )}
     )

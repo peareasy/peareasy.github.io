@@ -37,7 +37,7 @@ const CardSBC = ({title, onClick, changeImg, restricted, is_marquee_match_up, pl
       </div>
       {platform ? <div className="flex flex-row justify-end mr-2 mb-2 gap-x-2">
         <span className='my-auto text-xs text-gray-300'>Using player prices from </span>
-        <img className='my-auto w-6 h-6' src={process.env.PUBLIC_URL + platform+'.png'} alt='platform'></img>
+        <img className='my-auto w-6 h-6' src={process.env.PUBLIC_URL + '/' + platform+'.png'} alt='platform'></img>
       </div> : null}
     </div>
   )
