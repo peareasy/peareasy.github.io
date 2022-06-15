@@ -6,6 +6,7 @@ import {useLocation, useNavigate} from "react-router";
 import ReactGA from "react-ga4";
 import {useCookies} from "react-cookie";
 import {setNotifyTrue} from "../api/privateRequests/setNotifyTrue";
+import { NotifyClickedModal } from "../components/UI/NotifyClickedModal";
 
 type LoggedInProps = {
   isLoggedIn: boolean;
@@ -18,6 +19,9 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
 
   const [showSubscriptionComingSoonModal, setShowSubscriptionComingSoonModal] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [showNotifyClickedModal, setShowNotifyClickedModal] = useState(false)
+    
+  const notifyClickedModal = <NotifyClickedModal onClick={() => setShowNotifyClickedModal(false)}/>
 
   const header = <h1 className={'text-3xl font-light m-auto'}>
     <span className={'text-primary-400 font-medium'}>easySBC </span>
@@ -87,7 +91,9 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
                        if (!isLoggedIn){
                          navigate(modalNavigation,{state: location});
                        } else {
-                         setNotifyTrue()
+                         setShowNotifyClickedModal(true)
+                         // TODO: update with new patch request
+                        setNotifyTrue()
                        }
                      }}
                      onCloseClicked={() => {
@@ -156,12 +162,18 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
     </>} price={1.99} onClick={premiumSubscriptionClicked} tier={'Premium'} primaryButtonTitle={'Buy Now'} currentSubscription={false}/>
   </div>
 
-  return showModal ? modal :
-    <div className='container mx-auto w-3/5 md:w-full flex font-light flex-col gap-y-8 md:p-2 p-8 bg-gray-900 rounded'>
-      {header}
-      {subHeader}
-      {subscriptions}
-    </div>
+  let view = 
+  <div className='container mx-auto w-3/5 md:w-full flex font-light flex-col gap-y-8 md:p-2 p-8 bg-gray-900 rounded'>
+    {header}
+    {subHeader}
+    {subscriptions}
+  </div>
+  if (showModal) {
+    view = modal
+  } else if (showNotifyClickedModal) {
+    view = notifyClickedModal
+  }
+  return view
 }
 
 export default Subscription

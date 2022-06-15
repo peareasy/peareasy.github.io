@@ -1,5 +1,3 @@
-import React from "react";
-
 type _Modal = {
   header: string,
   body: JSX.Element,

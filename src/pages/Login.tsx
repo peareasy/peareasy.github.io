@@ -6,10 +6,6 @@ import {useDispatch} from "react-redux";
 import {AppDispatch} from "../redux/store";
 import ReactGA from "react-ga4";
 import {useCookies} from "react-cookie";
-import Modal from "../components/UI/Modal";
-import ChoosePlatform from "../components/UI/ChoosePlatform";
-import * as privateApi from "../api/privateApi";
-import { platform } from "os";
 
 type LoginProps = {
   setLogin: (isLoggedIn: boolean) => void;
@@ -25,18 +21,13 @@ const Login = ({setLogin}:LoginProps) => {
   const from = location.state?.pathname || '/'
   const navigate = useNavigate();
   const divRef = useRef<HTMLDivElement>(null);
-  const [cookies] = useCookies(['notify'])
 
   useEffect(() => {
     if (scriptLoaded) return undefined;
 
     const handleBackendSignIn = (credential: string) => {
-      let notify = false;
-      if (cookies['notify']) {
-        notify = true
-      }
       // TODO: update such that login itself is using redux as well
-      login(credential, notify, true).then(_ => {
+      login(credential).then(_ => {
         dispatch(fetchUser())
         setLogin(true);
         navigate(from, { state: location.state })
@@ -93,7 +84,7 @@ const Login = ({setLogin}:LoginProps) => {
       window.google?.accounts.id.cancel();
       document.getElementById("google-client-script")?.remove();
     };
-  }, [dispatch, from, navigate, scriptLoaded, setLogin, location.state, cookies]);
+  }, [dispatch, from, navigate, scriptLoaded, setLogin, location.state]);
 
 
   return <div className='mx-auto flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded'>

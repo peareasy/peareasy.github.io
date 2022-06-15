@@ -9,22 +9,21 @@ type Props = {
 
 const ChoosePlatform = ({onSelected, selected}: Props) => {
 
-
     const platforms_data = [
-        'Ps',
+        'Playstation',
         'Xbox',
-        'Pc'
+        'PC'
     ]
     const user = useSelector(getUserSelector);
-    //TODO: Wait for backend to return correct data (i.e. Ps, Xbox etc.)
+
     let idx 
     if (user.data?.platform) {
-        platforms_data.indexOf(user.data?.platform);
+        idx = platforms_data.indexOf(user.data?.platform);
     } else {
         idx = 0
     }
-    const [selectedPlatform, setSelectedPlatform] = useState(idx);
 
+    const [selectedPlatform, setSelectedPlatform] = useState(idx);
 
     const onPlatformSelected = (idx: number) => {
         setSelectedPlatform(idx);
