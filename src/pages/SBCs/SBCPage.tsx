@@ -35,7 +35,7 @@ const SBCPage = () => {
         category: "SolveSBC",
         action: "click_solve_sbc",
       });
-    api.solveSBC(sbcs[index].name)
+    api.solveSBC(sbcs[index].name, user.data?.email || null)
       .then((solution: Solution) => {
         ReactGA.event({
           category: "SolveSBC",
