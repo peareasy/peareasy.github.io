@@ -114,7 +114,9 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
       <li className={'flex flex-row gap-x-2'}>
         <span>{copied}</span> Unique solutions based on live player prices
       </li>
-
+      <li className={'flex flex-row gap-x-2'}>
+        <span>{copied}</span> Use player prices from different plaforms
+      </li>
       <li className={'flex flex-row gap-x-2 text-gray-400'}>
         <span className="pl-6"></span> All SBCs
       </li>
@@ -140,6 +142,9 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
       </li>
       <li className={'flex flex-row gap-x-2'}>
         <span>{copied}</span> Unique solutions based on live player prices
+      </li>
+      <li className={'flex flex-row gap-x-2'}>
+        <span>{copied}</span> Use player prices from different plaforms
       </li>
       <li className={'flex flex-row gap-x-2'}>
         <span>{copied}</span> All SBCs
