@@ -1,6 +1,6 @@
 import axios from "../publicApi"
 
-export const login = (credentials, notify, notifications) => {
+export const login = (credentials) => {
   // backend automatically sets the token in a http only cookie
   return axios.post('/auth/login', {
     token: credentials

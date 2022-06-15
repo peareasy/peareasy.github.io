@@ -5,7 +5,6 @@ import {fetchUser} from "../redux/user/userSlice";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../redux/store";
 import ReactGA from "react-ga4";
-import {useCookies} from "react-cookie";
 
 type LoginProps = {
   setLogin: (isLoggedIn: boolean) => void;

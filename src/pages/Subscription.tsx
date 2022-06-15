@@ -1,13 +1,11 @@
 import SubscriptionCard from "../components/UI/SubscriptionCard";
 import {copied} from "../components/UI/icons";
 import Modal from "../components/UI/Modal";
-import React, {useState} from "react";
+import {useState} from "react";
 import {useLocation, useNavigate} from "react-router";
 import ReactGA from "react-ga4";
-import {useCookies} from "react-cookie";
-import {setNotifyTrue} from "../api/privateRequests/setNotifyTrue";
 import { NotifyClickedModal } from "../components/UI/NotifyClickedModal";
-
+import * as privateApi from "../api/privateApi"
 type LoggedInProps = {
   isLoggedIn: boolean;
 }
@@ -15,7 +13,6 @@ type LoggedInProps = {
 const Subscription = ({isLoggedIn}: LoggedInProps) => {
   const navigate = useNavigate()
   const location = useLocation();
-  const [, setCookie] = useCookies(["notify"]);
 
   const [showSubscriptionComingSoonModal, setShowSubscriptionComingSoonModal] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -86,14 +83,12 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
                         category: "BuyPremiumPopup",
                         action: "click_buy_premium_popup_sign_up"
                       });
-                       setCookie("notify", true);
                        setShowModal(false)
                        if (!isLoggedIn){
                          navigate(modalNavigation,{state: location});
                        } else {
                          setShowNotifyClickedModal(true)
-                         // TODO: update with new patch request
-                        setNotifyTrue()
+                         privateApi.patchUser({notify: true})
                        }
                      }}
                      onCloseClicked={() => {

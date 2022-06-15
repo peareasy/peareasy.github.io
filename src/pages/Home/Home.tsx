@@ -9,7 +9,6 @@ import {useNavigate} from "react-router";
 import {fetchUser, getUserSelector} from "../../redux/user/userSlice";
 import SubscriptionCard from "../../components/UI/SubscriptionCard";
 import ReactGA from "react-ga4";
-import {useCookies} from "react-cookie";
 import * as privateApi from "../../api/privateApi";
 import { NotifyClickedModal } from "../../components/UI/NotifyClickedModal";
 import ChoosePlatform from "../../components/UI/ChoosePlatform";
@@ -35,7 +34,6 @@ const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
   const sbcs = useSelector(getSBCsSelector);
   const user = useSelector(getUserSelector)
-  const [cookies, setCookie] = useCookies(["notify"]);
   const [showPremiumSubscriptionComingSoon, setShowPremiumSubscriptionComingSoon] = useState(false)
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
   const [clickedRestrictedSBC, setClickedRestrictedSBC] = useState(false)
@@ -60,7 +58,6 @@ const Home = () => {
       await privateApi.patchUser({
         platform,
         email_notification: getNotifications,
-        notify: !!cookies['notify']
       })
       dispatch(fetchUser())
     }
@@ -207,25 +204,20 @@ const Home = () => {
                       setShowPremiumSubscriptionComingSoon(false)
                     }}
                     onPositiveActionClicked={() => {
-                      console.log(modalPositiveButton);
                       if (modalPositiveButton === "Notify me") {
+                        setShowPremiumSubscriptionComingSoon(false)
+                        setClickedRestrictedSBC(false)
                         ReactGA.event({
                           category: "HomePage_notify_popup",
                           action: "click_popup_notify_notify"
                         });
-                        setCookie("notify", true);
+                        privateApi.patchUser({notify: true})
+                        setShowNotifyClickedModal(true)
                       } else {
                         ReactGA.event({
                           category: "HomePage_login_popup",
                           action: "click_popup_login",
                         });
-                      }
-                      setShowPremiumSubscriptionComingSoon(false)
-                      setClickedRestrictedSBC(false)
-                      if (modalPositiveButton === "Notify me") {
-                        setCookie("notify", true);
-                        setShowNotifyClickedModal(true)
-                      } else {
                         navigate(modalNavigation)
                       }
                     }}
