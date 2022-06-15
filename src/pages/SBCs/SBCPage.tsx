@@ -2,7 +2,7 @@ import {SBC} from "../../interfaces/SBC";
 import {useLocation, useNavigate} from "react-router";
 import CardSBC from "../../components/UI/CardSBC";
 import {PrimaryButton} from "../../components/UI/Button";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import SolutionView from "../../components/UI/SolutionView";
 import {Solution} from "../../interfaces/Solution";
 import * as api from "../../api/publicApi";
@@ -91,6 +91,7 @@ const SBCPage = () => {
                  key={sbc.name}
                  changeImg={sbc.icon_url}
                  restricted={sbc.restricted}
+                 platform={user.data?.platform}
                  is_marquee_match_up={sbc.marquee_match_up}
                  onClick={(description, is_marquee_match_up?: boolean) => {
                    onSBCClicked(index, description, is_marquee_match_up)

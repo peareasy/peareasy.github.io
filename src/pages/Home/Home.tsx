@@ -40,7 +40,7 @@ const Home = () => {
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
   const [clickedRestrictedSBC, setClickedRestrictedSBC] = useState(false)
   const [getNotifications, setGetNotifications] = useState(false);
-  const [platform, setPlatform] = useState('')
+  const [platform, setPlatform] = useState('Playstation')
   const [okClickedWithoutPlatform, setOkClickedWithoutPlatform] = useState(false)
   const [showNotifyClickedModal, setShowNotifyClickedModal] = useState(false)
 
@@ -52,12 +52,12 @@ const Home = () => {
     setGetNotifications(!getNotifications);
   }
 
-  const onOkClick = () => {
+  const onOkClick = async () => {
     if (!platform) {
       setOkClickedWithoutPlatform(true)
     } else {
       setOkClickedWithoutPlatform(false) 
-      privateApi.patchUser({
+      await privateApi.patchUser({
         platform,
         email_notification: getNotifications,
         notify: !!cookies['notify']
