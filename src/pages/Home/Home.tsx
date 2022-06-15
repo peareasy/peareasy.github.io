@@ -278,7 +278,7 @@ const Home = () => {
   )
 
   if (user.data && !user.data.platform) {
-    sbcsView = <Modal header={'Welcome to EasySBC!'}
+    sbcsView = <Modal header={'Welcome to easySBC!'}
     body={<div>
      <div className='container mx-auto md:w-full flex font-light flex-col gap-y-8 rounded text-left'>
      <div className={'text-m text-gray-200'}>
