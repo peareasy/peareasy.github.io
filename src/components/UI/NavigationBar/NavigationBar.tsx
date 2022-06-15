@@ -61,7 +61,13 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
             </NavigationItem>
           </ul>
           <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
-            <a href={'https://discord.gg/hcvAa8ve'}
+            <a href={'https://discord.gg/mmNtdnUcJf'}
+              onClick={() => {
+                ReactGA.event({
+                  category: "NavBar",
+                  action: "click_navbar_discord",
+                });
+              }}
                target="_blank" rel="noreferrer"
                className="px-3 py-2 flex items-center text-sm uppercase leading-snug text-secondary hover:opacity-75"
             >
@@ -76,8 +82,8 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
                   category: "NavBar",
                   action: "click_navbar_premium",
                 });
-                setNavbarOpen(!navbarOpen)}
-              }
+                setNavbarOpen(!navbarOpen)
+              }}
             >
               <div className={'flex flex-row gap-x-2'}>
                 <div className={'w-4 h-4 rounded-full my-auto'} style={{backgroundColor: "#fb923c"}}/>

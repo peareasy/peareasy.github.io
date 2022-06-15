@@ -90,6 +90,7 @@ const Home = () => {
   let modalBody = <></>
   let modalNavigation = ''
   let modalPositiveButton = ''
+  let modalNegativeButton = ''
 
   let modalNotShowHeader;
   let modalNotShowFooter;
@@ -98,11 +99,13 @@ const Home = () => {
 
     if (user.data) {
       if (showPremiumSubscriptionComingSoon) {
-        modalHeader = '❗ Thank you so much for your interest'
-        modalBody = <span>We are working hard on the full release which will be out soon. If you have signed-up with your e-mail
-      we will let you know once we’re fully live and if not, please sign up</span>
+        modalHeader = '❗ Thank you for your interest!'
+        modalBody = <span>Thank you so much for validating our product! 
+        We are working hard on the final details of the premium subscription features.
+        Indicate here, if you want to get notified when it is ready! 🍾</span>
         modalNavigation = '/'
         modalPositiveButton = 'Notify me'
+        modalNegativeButton = 'No thanks!'
       } else {
         modalNotShowFooter = true
         modalHeader = '❗ You need a premium subscription'
@@ -162,10 +165,11 @@ const Home = () => {
         </div>
       }
     } else {
-      modalHeader = '❗ You need to login in order to solve this SBC'
-      modalBody = <span>You need to login to solve this SBC</span>
+      modalHeader = '❗ Log in required to solve this SBC'
+      modalBody = <span>You need to log in to solve this SBC</span>
       modalNavigation = '/login'
-      modalPositiveButton = 'Login'
+      modalPositiveButton = 'Log in'
+      modalNegativeButton = 'Cancel'
     }
   }
   const notifyClickedModal = <NotifyClickedModal onClick={() => setShowNotifyClickedModal(false)}/>
@@ -188,18 +192,34 @@ const Home = () => {
             <Modal header={modalHeader}
                     body={modalBody}
                     onNegativeActionClicked={() => {
-                      ReactGA.event({
-                        category: "HomePage_login_popup",
-                        action: "click_popup_login_cancel"
-                      });
+                      if (modalPositiveButton === "Notify me") {
+                        ReactGA.event({
+                          category: "HomePage_notify_popup",
+                          action: "click_popup_notify_cancel"
+                        });  
+                      } else {
+                        ReactGA.event({
+                          category: "HomePage_login_popup",
+                          action: "click_popup_login_cancel"
+                        });  
+                      }
                       setClickedRestrictedSBC(false)
                       setShowPremiumSubscriptionComingSoon(false)
                     }}
                     onPositiveActionClicked={() => {
-                      ReactGA.event({
-                        category: "HomePage_login_popup",
-                        action: "click_popup_login"
-                      });
+                      console.log(modalPositiveButton);
+                      if (modalPositiveButton === "Notify me") {
+                        ReactGA.event({
+                          category: "HomePage_notify_popup",
+                          action: "click_popup_notify_notify"
+                        });
+                        setCookie("notify", true);
+                      } else {
+                        ReactGA.event({
+                          category: "HomePage_login_popup",
+                          action: "click_popup_login",
+                        });
+                      }
                       setShowPremiumSubscriptionComingSoon(false)
                       setClickedRestrictedSBC(false)
                       if (modalPositiveButton === "Notify me") {
@@ -210,15 +230,22 @@ const Home = () => {
                       }
                     }}
                     onCloseClicked={() => {
-                      ReactGA.event({
-                        category: "HomePage_login_popup",
-                        action: "click_popup_login_close"
-                      });
+                      if (modalPositiveButton === "Notify me") {
+                        ReactGA.event({
+                          category: "HomePage_notify_popup",
+                          action: "click_popup_notify_close"
+                        });
+                      } else {
+                        ReactGA.event({
+                          category: "HomePage_login_popup",
+                          action: "click_popup_login_close"
+                        });
+                      }
                       setShowPremiumSubscriptionComingSoon(false)
                       setClickedRestrictedSBC(false)
                     }}
                     positiveActionButtonLabel={modalPositiveButton}
-                    negativeActionButtonLabel="Cancel"
+                    negativeActionButtonLabel={modalNegativeButton}
                     notShowHeader={modalNotShowHeader}
                     notShowFooter={modalNotShowFooter}/> : null }
         <>

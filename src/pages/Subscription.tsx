@@ -55,15 +55,15 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
   let modalPositiveActionButtonLabel = ''
   if (showSubscriptionComingSoonModal) {
     if (isLoggedIn) {
-      modalHeader = '❗ Thank you so much for your interest'
+      modalHeader = '❗ Thank you for your interest'
       modalBody = <span>Thank you so much for validating our product!
         We are working hard on the final details of the premium subscription features.
-        Get a notified when it is ready</span>
+        Indicate here, if you want to get notified when it is ready! 🍾</span>
       modalNavigation = '/'
       modalPositiveActionButtonLabel = 'Notify me'
     }
      else {
-      modalHeader = '❗ Thank you so much for your interest'
+      modalHeader = '❗ Thank you for your interest'
       modalBody = <span>Thank you so much for validating our product!
         We are working hard on the final details of the premium subscription features.
         If you sign in we will let you know when it is ready! 🍾</span>
