@@ -1,39 +1,30 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import CardSBC from "../../components/UI/CardSBC";
 import Modal from "../../components/UI/Modal";
 import {copied} from '../../components/UI/icons';
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "../../redux/store";
-import {fetchSbcs, getSBCsSelector} from "../../redux/sbcs/sbcsSlice";
+import {getSBCsSelector} from "../../redux/sbcs/sbcsSlice";
 import {useNavigate} from "react-router";
 import {fetchUser, getUserSelector} from "../../redux/user/userSlice";
+import {getSBCSetsSelector} from "../../redux/sbcs/sbcSetsSlice";
 import SubscriptionCard from "../../components/UI/SubscriptionCard";
 import ReactGA from "react-ga4";
 import * as privateApi from "../../api/privateApi";
+
 import { NotifyClickedModal } from "../../components/UI/NotifyClickedModal";
 import ChoosePlatform from "../../components/UI/ChoosePlatform";
+import { APIStatus } from "../../enums/APIStatus";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 const Home = () => {
-
-  const mockedSBCs = [
-    { name: 'Live', icon_url: "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_10004027-04bffd4e-5416.png",
-      restricted: true, marquee_match_up: false},
-    { name: 'Team of the Season', icon_url: "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_10004021-57fa2a14-ff91.png",
-      restricted: true, marquee_match_up: false},
-    { name: 'Foundation', icon_url: 'https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_1000012-a0792673-8155.png',
-      restricted: true, marquee_match_up: false},
-    { name: 'Swaps', icon_url: "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_1000186-c359be10-b287.png",
-      restricted: true, marquee_match_up: false},
-    { name: 'Leagues', icon_url: "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_1000099-4bfd0ff3-3b5c.png",
-      restricted: true, marquee_match_up: false},
-    { name: 'Icons', icon_url: "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_10003998-ce27e340-1ee8.png",
-      restricted: true, marquee_match_up: false}
-  ]
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const sbcs = useSelector(getSBCsSelector);
   const user = useSelector(getUserSelector)
+  const sbcs_sets = useSelector(getSBCSetsSelector)
+
   const [showPremiumSubscriptionComingSoon, setShowPremiumSubscriptionComingSoon] = useState(false)
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
   const [clickedRestrictedSBC, setClickedRestrictedSBC] = useState(false)
@@ -41,6 +32,11 @@ const Home = () => {
   const [platform, setPlatform] = useState('Playstation')
   const [okClickedWithoutPlatform, setOkClickedWithoutPlatform] = useState(false)
   const [showNotifyClickedModal, setShowNotifyClickedModal] = useState(false)
+
+  // So gross way of doing it, but what the hell
+  const beta_testers = [
+    'christianhjelmslund@gmail.com'
+  ]
 
   const onPlatformChosen = (platform: string) => {
     setPlatform(platform)
@@ -71,15 +67,12 @@ const Home = () => {
     setShowPremiumSubscriptionComingSoon(true)
   }
 
-  useEffect(() => {
-    dispatch(fetchSbcs())
-  }, [ dispatch])
-
-  const onSBCClicked = (index: number, restricted: boolean, is_marquee_match_up?: boolean) => {
-    if (restricted && !(is_marquee_match_up && user.data)) {
+  const onSBCClicked = (index: number, restricted: boolean, sbc_id: string, is_marquee_match_up?: boolean) => {
+    if (restricted && !(is_marquee_match_up && user.data) || !beta_testers.includes(user.data?.email || '')) {
       setClickedRestrictedSBC(true)
     } else {
       setSelectedSBC(index)
+      navigate('/sbc/' + sbc_id)
     }
   }
 
@@ -248,6 +241,7 @@ const Home = () => {
                         category: "HomePage",
                         action: "click_sbc_marquee_matchups",
                       });
+                      console.log(marquee_matchups)
                        navigate('/sbc', { state: marquee_matchups})
                       }}
                      changeImg={"https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_1000013-67af5e79-ce1b.png"}
@@ -255,22 +249,31 @@ const Home = () => {
                      is_marquee_match_up={true}/>
           </div>
           <div className="grid grid-cols-3 md:grid-cols-1 md:w-4/5 m-auto gap-4 pb-8">
-            {mockedSBCs.length > 0 ? mockedSBCs.map((sbc, index) =>
+            {sbcs_sets.status === APIStatus.FULFILLED ? sbcs_sets.data.map((sbc, index) =>
               <CardSBC title={sbc.name}
-                       key={sbc.name}
-                       changeImg={sbc.icon_url}
-                       restricted={sbc.restricted}
-                       is_marquee_match_up={sbc.marquee_match_up}
+                       key={sbc.id}
+                       changeImg={`https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_${sbc.img}.png`}
+                       // Figure out what to do here
+                       restricted={false}
+                       is_marquee_match_up={false}
                        onClick={(restricted, is_marquee_match_up?: boolean) => {
 
-                         const gaAction = restricted ? 'click_sbc_restricted' : is_marquee_match_up ? 'click_sbc_marquee' : "click_sbc_free"
+                        const gaAction = restricted ? 'click_sbc_restricted' : is_marquee_match_up ? 'click_sbc_marquee' : "click_sbc_free"
 
                         ReactGA.event({
                           category: "HomePage",
                           action: gaAction,
                         });
-                         onSBCClicked(index === selectedSBC ? -1 : index, restricted, is_marquee_match_up)
-                       }} />) : null}
+                         onSBCClicked(index === selectedSBC ? -1 : index, restricted, (sbc.id+'_'+sbc.img+'_'+sbc.name), is_marquee_match_up)
+                       }} />) : <>
+                          <div className='m-auto'>
+                          </div>
+                          <div className='m-auto'>
+                            <Spinner/>
+                          </div>
+                          <div className='m-auto'>
+                          </div>
+                       </>}
           </div>
         </>
       </>

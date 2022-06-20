@@ -7,4 +7,3 @@ export const getSBCs = () => axios.get('/sbcs').then(response => {
     }
     return sbcs
   })
-

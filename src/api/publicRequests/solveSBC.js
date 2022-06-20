@@ -8,7 +8,7 @@ export const solveSBC = (sbc, email) => {
     }
   }
   return axios.post('/sbcs', {
-    name: sbc,
+    id: sbc,
   }, {
     headers
   }).then(response => {

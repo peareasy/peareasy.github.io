@@ -1,5 +1,6 @@
 import {HashRouter, Route, Routes} from "react-router-dom";
 
+
 import "./App.css";
 import Home from "./pages/Home/Home";
 import About from "./pages/Navbar/About";
@@ -10,10 +11,11 @@ import Tos from "./pages/Footer/Tos";
 import Privacy from "./pages/Footer/Privacy";
 import Footer from "./components/UI/Footer/Footer";
 import Login from "./pages/Login";
-import React, {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "./redux/store";
 import {fetchUser} from "./redux/user/userSlice";
+import {fetchSbcsSets} from "./redux/sbcs/sbcSetsSlice";
 import Subscription from "./pages/Subscription";
 import TagManager from 'react-gtm-module';
 import ReactGA from "react-ga4";
@@ -37,6 +39,10 @@ function App() {
     dispatch(fetchUser())
     setIsLoggedIn(true)
   }
+  useEffect(() => {
+    dispatch(fetchSbcsSets())
+  }, [ dispatch])
+
   return (
     <div className="min-h-screen bg-cover bg-center bg-cover bg-pitch">
       <CookieConsent
@@ -57,6 +63,7 @@ function App() {
               <Route path={"/profile"} element={<Profile setLogin={setIsLoggedIn}/>} />
               <Route path={"/contact"} element={<Contact/>} />
               <Route path={"/tos"} element={<Tos/>} />
+              <Route path={"/sbc/:id"} element={<SBCPage/>} />
               <Route path={"/sbc"} element={<SBCPage/>} />
               <Route path={"/privacy"} element={<Privacy/>} />
               <Route path={"/login"} element={<Login setLogin={setIsLoggedIn}/>} />

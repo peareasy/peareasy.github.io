@@ -10,7 +10,7 @@ type SolutionViewProps = {
 };
 
 const SolutionView = ({solution, sbc}: SolutionViewProps) => {
-  const formation = ("1-" + solution.formation).split(/[\s-]+/).map(Number)
+  const formation = ("1-" + solution.formation).split('').map(Number)
   const players = solution.players
   const formationWithPlayers = []
 
