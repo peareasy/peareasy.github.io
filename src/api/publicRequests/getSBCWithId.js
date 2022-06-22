@@ -1,4 +1,4 @@
-import otherAxios from "../otherApi"
+import otherAxios from "../sbcLambda"
 
 export const getSBCsWithId = (id) => otherAxios.get(`get-sbcs?set_id=${id}`).then(response => { 
     let sbcs = [];

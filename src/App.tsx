@@ -44,7 +44,7 @@ function App() {
   }, [ dispatch])
 
   return (
-    <div className="min-h-screen bg-cover bg-center bg-cover bg-pitch">
+    <div className="min-h-screen bg-cover bg-center bg-pitch">
       <CookieConsent
         location="bottom"
         buttonText="Ok"

@@ -4,7 +4,6 @@ import Modal from "../../components/UI/Modal";
 import {copied} from '../../components/UI/icons';
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "../../redux/store";
-import {getSBCsSelector} from "../../redux/sbcs/sbcsSlice";
 import {useNavigate} from "react-router";
 import {fetchUser, getUserSelector} from "../../redux/user/userSlice";
 import {getSBCSetsSelector} from "../../redux/sbcs/sbcSetsSlice";
@@ -21,22 +20,15 @@ const Home = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const sbcs = useSelector(getSBCsSelector);
   const user = useSelector(getUserSelector)
   const sbcs_sets = useSelector(getSBCSetsSelector)
 
   const [showPremiumSubscriptionComingSoon, setShowPremiumSubscriptionComingSoon] = useState(false)
-  const [selectedSBC, setSelectedSBC] = useState<number>(-1)
   const [clickedRestrictedSBC, setClickedRestrictedSBC] = useState(false)
   const [getNotifications, setGetNotifications] = useState(false);
   const [platform, setPlatform] = useState('Playstation')
   const [okClickedWithoutPlatform, setOkClickedWithoutPlatform] = useState(false)
   const [showNotifyClickedModal, setShowNotifyClickedModal] = useState(false)
-
-  // So gross way of doing it, but what the hell
-  const beta_testers = [
-    'christianhjelmslund@gmail.com'
-  ]
 
   const onPlatformChosen = (platform: string) => {
     setPlatform(platform)
@@ -67,11 +59,10 @@ const Home = () => {
     setShowPremiumSubscriptionComingSoon(true)
   }
 
-  const onSBCClicked = (index: number, restricted: boolean, sbc_id: string, is_marquee_match_up?: boolean) => {
-    if (restricted && !(is_marquee_match_up && user.data) || !beta_testers.includes(user.data?.email || '')) {
+  const onSBCClicked = (restricted: boolean, sbc_id: string, is_marquee_match_up?: boolean) => {
+    if (!(is_marquee_match_up || !restricted || user.data?.paid)) {
       setClickedRestrictedSBC(true)
     } else {
-      setSelectedSBC(index)
       navigate('/sbc/' + sbc_id)
     }
   }
@@ -164,8 +155,7 @@ const Home = () => {
   }
   const notifyClickedModal = <NotifyClickedModal onClick={() => setShowNotifyClickedModal(false)}/>
 
-  const marquee_matchups = sbcs.data.filter(sbc => sbc.marquee_match_up)
-
+  const marquee_matchups = sbcs_sets.data.filter(sbc => sbc.name.includes('Marquee'))[0]
   let sbcsView = (
     <div className="space-y-2">
       <>
@@ -234,19 +224,26 @@ const Home = () => {
                     notShowHeader={modalNotShowHeader}
                     notShowFooter={modalNotShowFooter}/> : null }
         <>
-          <div className={'m-auto w-2/3 pb-4'}>
-            <CardSBC title={'Marquee Matchups'}
-                     onClick={() => {
-                      ReactGA.event({
-                        category: "HomePage",
-                        action: "click_sbc_marquee_matchups",
-                      });
-                      console.log(marquee_matchups)
-                       navigate('/sbc', { state: marquee_matchups})
-                      }}
-                     changeImg={"https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_1000013-67af5e79-ce1b.png"}
-                     restricted={false}
-                     is_marquee_match_up={true}/>
+          <div className={'m-auto w-2/3 md:w-4/5 pb-4'}>
+            {
+              sbcs_sets.status === APIStatus.FULFILLED ?<CardSBC title={marquee_matchups.name}
+              key={marquee_matchups.id}
+              changeImg={`https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_${marquee_matchups.img}.png`}
+              // Figure out what to do here
+              restricted={false}
+              is_marquee_match_up={false /* It is a marquee matchup, but we don't want to show the blue dot
+              here -- Find better solution */}
+              onClick={(restricted, is_marquee_match_up?: boolean) => {
+
+               const gaAction = false ? 'click_sbc_restricted' : true ? 'click_sbc_marquee' : "click_sbc_free"
+
+               ReactGA.event({
+                 category: "HomePage",
+                 action: gaAction,
+               });
+                onSBCClicked(restricted, (marquee_matchups.id+'_'+marquee_matchups.img+'_'+marquee_matchups.name), is_marquee_match_up)
+              }} /> : null
+            }
           </div>
           <div className="grid grid-cols-3 md:grid-cols-1 md:w-4/5 m-auto gap-4 pb-8">
             {sbcs_sets.status === APIStatus.FULFILLED ? sbcs_sets.data.map((sbc, index) =>
@@ -254,7 +251,7 @@ const Home = () => {
                        key={sbc.id}
                        changeImg={`https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_${sbc.img}.png`}
                        // Figure out what to do here
-                       restricted={false}
+                       restricted={!user.data?.paid}
                        is_marquee_match_up={false}
                        onClick={(restricted, is_marquee_match_up?: boolean) => {
 
@@ -264,7 +261,7 @@ const Home = () => {
                           category: "HomePage",
                           action: gaAction,
                         });
-                         onSBCClicked(index === selectedSBC ? -1 : index, restricted, (sbc.id+'_'+sbc.img+'_'+sbc.name), is_marquee_match_up)
+                         onSBCClicked(restricted, (sbc.id+'_'+sbc.img+'_'+sbc.name), is_marquee_match_up)
                        }} />) : <>
                           <div className='m-auto'>
                           </div>

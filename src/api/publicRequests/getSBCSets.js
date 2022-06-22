@@ -1,4 +1,4 @@
-import axios from "../otherApi"
+import axios from "../sbcLambda"
 
   export const getSBCSets = () => axios.get('/get-sbc-sets').then(res => {
     let sbcSets = res.data

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_OTHER_BACKEND_URL,
+  baseURL: process.env.REACT_APP_SBC_LAMBDA_URL,
 });
 
 export default instance;
