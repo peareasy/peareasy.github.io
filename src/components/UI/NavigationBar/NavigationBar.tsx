@@ -41,11 +41,11 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
         <div
           className={
             'mobile:flex flex-grow items-center' +
-            (navbarOpen ? ' flex' : ' hididden')
+            (navbarOpen ? ' flex' : 'hidden')
           }
           id="example-navbar-danger"
         >
-          <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
+          {!navbarOpen ? <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
               link={'/about'}
               onClick={() => {
@@ -53,14 +53,12 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
                   category: "NavBar",
                   action: "click_navbar_about",
                 });
-
-                setNavbarOpen(!navbarOpen);
               }}
             >
               <span>about</span>
             </NavigationItem>
-          </ul>
-          <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
+          </ul> : null }
+          {!navbarOpen ? <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <a href={'https://discord.gg/mmNtdnUcJf'}
               onClick={() => {
                 ReactGA.event({
@@ -73,8 +71,8 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
             >
               <span>discord</span>
             </a>
-          </ul>
-          <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
+          </ul> : null }
+          {!navbarOpen ? <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
               link={'/subscription'}
               onClick={() => {
@@ -82,7 +80,6 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
                   category: "NavBar",
                   action: "click_navbar_premium",
                 });
-                setNavbarOpen(!navbarOpen)
               }}
             >
               <div className={'flex flex-row gap-x-2'}>
@@ -90,8 +87,8 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
                 <span className={'my-auto'}>premium</span>
               </div>
             </NavigationItem>
-          </ul>
-          <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
+          </ul> : null }
+          {!navbarOpen ? <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <NavigationItem
               link={isLoggedIn ? '/profile' : '/login' }
               onClick={() => {
@@ -99,12 +96,11 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
                   category: "NavBar",
                   action: "click_navbar_profile_login",
                 });
-                setNavbarOpen(!navbarOpen)}
-              }
+              }}
             >
               {isLoggedIn ? <span>profile</span> : <span>login</span> }
             </NavigationItem>
-          </ul>
+          </ul> : null }
         </div>
       </div>
     </nav>

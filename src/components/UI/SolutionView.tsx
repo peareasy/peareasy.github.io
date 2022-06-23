@@ -10,7 +10,14 @@ type SolutionViewProps = {
 };
 
 const SolutionView = ({solution, sbc}: SolutionViewProps) => {
-  const formation = ("1-" + solution.formation).split(/[\s-]+/).map(Number)
+  const formation = ("1-" + solution.formation).split('').map(Number)
+  
+  let showFormation = ''
+  for (let i = 1; i < solution.formation.length; i++) {
+    showFormation += solution.formation[i]+'-'
+  }
+  showFormation= showFormation.slice(0, -1);
+
   const players = solution.players
   const formationWithPlayers = []
 
@@ -51,7 +58,7 @@ const SolutionView = ({solution, sbc}: SolutionViewProps) => {
               <h1 className="font-light mt-4 text-xl">Constraints</h1>
               <p className="text-m flex flex-row mx-auto"><span className="pr-1">{copied}</span>Rating: {sbc.min_rating} ({solution.rating})</p>
               <p className="text-m flex flex-row mx-auto"><span className="pr-1">{copied}</span>Chem: {sbc.min_chemistry} ({solution.chem})</p>
-              <p className="text-m flex flex-row mx-auto">Formation: {solution.formation}</p>
+              <p className="text-m flex flex-row mx-auto">Formation: {showFormation}</p>
               <p className="text-m flex flex-row mx-auto">{solution.cost} <img className="w-5 h-5 my-auto ml-2" alt="coins-bin" src={process.env.PUBLIC_URL + '/coins_bin.png'}/></p>
             </div>
             

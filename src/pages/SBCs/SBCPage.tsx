@@ -1,11 +1,11 @@
-import {SBC} from "../../interfaces/SBC";
-import {useLocation, useNavigate} from "react-router";
+import {useLocation, useNavigate, useParams} from "react-router";
 import CardSBC from "../../components/UI/CardSBC";
 import {PrimaryButton} from "../../components/UI/Button";
 import {useEffect, useState} from "react";
 import SolutionView from "../../components/UI/SolutionView";
 import {Solution} from "../../interfaces/Solution";
 import * as api from "../../api/publicApi";
+import * as otherApi from "../../api/sbcLambda";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import Modal from "../../components/UI/Modal";
 import {useSelector} from "react-redux";
@@ -13,21 +13,21 @@ import {getUserSelector} from "../../redux/user/userSlice";
 import ReactGA from "react-ga4";
 
 const SBCPage = () => {
-  const location = useLocation()
+  let location = useLocation();
   const navigate = useNavigate();
-  const sbcs = (location?.state as SBC[])|| undefined
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
   const [clickedRestrictedSBC, setClickedRestrictedSBC] = useState(false)
   const emptySolution = (): Solution => ({cost: 0, chem: 0, rating: 0, players: [], formation: "", solution_message: ""})
   const [solution, setSolution] = useState<Solution>(emptySolution)
   const [showSolution, setShowSolution] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [sbcs, setSBCs] = useState<any[]>([])
   const user = useSelector(getUserSelector)
 
+  let { id } = useParams();
   useEffect(() => {
-    if (!sbcs)
-      navigate('/')
-  }, [sbcs, navigate]);
+      otherApi.getSBCsWithId(id).then(res => setSBCs(res))
+  }, [id]);
 
   const onSolveSBC = (index: number) => {
     setLoading(true)
@@ -35,13 +35,14 @@ const SBCPage = () => {
         category: "SolveSBC",
         action: "click_solve_sbc",
       });
-    api.solveSBC(sbcs[index].name, user.data?.email || null)
+    api.solveSBC(sbcs[index].challengeId, user.data?.email || null)
       .then((solution: Solution) => {
         ReactGA.event({
           category: "SolveSBC",
           action: "solve_sbc_success",
         })
-        const {formation, players, cost, chem, rating, solution_message} = solution;
+        const {players, cost, chem, rating, solution_message} = solution;
+        const formation = sbcs[index].formation
         setSolution({players, cost, chem, rating, formation, solution_message})
         setShowSolution(true)
         setLoading(false)
@@ -56,7 +57,7 @@ const SBCPage = () => {
       })
   }
 
-  const onSBCClicked = (index: number, restricted: boolean, is_marquee_match_up?: boolean) => {
+  const onSBCClicked = (index: number, restricted: boolean) => {
     if (restricted && !user.data) {
       setClickedRestrictedSBC(true)
     } else {
@@ -85,19 +86,32 @@ const SBCPage = () => {
   </div>
 
   const SBCsView = <>
-    <div className="grid grid-cols-2 md:grid-cols-1 md:w-3/5 gap-4 pb-2 w-1/2 m-auto">
-      {sbcs && sbcs.length > 0 ? sbcs.map((sbc, index) =>
-        <CardSBC title={sbc.name}
-                 key={sbc.name}
-                 changeImg={sbc.icon_url}
+      {sbcs && sbcs.length > 0 ? 
+      <div className={sbcs.length === 1 ? "md:w-3/5 gap-4 pb-2 w-1/5 m-auto" : "grid grid-cols-2 md:grid-cols-1 md:w-3/5 gap-4 pb-2 w-1/2 m-auto"}>
+      {sbcs.map((sbc, index) => { 
+        let imgUrl
+        if (sbc.challengeImageId) {
+          imgUrl = `https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/challenges/images/sbc_challenge_image_${sbc.challengeImageId}.png`
+        } else {
+          // TODO: This is needed when the SBC set only has 1 SBC
+          imgUrl = `https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_${sbc.setImageId.split('_')[1]}.png`
+        }
+
+        return <CardSBC title={sbc.name}
+                 key={sbc.name + index}
+                 changeImg={imgUrl || ''}
                  restricted={sbc.restricted}
                  platform={user.data?.platform}
                  dontHidePlatformMessage={true}
-                 is_marquee_match_up={sbc.marquee_match_up}
-                 onClick={(description, is_marquee_match_up?: boolean) => {
-                   onSBCClicked(index, description, is_marquee_match_up)
-                 }} />) : null}
-    </div>
+                 is_marquee_match_up={location.pathname.includes('Marquee')}
+                 onClick={(description) => {
+                   onSBCClicked(index, description)
+                 }} />
+                 
+                })} </div> : <div className='m-auto'>
+                 <Spinner/>
+               </div>}
+    
   </>
 
   let modal
