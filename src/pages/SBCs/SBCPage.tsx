@@ -58,8 +58,6 @@ const SBCPage = () => {
   }
 
   const onSBCClicked = (index: number, restricted: boolean) => {
-    console.log("Wtf is this: ", restricted && !user.data)
-
     if (restricted && !user.data) {
       setClickedRestrictedSBC(true)
     } else {
@@ -94,6 +92,9 @@ const SBCPage = () => {
         let imgUrl
         if (sbc.challengeImageId) {
           imgUrl = `https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/challenges/images/sbc_challenge_image_${sbc.challengeImageId}.png`
+        } else {
+          // TODO: This is needed when the SBC set only has 1 SBC
+          imgUrl = `https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_${sbc.setImageId.split('_')[1]}.png`
         }
 
         return <CardSBC title={sbc.name}

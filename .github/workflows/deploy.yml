@@ -20,6 +20,7 @@ jobs:
           touch .env
           echo REACT_APP_EXTENSION_ID="mchecdiinfipdfihkoebfbpfnllbllhc" >> .env
           echo REACT_APP_BACKEND_URL="https://5fmhq2i8rp.eu-west-1.awsapprunner.com" >> .env
+          echo REACT_APP_SBC_LAMBDA_URL="https://uj78wx8nf5.execute-api.eu-west-1.amazonaws.com" >> .env
           echo REACT_APP_BUGSNAG_API_KEY="${{ secrets.REACT_APP_BUGSNAG_API_KEY }} " >> .env
           echo REACT_APP_GOOGLE_CLIENT_ID="${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }} " >> .env
           cat .env
