@@ -3,13 +3,20 @@ import { NavLink } from 'react-router-dom';
 import NavigationItem from './NavigationItem';
 import { menu as menuIcon } from '../icons';
 import ReactGA from "react-ga4";
+import { useSelector } from 'react-redux';
+import { getUserSelector } from '../../../redux/user/userSlice';
 
 type LoggedInProps = {
   isLoggedIn: boolean;
 }
 
 const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
+
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const user = useSelector(getUserSelector);
+  const paid = !!user?.data?.paid
+
+  
   return (
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-6 mb-8 md:mb-0">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
@@ -83,7 +90,8 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
               }}
             >
               <div className={'flex flex-row gap-x-2'}>
-                <div className={'w-4 h-4 rounded-full my-auto'} style={{backgroundColor: "#fb923c"}}/>
+
+                {paid ?  <></> : <div className={'w-4 h-4 rounded-full my-auto'} style={{backgroundColor: "#fb923c"}}/>}
                 <span className={'my-auto'}>premium</span>
               </div>
             </NavigationItem>
