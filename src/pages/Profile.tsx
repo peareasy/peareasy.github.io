@@ -29,6 +29,8 @@ const Profile = ({setLogin}: LogoutProps) => {
       navigate('/')
     })
   }
+
+  
   useEffect(() => {
     if (!user.data) {
       navigate('/login')
@@ -48,9 +50,18 @@ const Profile = ({setLogin}: LogoutProps) => {
       <div className={'text-m text-gray-200 font-bold'}>
         Current subscription
       </div>
-      <div className={'text-m text-gray-300'}>
-        Free tier. You can upgrade {<NavLink to={'/subscription'}>here!</NavLink>}
+
+      {user.data?.paid ? 
+      <div className={'text-m text-gray-300 flex flex-row'}>
+        <div className={'w-4 h-4 rounded-full my-auto mr-2'} style={{backgroundColor: "#fb923c"}}/>
+        <span>Premium Tier. Enjoy!</span>
+      </div> :
+      <div className={'text-m text-gray-300 flex flex-row'}>
+        <div className={'w-4 h-4 rounded-full my-auto mr-2'} style={{backgroundColor: "#22d3ee"}}/>
+        <span className="text-gray-300">Free tier. You can upgrade {<NavLink to={'/subscription'}>here!</NavLink>}</span>
       </div>
+       }
+      
       <div className="text-m text-gray-200 font-bold">
         Choose your platform
       </div>
