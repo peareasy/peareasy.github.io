@@ -91,7 +91,7 @@ const Home = () => {
         modalNotShowFooter = true
         modalHeader = '❗ You need a premium subscription'
         modalBody = <div className={'w-full m-auto flex flex-row md:flex md:flex-col-reverse gap-8'}>
-          <SubscriptionCard boxColor={"#22d3ee"} content={
+          <SubscriptionCard showButton={true} boxColor={"#22d3ee"} content={
             <ul className={'flex flex-col gap-y-4 text-left'}>
             <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
               Current Subscription
@@ -115,7 +115,7 @@ const Home = () => {
               <span className="pl-6"></span> Exclude leagues, nations and card types
             </li>
           </ul>} price={0} onClick={() => {}} tier={'Free'} currentSubscription={true} primaryButtonTitle={'yoo'}/>
-          <SubscriptionCard boxColor={"#fb923c"} content={<>
+          <SubscriptionCard showButton={true}  boxColor={"#fb923c"} content={<>
             <ul className={'flex flex-col gap-y-4 text-left'}>
               <div className={'text-primary-400 font-bold'} style={{color: "#fb923c"}}>
                 Premium Subscription

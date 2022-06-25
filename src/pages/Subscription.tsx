@@ -6,6 +6,8 @@ import {useLocation, useNavigate} from "react-router";
 import ReactGA from "react-ga4";
 import { NotifyClickedModal } from "../components/UI/NotifyClickedModal";
 import * as privateApi from "../api/privateApi"
+import { useSelector } from "react-redux";
+import { getUserSelector } from "../redux/user/userSlice";
 type LoggedInProps = {
   isLoggedIn: boolean;
 }
@@ -13,6 +15,8 @@ type LoggedInProps = {
 const Subscription = ({isLoggedIn}: LoggedInProps) => {
   const navigate = useNavigate()
   const location = useLocation();
+  const user = useSelector(getUserSelector);
+
 
   const [showSubscriptionComingSoonModal, setShowSubscriptionComingSoonModal] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -102,7 +106,7 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
                      negativeActionButtonLabel="No thanks!"/>
 
   const subscriptions = <div className={'flex flex-row justify-center gap-x-4'}>
-    <SubscriptionCard boxColor={"#22d3ee"} content={<ul className={'flex flex-col gap-y-4'}>
+    <SubscriptionCard showButton={!user?.data?.paid} boxColor={"#22d3ee"} content={<ul className={'flex flex-col gap-y-4'}>
       {isLoggedIn ? <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
         Current Subscription
       </div> : <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
@@ -132,7 +136,7 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
     </ul>} price={0} onClick={freeSubscriptionClicked} tier={'Free'} primaryButtonTitle={'Log in to activate'} currentSubscription={isLoggedIn}/>
 
 
-    <SubscriptionCard boxColor={"#fb923c"} content={<>
+    <SubscriptionCard showButton={!user?.data?.paid}  boxColor={"#fb923c"} content={<>
     <ul className={'flex flex-col gap-y-4'}>
       <div className={'text-primary-400 font-bold'} style={{color: "#fb923c"}}>
         Premium Subscription

@@ -16,19 +16,14 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
   const user = useSelector(getUserSelector);
   const paid = !!user?.data?.paid
 
-  
+
   return (
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-6 mb-8 md:mb-0">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between mobile:w-auto mobile:static mobile:block mobile:justify-start">
           <NavLink
             className="text-xl leading-relaxed inline-block mr-4 py-2 whitespace-nowrap text-secondary"
-            to={'/'} onClick={() => {
-              // Find better way to do this
-              // window.location.href = "#"
-              // window.location.reload()
-          }}
-          >
+            to={'/'}>
             easySBC ⚽
           </NavLink>
           <button
@@ -76,6 +71,7 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
                target="_blank" rel="noreferrer"
                className="px-3 py-2 flex items-center text-sm uppercase leading-snug text-secondary hover:opacity-75"
             >
+              <img src={process.env.PUBLIC_URL + '/discord-v2.svg'} className='w-6 h-6 mr-2' alt={"platform"}/>
               <span>discord</span>
             </a>
           </ul> : null }
@@ -90,7 +86,6 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
               }}
             >
               <div className={'flex flex-row gap-x-2'}>
-
                 {paid ?  <></> : <div className={'w-4 h-4 rounded-full my-auto'} style={{backgroundColor: "#fb923c"}}/>}
                 <span className={'my-auto'}>premium</span>
               </div>
