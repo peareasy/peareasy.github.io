@@ -24,6 +24,7 @@ const SBCPage = () => {
   const [sbcs, setSBCs] = useState<any[]>([])
   const user = useSelector(getUserSelector)
   const [error, setError] = useState("")
+  const sbcIconBaseUrl = "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/";
 
   let { id } = useParams();
   useEffect(() => {
@@ -116,25 +117,25 @@ const SBCPage = () => {
     <h1 className="text-xl mx-auto pb-12 font-light text-gray-200">This might take up to 20 seconds 👊🏽</h1>
     <Spinner/>
   </div>
+  
 
+  
   const SBCsView = <>
       {sbcs && sbcs.length > 0 ? 
       <div className={sbcs.length === 1 ? "md:w-3/5 gap-4 pb-2 w-1/5 m-auto" : "grid grid-cols-2 md:grid-cols-1 md:w-3/5 gap-4 pb-2 w-1/2 m-auto"}>
       {sbcs.map((sbc, index) => { 
-        let imgUrl
-        if (sbc.challengeImageId) {
-          imgUrl = `https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/challenges/images/sbc_challenge_image_${sbc.challengeImageId}.png`
-        } else {
-          // TODO: This is needed when the SBC set only has 1 SBC
-          imgUrl = `https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_${sbc.setImageId.split('_')[1]}.png`
-        }
+        
+        const imgUrl = sbc.challengeImageId ? `${sbcIconBaseUrl}challenges/images/sbc_challenge_image_${sbc.challengeImageId}.png` 
+                        : `sets/images/sbc_set_image_${sbc.setImageId.split('_')[1]}.png`;
+
+        const restrictedMarqueeSbc = !!id?.includes("Marquee Matchups") && index > 0 && !user.data;
 
         return <CardSBC title={sbc.name}
                  key={sbc.name + index}
                  changeImg={imgUrl || ''}
-                 restricted={sbc.restricted}
+                 restricted={restrictedMarqueeSbc}
                  platform={user.data?.platform}
-                 dontHidePlatformMessage={true}
+                 showPlatformMsg={true}
                  is_marquee_match_up={location.pathname.includes('Marquee')}
                  onClick={(description) => {
                    onSBCClicked(index, description)
@@ -149,7 +150,7 @@ const SBCPage = () => {
   let modal
   if (clickedRestrictedSBC && !user.data) {
     modal = <Modal header={'❗ You need to login in order to solve this SBC'}
-                   body={<span>You need to login to solve this SBC</span>}
+                   body={<span>You need to log in to solve this SBC</span>}
                    onNegativeActionClicked={() => {
                      setClickedRestrictedSBC(false)
                    }}
@@ -160,7 +161,7 @@ const SBCPage = () => {
                    onCloseClicked={() => {
                      setClickedRestrictedSBC(false)
                    }}
-                   positiveActionButtonLabel={'Login'}
+                   positiveActionButtonLabel={'Log in'}
                    negativeActionButtonLabel="Cancel"/>
   }
 
