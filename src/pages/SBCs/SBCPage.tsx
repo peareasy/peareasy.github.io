@@ -23,6 +23,7 @@ const SBCPage = () => {
   const [loading, setLoading] = useState(false)
   const [sbcs, setSBCs] = useState<any[]>([])
   const user = useSelector(getUserSelector)
+  const [error, setError] = useState("")
 
   let { id } = useParams();
   useEffect(() => {
@@ -37,21 +38,33 @@ const SBCPage = () => {
       });
     api.solveSBC(sbcs[index].challengeId, user.data?.email || null)
       .then((solution: Solution) => {
-        ReactGA.event({
-          category: "SolveSBC",
-          action: "solve_sbc_success",
-        })
-        const {players, cost, chem, rating, solution_message} = solution;
-        const formation = sbcs[index].formation
-        setSolution({players, cost, chem, rating, formation, solution_message})
-        setShowSolution(true)
-        setLoading(false)
+        console.log("solution", solution);
+        if (solution.players.length === 0){
+          setError(solution.solution_message);
+          ReactGA.event({
+            category: "SolveSBC",
+            action: "solve_sbc_error",
+          })
+          setLoading(false)
+        } else {
+          ReactGA.event({
+            category: "SolveSBC",
+            action: "solve_sbc_success",
+          })
+          const {players, cost, chem, rating, solution_message} = solution;
+          const formation = sbcs[index].formation
+          setError("")
+          setSolution({players, cost, chem, rating, formation, solution_message})
+          setShowSolution(true)
+          setLoading(false)
+        }
       })
-      .catch(() => {
+      .catch((e) => {
         ReactGA.event({
           category: "SolveSBC",
           action: "solve_sbc_error",
         })
+        setError(e)
         setShowSolution(false)
         setLoading(false)
       })
@@ -66,8 +79,27 @@ const SBCPage = () => {
     }
   }
 
+  const errorView = (
+    <div className={'space-y-2 text-secondary justify-around m-auto text-center'}>
+      <h1 className="text-2xl font-bold mb-4">
+        Sorry, we couldn't find a solution! 
+      </h1>
+      <p>
+        Our team has been notified and we are working hard on improving our solver! 
+      </p>
+      <p>
+        In the meantime, try one of the other SBCs!  
+      </p>
+      <div className="pt-10 flex justify-around pb-10 ">
+        <PrimaryButton onClick={() => {
+          setSelectedSBC(-1)
+          setSolution(emptySolution)
+          setError("")
+        }} title={"Try another one!"}/>
+      </div>
+    </div>
+  )
   const solutionView = <div>
-
     {sbcs ? <SolutionView solution={solution} sbc={sbcs[selectedSBC]} /> : <></>}
     <div className="pt-10 flex justify-around pb-10 ">
       <PrimaryButton onClick={() => {
@@ -75,7 +107,7 @@ const SBCPage = () => {
         setSolution(emptySolution)
       }} title={"Solve another SBC"}/>
     </div>
-  </div>
+  </div> 
 
   const loadingView = <div className="space-y-4 text-secondary m-auto text-center">
     <h1 className="text-2xl mx-auto h-4/5 font-light">
@@ -131,15 +163,18 @@ const SBCPage = () => {
                    positiveActionButtonLabel={'Login'}
                    negativeActionButtonLabel="Cancel"/>
   }
-  let view
-  if (loading) {
-    view = loadingView
-  } else if (showSolution) {
-    view = solutionView
-  } else {
-    view = SBCsView
-  }
 
+  
+  let view;
+  if (loading) {
+    view = loadingView;
+  } else if (error) {
+    view = errorView;
+  } else if (showSolution) {
+    view = solutionView;
+  } else {
+    view = SBCsView;
+  }
   return <>
     {view}
     {clickedRestrictedSBC ? modal : null}

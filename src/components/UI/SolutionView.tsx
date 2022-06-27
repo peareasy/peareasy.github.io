@@ -2,7 +2,6 @@ import { CopyButton } from "./CopyButton";
 import {Solution} from "../../interfaces/Solution";
 import {SBC} from "../../interfaces/SBC";
 import {copied} from "./icons";
-import React from "react";
 
 type SolutionViewProps = {
   solution: Solution,
