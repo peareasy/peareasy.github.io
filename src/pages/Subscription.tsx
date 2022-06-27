@@ -107,7 +107,7 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
 
   const subscriptions = <div className={'flex flex-row justify-center gap-x-4'}>
     <SubscriptionCard showButton={!user?.data?.paid} boxColor={"#22d3ee"} content={<ul className={'flex flex-col gap-y-4'}>
-      {isLoggedIn ? <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
+      {isLoggedIn && !user.data?.paid ? <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
         Current Subscription
       </div> : <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
         Free Subscription
@@ -138,9 +138,16 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
 
     <SubscriptionCard showButton={!user?.data?.paid}  boxColor={"#fb923c"} content={<>
     <ul className={'flex flex-col gap-y-4'}>
-      <div className={'text-primary-400 font-bold'} style={{color: "#fb923c"}}>
-        Premium Subscription
-      </div>
+
+      { user.data?.paid ? 
+        <div className={'text-primary-400 font-bold italic'} style={{color: "#fb923c"}}>
+          Active Subscription
+        </div> : 
+        <div className={'text-primary-400 font-bold'} style={{color: "#fb923c"}}>
+          Premium Subscription
+        </div>
+      }
+      
       <li className={'flex flex-row gap-x-2'}>
         <span>{copied}</span> Marquee Matchups
       </li>
