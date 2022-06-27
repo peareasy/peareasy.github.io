@@ -39,7 +39,6 @@ const SBCPage = () => {
       });
     api.solveSBC(sbcs[index].challengeId, user.data?.email || null)
       .then((solution: Solution) => {
-        console.log("solution", solution);
         if (solution.players.length === 0){
           setError(solution.solution_message);
           ReactGA.event({
