@@ -67,7 +67,7 @@ const Profile = ({setLogin}: LogoutProps) => {
       </div>
       <ChoosePlatform onSelected={(chosenPlatform) => onPlatformChosen(chosenPlatform)} />
       <div className={'text-m text-gray-300'}>
-        In order to delete your account, please {<NavLink to={'/contact'}>contact us</NavLink>} and we will
+        In order to unsubscribe or delete your account, please {<NavLink to={'/contact'}>contact us</NavLink>} and we will
         do it as soon as possible
       </div>
       <div className={'m-auto'}>
