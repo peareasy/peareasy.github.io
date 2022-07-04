@@ -107,8 +107,8 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
 
   const subscriptions = <div className={'flex flex-row justify-center gap-x-4'}>
     <SubscriptionCard showButton={!user?.data?.paid} boxColor={"#22d3ee"} content={<ul className={'flex flex-col gap-y-4'}>
-      {isLoggedIn && !user.data?.paid ? <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
-        Current Subscription
+      {isLoggedIn && !user.data?.paid ? <div className={'text-primary-400 font-bold italic'} style={{color: "#22d3ee"}}>
+        Free Subscription - Active
       </div> : <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
         Free Subscription
       </div> }
@@ -141,7 +141,7 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
 
       { user.data?.paid ? 
         <div className={'text-primary-400 font-bold italic'} style={{color: "#fb923c"}}>
-          Active Subscription
+          Premium Subscription - Active
         </div> : 
         <div className={'text-primary-400 font-bold'} style={{color: "#fb923c"}}>
           Premium Subscription

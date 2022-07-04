@@ -10,8 +10,6 @@ type CardSBCProps = {
 
 const CardSBC = ({title, onClick, changeImg, restricted, is_marquee_match_up, platform, showPlatformMsg}: CardSBCProps) => {
   const cardClassName = ['rounded-xl hover:bg-gray-800 bg-gray-900 flex flex-col m-auto cursor-pointer w-full text-secondary']
-
-  console.log("restcrited", restricted);
   
   const onCardClicked = () => {
     onClick(restricted, is_marquee_match_up)
