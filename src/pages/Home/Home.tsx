@@ -32,6 +32,9 @@ const Home = () => {
   const priceId = process.env.REACT_APP_ENVIRONMENT === "dev" ? process.env.REACT_APP_STRIPE_PRICE_ID_TEST 
                   : process.env.REACT_APP_STRIPE_PRICE_ID_PREMIUM
 
+  console.log("priceId", priceId);
+  
+
   const onPlatformChosen = (platform: string) => {
     setPlatform(platform)
   }
