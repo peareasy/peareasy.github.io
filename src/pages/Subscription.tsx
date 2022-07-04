@@ -21,7 +21,9 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
   const [showSubscriptionComingSoonModal, setShowSubscriptionComingSoonModal] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [showNotifyClickedModal, setShowNotifyClickedModal] = useState(false)
-    
+  const priceId = process.env.REACT_APP_ENVIRONMENT === "dev" ? process.env.REACT_APP_STRIPE_PRICE_ID_TEST 
+                  : process.env.REACT_APP_STRIPE_PRICE_ID_PREMIUM
+  
   const notifyClickedModal = <NotifyClickedModal onClick={() => setShowNotifyClickedModal(false)}/>
 
   const header = <h1 className={'text-3xl font-light m-auto'}>
@@ -33,13 +35,17 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
     Choose a subscription plan that fits your needs
   </h2>
 
-  const premiumSubscriptionClicked = () => {
+  const premiumSubscriptionClicked = (priceId: string) => {
     ReactGA.event({
       category: "PremiumPage",
       action: "click_premium_page_buy_now",
     });
-    setShowModal(true)
-    setShowSubscriptionComingSoonModal(true)
+    if (isLoggedIn)
+      privateApi.createCheckoutSession(priceId)
+    else {
+      setShowModal(true)
+      setShowSubscriptionComingSoonModal(true)
+    }
   }
 
   const freeSubscriptionClicked = () => {
@@ -64,10 +70,8 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
       modalPositiveActionButtonLabel = 'Notify me'
     }
      else {
-      modalHeader = '❗ Thank you for your interest'
-      modalBody = <span>Thank you so much for validating our product!
-        We are working hard on the final details of the premium subscription features.
-        If you sign in we will let you know when it is ready! 🍾</span>
+      modalHeader = 'You are almost there!'
+      modalBody = <span>Please sign in to access premium!</span>
       modalNavigation = '/login'
       modalPositiveActionButtonLabel = 'Sign in'
     }
@@ -116,24 +120,25 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
         <span>{copied}</span> Marquee Matchups
       </li>
       <li className={'flex flex-row gap-x-2'}>
-        <span>{copied}</span> Unique solutions based on live player prices
+        <span>{copied}</span> Unique solutions
       </li>
       <li className={'flex flex-row gap-x-2'}>
         <span>{copied}</span> Use player prices from different plaforms
       </li>
       <li className={'flex flex-row gap-x-2 text-gray-400'}>
-        <span className="pl-6"></span> All SBCs
+        <span className="pl-6"></span> General solutions to all SBCs
       </li>
-      <li className={'flex flex-row gap-x-2 text-gray-400'}>
-        <span className="pl-6"></span> Specify player(s) to include in solution
+      <li className={'flex flex-row gap-x-2 text-gray-400 italic'}>
+        <span className="pl-6"></span> Player replacement suggestions (coming soon!)
       </li>
-      <li className={'flex flex-row gap-x-2 text-gray-400'}>
+      {/* <li className={'flex flex-row gap-x-2 text-gray-400'}>
         <span className="pl-6"></span> Prioritize leagues, nations or card types in solution
       </li>
       <li className={'flex flex-row gap-x-2 text-gray-400'}>
         <span className="pl-6"></span> Exclude leagues, nations and card types
-      </li>
-    </ul>} price={0} onClick={freeSubscriptionClicked} tier={'Free'} primaryButtonTitle={'Log in to activate'} currentSubscription={isLoggedIn}/>
+      </li> */}
+    </ul>} price={0} onClick={freeSubscriptionClicked} tier={'Free'} primaryButtonTitle={'Log in to activate'} 
+          currentSubscription={isLoggedIn} priceId={priceId}/>
 
 
     <SubscriptionCard showButton={!user?.data?.paid}  boxColor={"#fb923c"} content={<>
@@ -152,25 +157,25 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
         <span>{copied}</span> Marquee Matchups
       </li>
       <li className={'flex flex-row gap-x-2'}>
-        <span>{copied}</span> Unique solutions based on live player prices
+        <span>{copied}</span> Unique solutions
       </li>
       <li className={'flex flex-row gap-x-2'}>
         <span>{copied}</span> Use player prices from different plaforms
       </li>
       <li className={'flex flex-row gap-x-2'}>
-        <span>{copied}</span> All SBCs
+        <span>{copied}</span> General solutions to all SBCs
       </li>
-      <li className={'flex flex-row gap-x-2'}>
-        <span>{copied}</span> Specify player(s) to include in solution
+      <li className={'flex flex-row gap-x-2 italic'}>
+        <span>{copied}</span> Player replacement suggestions (coming soon!)
       </li>
-      <li className={'flex flex-row gap-x-2'}>
+      {/* <li className={'flex flex-row gap-x-2'}>
         <span>{copied}</span> Prioritize leagues, nations or card types in solution
       </li>
       <li className={'flex flex-row gap-x-2'}>
         <span>{copied}</span> Exclude leagues, nations and card types
-      </li>
+      </li> */}
     </ul>
-    </>} price={1.99} onClick={premiumSubscriptionClicked} tier={'Premium'} primaryButtonTitle={'Buy Now'} currentSubscription={false}/>
+    </>} price={2.99} onClick={premiumSubscriptionClicked} tier={'Premium'} primaryButtonTitle={'Buy Now'} currentSubscription={false} priceId={priceId}/>
   </div>
 
   let view = 

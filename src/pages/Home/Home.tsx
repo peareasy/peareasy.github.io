@@ -29,6 +29,8 @@ const Home = () => {
   const [platform, setPlatform] = useState('Playstation')
   const [okClickedWithoutPlatform, setOkClickedWithoutPlatform] = useState(false)
   const [showNotifyClickedModal, setShowNotifyClickedModal] = useState(false)
+  const priceId = process.env.REACT_APP_ENVIRONMENT === "dev" ? process.env.REACT_APP_STRIPE_PRICE_ID_TEST 
+                  : process.env.REACT_APP_STRIPE_PRICE_ID_PREMIUM
 
   const onPlatformChosen = (platform: string) => {
     setPlatform(platform)
@@ -51,12 +53,13 @@ const Home = () => {
     }
   }
 
-  const onBuySubscriptionClicked = () => {
+  const onBuySubscriptionClicked = (priceId) => {
     ReactGA.event({
       category: "click_buy_now",
       action: "click_buy_now"
     });
-    setShowPremiumSubscriptionComingSoon(true)
+    // setShowPremiumSubscriptionComingSoon(true)
+    privateApi.createCheckoutSession(priceId)
   }
 
   const onSBCClicked = (restricted: boolean, sbc_id: string, is_marquee_match_up?: boolean) => {
@@ -100,21 +103,21 @@ const Home = () => {
               <span>{copied}</span> Marquee Matchups
             </li>
             <li className={'flex flex-row gap-x-2'}>
-              <span>{copied}</span> Unique solutions based on live player prices
+              <span>{copied}</span> Unique solutions
             </li>
             <li className={'flex flex-row gap-x-2 text-gray-400'}>
-              <span className="pl-6"></span> All SBCs
+              <span className="pl-6"></span> General solutions to all SBCs
             </li>
-            <li className={'flex flex-row gap-x-2 text-gray-400'}>
-              <span className="pl-6"></span> Specify player(s) to include in solution
+            <li className={'flex flex-row gap-x-2 text-gray-400 italic'}>
+              <span className="pl-6"></span> Player replacement suggestions (coming soon!)
             </li>
-            <li className={'flex flex-row gap-x-2 text-gray-400'}>
+            {/* <li className={'flex flex-row gap-x-2 text-gray-400'}>
               <span className="pl-6"></span> Prioritize leagues, nations or card types in solution
             </li>
             <li className={'flex flex-row gap-x-2 text-gray-400'}>
               <span className="pl-6"></span> Exclude leagues, nations and card types
-            </li>
-          </ul>} price={0} onClick={() => {}} tier={'Free'} currentSubscription={true} primaryButtonTitle={'yoo'}/>
+            </li> */}
+          </ul>} price={0} onClick={() => {}} tier={'Free'} currentSubscription={true} primaryButtonTitle={'yoo'} priceId={priceId}/>
           <SubscriptionCard showButton={true}  boxColor={"#fb923c"} content={<>
             <ul className={'flex flex-col gap-y-4 text-left'}>
               <div className={'text-primary-400 font-bold'} style={{color: "#fb923c"}}>
@@ -124,25 +127,26 @@ const Home = () => {
                 <span>{copied}</span> Marquee Matchups
               </li>
               <li className={'flex flex-row gap-x-2'}>
-                <span>{copied}</span> Unique solutions based on live player prices
+                <span>{copied}</span> Unique solutions
               </li>
               <li className={'flex flex-row gap-x-2'}>
-                <span>{copied}</span> Solve all SBCs
+                <span>{copied}</span> General solutions to all SBCs
               </li>
-              <li className={'flex flex-row gap-x-2'}>
-                <span>{copied}</span> Specify player(s) to include in solution
+              <li className={'flex flex-row gap-x-2 italic'}>
+                <span>{copied}</span> Player replacement suggestions (coming soon!)
               </li>
-              <li className={'flex flex-row gap-x-2'}>
+              {/* <li className={'flex flex-row gap-x-2'}>
                 <span>{copied}</span> Prioritize leagues, nations or card types in solution
               </li>
               <li className={'flex flex-row gap-x-2'}>
                 <span>{copied}</span> Exclude leagues, nations and card types
-              </li>
+              </li> */}
             </ul>
-          </>} price={1.99} onClick={onBuySubscriptionClicked}
+          </>} price={2.99} onClick={onBuySubscriptionClicked}
                             tier={'Premium'}
                             primaryButtonTitle={'Buy Now'}
-                            currentSubscription={false}/>
+                            currentSubscription={false}
+                            priceId={priceId}/>
         </div>
       }
     } else {

@@ -18,7 +18,7 @@ const SubscriptionPlan = ({ name, priceId, features, userId }: PlanProps) => {
         <p className='m-auto text-3xl pb-2'>{name}</p>
         
         {features.map((feature, idx) => <div key={idx} className='m-auto text-l pb-2 flex flex-row'><span>{copied}</span><p>{feature}</p></div>)}
-        <PrimaryButton title={"Subscribe"} onClick={() => api.createCheckoutSession( priceId, userId)} />
+        <PrimaryButton title={"Subscribe"} onClick={() => api.createCheckoutSession( priceId)} />
       </div>
     );
 };

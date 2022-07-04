@@ -1,9 +1,9 @@
 import axios from "../privateApi"
 
-export const createCheckoutSession = (priceId, uuid) => {
+export const createCheckoutSession = (priceId) => {
   return axios.post('/payments/create-checkout-session', {
       priceId: priceId
-  }, {headers: {"x-auth-token": uuid}}).then(response => {
+  }).then(response => {
     if(response.data.status === 303){
         window.location.href = response.data.url;
     }

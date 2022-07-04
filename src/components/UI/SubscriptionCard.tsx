@@ -8,11 +8,12 @@ type SubscriptionCardProps = {
   currentSubscription: boolean;
   showButton: boolean;
   primaryButtonTitle: string;
-  onClick: () => void;
+  onClick: (priceId: string) => void;
+  priceId: string;
 };
 
 
-const SubscriptionCard = ({tier, price, boxColor, content, currentSubscription, primaryButtonTitle, showButton, onClick}: SubscriptionCardProps) => {
+const SubscriptionCard = ({tier, price, boxColor, content, currentSubscription, primaryButtonTitle, showButton, onClick, priceId}: SubscriptionCardProps) => {
   const parentClassName = ['bg-gray-800 rounded-3xl text-secondary w-full p-5']
   
   return <div className={parentClassName.join(' ')}>
@@ -30,8 +31,8 @@ const SubscriptionCard = ({tier, price, boxColor, content, currentSubscription, 
     </div>
 
     { !showButton ? <></> : !currentSubscription ? <div className={'flex flex-col pt-5'}>
-      <PrimaryButton title={primaryButtonTitle} onClick={onClick}/>
-    </div> : <div className={'flex flex-col pt-5'}> <DisabledButton title="Active Subscription" onClick={onClick} disabled={true}/> </div>
+      <PrimaryButton title={primaryButtonTitle} onClick={() => onClick(priceId)}/>
+    </div> : <div className={'flex flex-col pt-5'}> <DisabledButton title="Active Subscription" onClick={() => onClick("")} disabled={true}/> </div>
 }
   </div>
 }
