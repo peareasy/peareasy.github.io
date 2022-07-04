@@ -30,6 +30,7 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
     <span className={'text-primary-400 font-medium'}>easySBC </span>
     <span className={'text-secondary'}>Subscription</span>
   </h1>
+  
 
   const subHeader = <h2 className={'text-l m-auto text-gray-300'}>
     Choose a subscription plan that fits your needs
