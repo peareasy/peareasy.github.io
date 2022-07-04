@@ -1,12 +1,19 @@
 import axios from "../privateApi";
 
 export const logout = () => {
-  return axios.post("/auth/logout").then(res => {
-    if (res.status === 200) {
-      localStorage.removeItem("access_token")
-      localStorage.removeItem("refresh_token")
-      localStorage.removeItem("name")
-      localStorage.removeItem("email")
+  return axios.post("/auth/logout").then(_ => {
+    removeUserFromLocalStorage()
     }
-  }).catch(err => err)
+  ).catch(_ => {
+    removeUserFromLocalStorage()
+    }
+  )
 };
+
+const removeUserFromLocalStorage = () => {
+  localStorage.removeItem("access_token")
+  localStorage.removeItem("refresh_token")
+  localStorage.removeItem("name")
+  localStorage.removeItem("email")
+}
+

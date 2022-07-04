@@ -21,6 +21,7 @@
     "jsx": "react-jsx",
     "noImplicitAny": false, // Morten
     "strictNullChecks": false, // Morten
+    "useUnknownInCatchVariables": false
   },
   "include": [
     "src"

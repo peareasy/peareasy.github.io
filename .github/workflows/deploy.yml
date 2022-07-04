@@ -10,16 +10,17 @@ jobs:
     steps:
       - name: Checking out branch
         uses: actions/checkout@v2
-      - name: Setting up node with version ${{ matrix.node-version }}
+      - name: Setting up node with version 14
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 14
           cache: "npm"
       - name: create env file
         run: |
           touch .env
           echo REACT_APP_EXTENSION_ID="mchecdiinfipdfihkoebfbpfnllbllhc" >> .env
           echo REACT_APP_BACKEND_URL="https://5fmhq2i8rp.eu-west-1.awsapprunner.com" >> .env
+          echo REACT_APP_SBC_LAMBDA_URL="https://uj78wx8nf5.execute-api.eu-west-1.amazonaws.com" >> .env
           echo REACT_APP_BUGSNAG_API_KEY="${{ secrets.REACT_APP_BUGSNAG_API_KEY }} " >> .env
           echo REACT_APP_GOOGLE_CLIENT_ID="${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }} " >> .env
           cat .env

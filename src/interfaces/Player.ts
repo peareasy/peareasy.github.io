@@ -4,5 +4,6 @@ export interface Player {
   position: string,
   untradeable: boolean,
   loyalty: boolean,
-  rating: number
+  rating: number,
+  price: number
 }

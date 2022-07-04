@@ -1,10 +1,17 @@
 import axios from "../publicApi"
 
-export const solveSBC = (uuid, sbc) => {
-
+export const solveSBC = (sbc, email) => {
+  let headers
+  if (email) {
+    headers = {
+      email: email
+    }
+  }
   return axios.post('/sbcs', {
-    name: sbc
-  }, {headers: { "x-auth-token": uuid }}).then(response => {
+    id: sbc,
+  }, {
+    headers
+  }).then(response => {
     if (response.data) {
       return response.data
     }

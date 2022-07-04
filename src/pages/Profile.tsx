@@ -1,39 +1,78 @@
-import * as privateApi from "../api/privateApi";
 import {PrimaryButton} from "../components/UI/Button";
 import {useNavigate} from "react-router";
-import {useEffect, useState} from "react";
+import * as privateApi from "../api/privateApi";
+import {useDispatch, useSelector} from 'react-redux';
+import {getUserSelector, logoutUser} from '../redux/user/userSlice';
+import {AppDispatch} from "../redux/store";
+import {NavLink} from "react-router-dom";
+import {useEffect} from "react";
+import ChoosePlatform from "../components/UI/ChoosePlatform";
+import {fetchUser} from "../redux/user/userSlice";
 
 type LogoutProps = {
   setLogin: (isLoggedIn: boolean) => void;
 }
 
-const Profile = ({setLogin}:LogoutProps) => {
+const Profile = ({setLogin}: LogoutProps) => {
+  const user = useSelector(getUserSelector);
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  let [name, setName] = useState('')
-  let [email, setEmail] = useState('')
 
-  useEffect(() => {
-    privateApi.getProfile().then(res => {
-      setName(res.given_name)
-      setEmail(res.email)
-    })
-  },[])
-
+  const onPlatformChosen = (platform: string) => {
+    privateApi.patchUser({ platform });
+    dispatch(fetchUser())
+  }
+  
   const logout = () => {
-    privateApi.logout().then(_ => {
+    dispatch(logoutUser()).then(_ => {
       setLogin(false)
       navigate('/')
     })
   }
 
-  return <div className='container mx-auto w-1/3 flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded text-secondary'>
-      <div>
-        <h1 className='text-l'>Hi, {name}</h1>
+  
+  useEffect(() => {
+    if (!user.data) {
+      navigate('/login')
+    }
+  }, [navigate, user.data])
+
+  return <div className='container mx-auto w-1/3 md:w-full flex font-light flex-col gap-y-4 p-8 bg-gray-900 rounded'>
+    <div>
+        <h1 className='text-xl text-secondary'>Hi, {user.data?.name} 👋</h1>
       </div>
-      <div className={'text-sm text-gray-300'}>
-        This is your email: {email}
+      <div className={'text-m text-gray-200 font-bold'}>
+        Email
       </div>
-      <PrimaryButton onClick={() => logout()} title={'Logout'}/>
+      <div className={'text-m text-gray-300'}>
+        {user.data?.email}
+      </div>
+      <div className={'text-m text-gray-200 font-bold'}>
+        Current subscription
+      </div>
+
+      {user.data?.paid ? 
+      <div className={'text-m text-gray-300 flex flex-row'}>
+        <div className={'w-4 h-4 rounded-full my-auto mr-2'} style={{backgroundColor: "#fb923c"}}/>
+        <span>Premium Tier. Enjoy!</span>
+      </div> :
+      <div className={'text-m text-gray-300 flex flex-row'}>
+        <div className={'w-4 h-4 rounded-full my-auto mr-2'} style={{backgroundColor: "#22d3ee"}}/>
+        <span className="text-gray-300">Free tier. You can upgrade {<NavLink to={'/subscription'}>here!</NavLink>}</span>
+      </div>
+       }
+      
+      <div className="text-m text-gray-200 font-bold">
+        Choose your platform
+      </div>
+      <ChoosePlatform onSelected={(chosenPlatform) => onPlatformChosen(chosenPlatform)} />
+      <div className={'text-m text-gray-300'}>
+        In order to delete your account, please {<NavLink to={'/contact'}>contact us</NavLink>} and we will
+        do it as soon as possible
+      </div>
+      <div className={'m-auto'}>
+        <PrimaryButton onClick={() => logout()} title={'Logout'}/>
+      </div>
     </div>
 }
 export default Profile
