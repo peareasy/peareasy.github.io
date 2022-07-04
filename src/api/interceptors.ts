@@ -6,7 +6,6 @@ import axios, {
 } from "axios";
 
 const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
-
   if (!localStorage.getItem("access_token")) {
     return config
   }

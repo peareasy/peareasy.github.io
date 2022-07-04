@@ -16,7 +16,7 @@ const PrimaryButton = ({ title, onClick, disabled, icon }: ButtonProps) => {
     >
       <div className="flex flex-row">
         {icon ? <span className="mr-2">{icon}</span> : null}
-        <span>{title}</span>
+        <span className='mx-auto'>{title}</span>
       </div>
     </button>
   );

@@ -11,6 +11,8 @@ import Tos from "./pages/Footer/Tos";
 import Privacy from "./pages/Footer/Privacy";
 import Footer from "./components/UI/Footer/Footer";
 import Login from "./pages/Login";
+import PaymentSuccess from "./pages/Payments/PaymentSuccess";
+import PaymentCancelled from "./pages/Payments/PaymentCancelled";
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "./redux/store";
@@ -67,6 +69,8 @@ function App() {
               <Route path={"/sbc"} element={<SBCPage/>} />
               <Route path={"/privacy"} element={<Privacy/>} />
               <Route path={"/login"} element={<Login setLogin={setIsLoggedIn}/>} />
+              <Route path={"/payment-success"} element={<PaymentSuccess/>} />
+              <Route path={"/payment-cancelled"} element={<PaymentCancelled/>} />
               <Route path={"/subscription"} element={<Subscription isLoggedIn={isLoggedIn}/>}/>
               <Route path={"/"} element={<Home/>} />
             </Routes>
