@@ -11,7 +11,6 @@ import Tos from "./pages/Footer/Tos";
 import Privacy from "./pages/Footer/Privacy";
 import Footer from "./components/UI/Footer/Footer";
 import Login from "./pages/Login";
-import Premium from "./pages/Navbar/Premium";
 import PaymentSuccess from "./pages/Payments/PaymentSuccess";
 import PaymentCancelled from "./pages/Payments/PaymentCancelled";
 import {useEffect, useState} from "react";
@@ -70,7 +69,6 @@ function App() {
               <Route path={"/sbc"} element={<SBCPage/>} />
               <Route path={"/privacy"} element={<Privacy/>} />
               <Route path={"/login"} element={<Login setLogin={setIsLoggedIn}/>} />
-              <Route path={"/premium"} element={<Premium/>} />
               <Route path={"/payment-success"} element={<PaymentSuccess/>} />
               <Route path={"/payment-cancelled"} element={<PaymentCancelled/>} />
               <Route path={"/subscription"} element={<Subscription isLoggedIn={isLoggedIn}/>}/>

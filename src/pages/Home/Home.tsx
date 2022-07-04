@@ -58,7 +58,6 @@ const Home = () => {
       category: "click_buy_now",
       action: "click_buy_now"
     });
-    // setShowPremiumSubscriptionComingSoon(true)
     privateApi.createCheckoutSession(priceId)
   }
 

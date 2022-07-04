@@ -19,8 +19,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noImplicitAny": false, // Morten
-    "strictNullChecks": false, // Morten
+    "noImplicitAny": false,
+    "strictNullChecks": false,
     "useUnknownInCatchVariables": false
   },
   "include": [
