@@ -2,12 +2,13 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { IRootState } from '../store';
 import {APIStatus} from "../../enums/APIStatus";
-import {getUser, logout} from "../../api/privateApi";
+import {getUser, logout, getPlayers} from "../../api/privateApi";
 import {User} from "../../interfaces/User";
 
 type UserState = {
   user: {
     data: User | undefined;
+    players: 0
     status: APIStatus
   }
 }
@@ -15,7 +16,8 @@ type UserState = {
 const initialState: UserState = {
   user: {
     status: APIStatus.IDLE,
-    data: undefined
+    data: undefined,
+    players: 0,
   },
 };
 
@@ -35,13 +37,21 @@ export const logoutUser = createAsyncThunk('logout-user', async () => logout()
     throw request;
   }));
 
-const userSlice = createSlice({
+  export const fetchPlayers = createAsyncThunk('players', async (userid: string) => {
+    console.log("user id: ", userid)
+    return getPlayers(userid)
+    .then((data) => {
+
+      return data.playerCount
+    })
+  })
+  const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUser.pending, (state) => {
+      .addCase(fetchUser.pending || fetchPlayers.pending, (state) => {
         state.user.status = APIStatus.PENDING;
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
@@ -52,7 +62,15 @@ const userSlice = createSlice({
           state.user.status = APIStatus.REJECTED;
         }
       })
-      .addCase(fetchUser.rejected, (state) => {
+      .addCase(fetchPlayers.fulfilled, (state, action) => {
+        state.user.status = APIStatus.FULFILLED;
+        if (action.payload) {
+          state.user.players = action.payload
+        } else {
+          state.user.status = APIStatus.REJECTED;
+        }
+      })
+      .addCase(fetchUser.rejected || fetchPlayers.pending, (state) => {
         state.user.status = APIStatus.REJECTED;
       }).addCase(logoutUser.fulfilled, (state) => {
         state.user.status = APIStatus.FULFILLED

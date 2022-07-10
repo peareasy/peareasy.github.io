@@ -1,11 +1,11 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import CardSBC from "../../components/UI/CardSBC";
 import Modal from "../../components/UI/Modal";
 import {copied} from '../../components/UI/icons';
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "../../redux/store";
 import {useNavigate} from "react-router";
-import {fetchUser, getUserSelector} from "../../redux/user/userSlice";
+import {fetchUser, getUserSelector, fetchPlayers} from "../../redux/user/userSlice";
 import {getSBCSetsSelector} from "../../redux/sbcs/sbcSetsSlice";
 import SubscriptionCard from "../../components/UI/SubscriptionCard";
 import ReactGA from "react-ga4";
@@ -15,6 +15,7 @@ import { NotifyClickedModal } from "../../components/UI/NotifyClickedModal";
 import ChoosePlatform from "../../components/UI/ChoosePlatform";
 import { APIStatus } from "../../enums/APIStatus";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import Toggle from "../../components/Toggle";
 
 const Home = () => {
 
@@ -32,8 +33,12 @@ const Home = () => {
   const priceId = process.env.REACT_APP_ENVIRONMENT === "dev" ? process.env.REACT_APP_STRIPE_PRICE_ID_TEST 
                   : process.env.REACT_APP_STRIPE_PRICE_ID_PREMIUM
 
-  console.log("priceId", priceId);
-  
+
+  useEffect(() => {
+    if (user?.data) {
+      dispatch(fetchPlayers(user.data.uuid))
+    }
+  }, [dispatch, user])
 
   const onPlatformChosen = (platform: string) => {
     setPlatform(platform)
@@ -166,9 +171,14 @@ const Home = () => {
     <div className="space-y-2">
       <>
         <div className="mb-8">
-          <h1 className="text-2xl font-light mb-2 md:pr-4 md:pl-4">
-            Cheap and unique AI solutions to any SBC based on live player prices
+          <h1 className="mb-2 md:pr-4 md:pl-4 flex flex-row justify-between">
+            <div></div>
+            <p className="text-2xl font-light">Cheap and unique AI solutions to any SBC based on live player prices</p> 
+            {sbcs_sets?.data?.length > 0 ? <div className="p-2 bg-gray-700 rounded">
+              <p className="text-green-500 text-right text-sm">{user?.players ? user.players : 0 } players imported - 04 July 22</p>
+            </div> : null}
           </h1>
+          
           <h3>
             Select an SBC below!👇🏼
           </h3>

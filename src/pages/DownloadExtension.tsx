@@ -2,7 +2,7 @@ const DownloadExtension = () => {
 
   // const extensionId = process.env.REACT_APP_EXTENSION_ID!
   // const [extensionInstalled, setExtensionInstalled] = useState(false)
-  //
+  
   // const sendUUIDToExtension = useCallback(() => {
   //   if (window.chrome?.runtime) {
   //     setLoading(true)
@@ -34,7 +34,7 @@ const DownloadExtension = () => {
   //     sendUUIDToExtension()
   //     api.verifyUser(cookies["userId"]);
   //     dispatch(fetchSbcs())
-  //
+  
   //     setUserId(cookies["userId"])
   //   }
   // }, [sendUUIDToExtension, Steps.DownloadExtension, Steps.HasNotAcceptedTos, Steps.ImportPlayers, cookies, extensionId, extensionInstalled, dispatch])

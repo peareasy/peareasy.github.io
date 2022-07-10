@@ -3,4 +3,5 @@ export interface User {
   name: string,
   platform: string,
   paid: boolean
+  uuid: string
 }

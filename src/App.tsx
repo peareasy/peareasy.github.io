@@ -13,10 +13,11 @@ import Footer from "./components/UI/Footer/Footer";
 import Login from "./pages/Login";
 import PaymentSuccess from "./pages/Payments/PaymentSuccess";
 import PaymentCancelled from "./pages/Payments/PaymentCancelled";
+import ImportPlayers from "./pages/ImportPlayers/ImportPlayers";
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "./redux/store";
-import {fetchUser} from "./redux/user/userSlice";
+import {fetchUser } from "./redux/user/userSlice";
 import {fetchSbcsSets} from "./redux/sbcs/sbcSetsSlice";
 import Subscription from "./pages/Subscription";
 import TagManager from 'react-gtm-module';
@@ -72,6 +73,7 @@ function App() {
               <Route path={"/payment-success"} element={<PaymentSuccess/>} />
               <Route path={"/payment-cancelled"} element={<PaymentCancelled/>} />
               <Route path={"/subscription"} element={<Subscription isLoggedIn={isLoggedIn}/>}/>
+              <Route path={"/import"} element={<ImportPlayers/>}/>
               <Route path={"/"} element={<Home/>} />
             </Routes>
             <Footer/>

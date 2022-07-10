@@ -11,6 +11,7 @@ import Modal from "../../components/UI/Modal";
 import {useSelector} from "react-redux";
 import {getUserSelector} from "../../redux/user/userSlice";
 import ReactGA from "react-ga4";
+import Toggle from "../../components/Toggle";
 
 const SBCPage = () => {
   let location = useLocation();
@@ -30,14 +31,14 @@ const SBCPage = () => {
   useEffect(() => {
       otherApi.getSBCsWithId(id).then(res => setSBCs(res))
   }, [id]);
-
+  
   const onSolveSBC = (index: number) => {
     setLoading(true)
       ReactGA.event({
         category: "SolveSBC",
         action: "click_solve_sbc",
       });
-    api.solveSBC(sbcs[index].challengeId, user.data?.email || null)
+    api.solveSBC(sbcs[index].challengeId, user.data?.uuid || null)
       .then((solution: Solution) => {
         if (solution.players.length === 0){
           setError(solution.solution_message);
@@ -176,6 +177,7 @@ const SBCPage = () => {
     view = SBCsView;
   }
   return <>
+    <Toggle/>
     {view}
     {clickedRestrictedSBC ? modal : null}
   </>

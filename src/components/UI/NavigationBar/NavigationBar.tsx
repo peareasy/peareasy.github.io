@@ -61,6 +61,19 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
             </NavigationItem>
           </ul> : null }
           {!navbarOpen ? <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
+            <NavigationItem
+              link={'/import'}
+              onClick={() => {
+                // ReactGA.event({
+                //   category: "NavBar",
+                //   action: "click_navbar_about",
+                // });
+              }}
+            >
+              <span>import</span>
+            </NavigationItem>
+          </ul> : null }
+          {!navbarOpen ? <ul className="flex flex-col mobile:flex-row list-none mobile:ml-auto">
             <a href={'https://discord.gg/mmNtdnUcJf'}
               onClick={() => {
                 ReactGA.event({
