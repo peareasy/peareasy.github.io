@@ -12,8 +12,6 @@ const ImportPlayers = () => {
   const [extensionInstalled, setExtensionInstalled] = useState(false)
   const user = useSelector(getUserSelector)
   const dispatch = useDispatch<AppDispatch>();
-
-  console.log(user)
   // ---
   // helper functions
   const isChrome = () => window.chrome
@@ -30,12 +28,13 @@ const ImportPlayers = () => {
     );
   // ---
   useEffect(() => {
+    // TODO: If user is not logged in, make them login (otherwise it will show the InstallExtension)
     if (user?.data?.email && window.chrome?.runtime) {
       checkExtensionInstalled()
     } else {
       dispatch(fetchUser)
     }
-  }, [dispatch, fetchUser, user])
+  }, [dispatch, fetchUser, user, checkExtensionInstalled])
 
   let view 
   if (!isChrome()) {

@@ -24,24 +24,16 @@ const initialState: UserState = {
 export const fetchUser = createAsyncThunk('user', async () => getUser()
   .then((user) => {
     return user
-  })
-  .catch((error) => {
-    throw error;
-  }));
+  }))
 
 export const logoutUser = createAsyncThunk('logout-user', async () => logout()
   .then((request) => {
     return request
-  })
-  .catch((request) => {
-    throw request;
-  }));
+  }))
 
   export const fetchPlayers = createAsyncThunk('players', async (userid: string) => {
-    console.log("user id: ", userid)
     return getPlayers(userid)
     .then((data) => {
-
       return data.playerCount
     })
   })
@@ -75,6 +67,7 @@ export const logoutUser = createAsyncThunk('logout-user', async () => logout()
       }).addCase(logoutUser.fulfilled, (state) => {
         state.user.status = APIStatus.FULFILLED
         state.user.data = undefined;
+        state.user.players = 0
       })
   },
 });
