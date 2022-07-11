@@ -6,6 +6,9 @@ import SolutionView from "../../components/UI/SolutionView";
 import {Solution} from "../../interfaces/Solution";
 import * as api from "../../api/publicApi";
 import * as otherApi from "../../api/sbcLambda";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "../../redux/store";
+import {fetchPlayers, fetchUser} from "../../redux/user/userSlice";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import Modal from "../../components/UI/Modal";
 import {useSelector} from "react-redux";
@@ -18,6 +21,8 @@ import Toggle from "../../components/Toggle";
 const SBCPage = () => {
   let location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+
   const [selectedSBC, setSelectedSBC] = useState<number>(-1)
   const [clickedRestrictedSBC, setClickedRestrictedSBC] = useState(false)
   const emptySolution = (): Solution => ({cost: 0, chem: 0, rating: 0, players: [], formation: "", solution_message: ""})
@@ -33,6 +38,10 @@ const SBCPage = () => {
   let { id } = useParams();
   useEffect(() => {
       otherApi.getSBCsWithId(id).then(res => setSBCs(res))
+      if (!user) {
+        dispatch(fetchUser())
+        setUseImportedPlayers(user?.players > 0)
+      }
   }, [id, user?.players]);
 
   const onToggle = (toggle: boolean) => {
@@ -193,7 +202,6 @@ const SBCPage = () => {
     <Toggle onToggle={(toggle) => onToggle(toggle)} disabled={!user.data} toggleState={useImportedPlayers}/>
     {!user.data ? <span className='text-gray-300 text-sm m-auto italic'>Login to import</span> : null}
   </div>
-  console.log(solution)
   
   let view;
   if (loading) {
