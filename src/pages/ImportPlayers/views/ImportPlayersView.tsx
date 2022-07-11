@@ -1,16 +1,19 @@
 import { useState } from "react"
+import { useNavigate } from "react-router";
 import { SecondaryButton } from "../../../components/UI/Button"
 import { open_link as openLinkIcon } from "../../../components/UI/icons"
 import ImportErrorView from './ImportErrorView'
 import { useSelector } from "react-redux";
 import { getUserSelector } from "../../../redux/user/userSlice";
 import * as privateApi from "../../../api/privateApi"
+import styles from "../../../components/UI/Tooltip.module.css";
 
 const ImportPlayersView = () => {
 
     const user = useSelector(getUserSelector)
     const [importPlayersClicked, setImportPlayersClicked] = useState(false)
-
+    const [importError, setImportError] = useState(false)
+    const navigate = useNavigate();
     const sendIdToExtension = () => window.chrome.runtime.sendMessage(
         process.env.REACT_APP_EXTENSION_ID!, { uuid: user.data.uuid}
     )
@@ -25,7 +28,16 @@ const ImportPlayersView = () => {
     }
     // getPlayers to see if they were imported correctly
     const onGetPlayers = () => {
-        privateApi.getPlayers(user?.data?.uuid)
+        return privateApi.getPlayers(user?.data?.uuid)
+    }
+
+    const onDoneClicked = async () => {
+        const { playerCount } = await onGetPlayers()
+        if (playerCount > 0) {
+            navigate('/')
+        } else {
+            setImportError(true)
+        }
     }
     
     return <div className="flex flex-col">
@@ -67,8 +79,8 @@ const ImportPlayersView = () => {
         <div className="ml-4 mr-4 mt-8 h-16">
 
         <div className={" w-44 h-16"}>
-            {!importPlayersClicked ? <span>Import your players first!</span> : <></>}
-            <SecondaryButton title={"Done"} onClick={onGetPlayers} disabled={!importPlayersClicked}/>
+            {!importPlayersClicked ?<span className={styles.tooltiptextnext}>Import your players first!</span> : <></>}
+            <SecondaryButton title={"Done"} onClick={onDoneClicked} disabled={!importPlayersClicked}/>
         </div>
         </div>
         <div className="bg-primary-700 rounded-full w-12 h-12 m-auto mb-4 flex shadow shadow-gray-900">
@@ -76,7 +88,7 @@ const ImportPlayersView = () => {
         </div>
         </div>
     </div>
-    {/* { importError ? <ImportErrorView/> : null} */}
+    { importError ? <ImportErrorView/> : null}
 </div>
 }
 

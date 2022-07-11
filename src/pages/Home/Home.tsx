@@ -15,7 +15,6 @@ import { NotifyClickedModal } from "../../components/UI/NotifyClickedModal";
 import ChoosePlatform from "../../components/UI/ChoosePlatform";
 import { APIStatus } from "../../enums/APIStatus";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import Toggle from "../../components/Toggle";
 
 const Home = () => {
 
@@ -35,10 +34,11 @@ const Home = () => {
 
 
   useEffect(() => {
+    // console.log(user)
     if (user?.data) {
       dispatch(fetchPlayers(user.data.uuid))
     }
-  }, [dispatch, user])
+  }, [user?.data, dispatch])
 
   const onPlatformChosen = (platform: string) => {
     setPlatform(platform)
@@ -171,11 +171,11 @@ const Home = () => {
     <div className="space-y-2">
       <>
         <div className="mb-8">
-          <h1 className="mb-2 md:pr-4 md:pl-4 flex flex-row justify-between">
+          <h1 className="mb-2 md:pr-4 md:pl-4 flex flex-row md:flex-col md:gap-y-4 justify-between">
             <div></div>
-            <p className="text-2xl font-light">Cheap and unique AI solutions to any SBC based on live player prices</p> 
+            <p className="text-2xl font-light">Cheap and unique AI solutions to any SBC tailored to your club's players!</p> 
             {sbcs_sets?.data?.length > 0 ? <div className="p-2 bg-gray-700 rounded">
-              <p className="text-green-500 text-right text-sm">{user?.players ? user.players : 0 } players imported - 04 July 22</p>
+              <p className="text-green-500 text-right text-sm md:text-center">{user?.players ? user.players : 0 } players imported - 04 July 22</p>
             </div> : null}
           </h1>
           

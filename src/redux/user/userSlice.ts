@@ -38,10 +38,8 @@ export const logoutUser = createAsyncThunk('logout-user', async () => logout()
   }));
 
   export const fetchPlayers = createAsyncThunk('players', async (userid: string) => {
-    console.log("user id: ", userid)
     return getPlayers(userid)
     .then((data) => {
-
       return data.playerCount
     })
   })
@@ -75,6 +73,7 @@ export const logoutUser = createAsyncThunk('logout-user', async () => logout()
       }).addCase(logoutUser.fulfilled, (state) => {
         state.user.status = APIStatus.FULFILLED
         state.user.data = undefined;
+        state.user.players = 0
       })
   },
 });

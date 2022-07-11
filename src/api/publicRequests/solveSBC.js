@@ -1,6 +1,6 @@
 import axios from "../publicApi"
 
-export const solveSBC = (sbc, uuid) => {
+export const solveSBC = (sbc, uuid, useImportedPlayers) => {
   let headers
   if (uuid) {
     headers = {
@@ -9,7 +9,7 @@ export const solveSBC = (sbc, uuid) => {
   }
   return axios.post('/sbcs', {
     id: sbc,
-    useImportedPlayers: true
+    useImportedPlayers
   }, {
     headers
   }).then(response => {

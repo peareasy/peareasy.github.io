@@ -13,6 +13,8 @@ import {getUserSelector} from "../../redux/user/userSlice";
 import ReactGA from "react-ga4";
 import Toggle from "../../components/Toggle";
 
+// TODO: If no user, dispatch fetchUser
+
 const SBCPage = () => {
   let location = useLocation();
   const navigate = useNavigate();
@@ -26,19 +28,27 @@ const SBCPage = () => {
   const user = useSelector(getUserSelector)
   const [error, setError] = useState("")
   const sbcIconBaseUrl = "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/";
-
+  const [useImportedPlayers, setUseImportedPlayers] = useState(user?.players > 0)
+  const [importPlayersModal, setImportPlayersModal] = useState(false)
   let { id } = useParams();
   useEffect(() => {
       otherApi.getSBCsWithId(id).then(res => setSBCs(res))
-  }, [id]);
-  
+  }, [id, user?.players]);
+
+  const onToggle = (toggle: boolean) => {
+    if (user?.players <= 0) {
+      setImportPlayersModal(true)
+    } else {
+      setUseImportedPlayers(toggle)
+    }
+  }
   const onSolveSBC = (index: number) => {
     setLoading(true)
       ReactGA.event({
         category: "SolveSBC",
         action: "click_solve_sbc",
       });
-    api.solveSBC(sbcs[index].challengeId, user.data?.uuid || null)
+    api.solveSBC(sbcs[index].challengeId, user.data?.uuid || null, useImportedPlayers)
       .then((solution: Solution) => {
         if (solution.players.length === 0){
           setError(solution.solution_message);
@@ -163,8 +173,27 @@ const SBCPage = () => {
                    }}
                    positiveActionButtonLabel={'Log in'}
                    negativeActionButtonLabel="Cancel"/>
+  } else if (importPlayersModal) {
+    modal = <Modal header={'❗ A player Import is required'}
+      body={<span>Do you want to import players now?</span>}
+      onNegativeActionClicked={() => {
+        setImportPlayersModal(false)
+      }}
+      onPositiveActionClicked={() => {
+        setImportPlayersModal(false)
+        navigate('/import')
+      }}
+      onCloseClicked={() => {
+        setImportPlayersModal(false)
+      }}
+      positiveActionButtonLabel={'Import Players'}
+      negativeActionButtonLabel="Cancel"/>
   }
-
+  const toggleView = <div className='flex flex-col justify-center gap-y-2 mb-4'>
+    <Toggle onToggle={(toggle) => onToggle(toggle)} disabled={!user.data} toggleState={useImportedPlayers}/>
+    {!user.data ? <span className='text-gray-300 text-sm m-auto italic'>Login to import</span> : null}
+  </div>
+  console.log(solution)
   
   let view;
   if (loading) {
@@ -177,8 +206,9 @@ const SBCPage = () => {
     view = SBCsView;
   }
   return <>
-    <Toggle/>
+    { showSolution ? null : toggleView }
     {view}
+    {importPlayersModal ? modal : null}
     {clickedRestrictedSBC ? modal : null}
   </>
 }

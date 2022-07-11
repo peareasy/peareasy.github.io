@@ -1,19 +1,35 @@
 import { useState } from "react";
 
-export default function Toggle() {
-    const [enabled, setEnabled] = useState(false);
-
+type Props = {
+    onToggle: (enabled: boolean) => any
+    toggleState: boolean
+    disabled: boolean
+}
+export default function Toggle({onToggle, disabled, toggleState}: Props) {
+    const cursor = disabled ? '' : "cursor-pointer"
     return (
-        <>
-            <div className="relative inline-block w-10 mr-2 align-middle select-none">
-                    <input type="checkbox" name="toggle" id="Green" className="checked:bg-green-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
-                        <label  className="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer">
-                        </label>
-                    </div>
-                    <span className="text-gray-400 font-medium">
-                        Green
+        <div className="relative flex flex-col items-center justify-center">
+            <div className="flex">
+                <label className={"inline-flex relative items-center mr-5 " + cursor}>
+                    <input
+                        type="checkbox"
+                        className="sr-only peer"
+                        checked={toggleState}
+                        readOnly
+                    />
+                    <div
+                        onClick={() => {
+                            if (!disabled) {
+                                onToggle(!toggleState)
+                            }
+                        }}
+                        className="w-11 h-6 bg-gray-200 rounded-full peer  peer-focus:ring-green-300  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
+                    ></div>
+                    <span className="ml-2 text-m text-secondary">
+                        Use your club's players
                     </span>
-
-        </>
+                </label>
+            </div>
+        </div>
     );
 }
