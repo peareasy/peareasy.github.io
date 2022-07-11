@@ -2,11 +2,13 @@ import { useState, useEffect } from "react"
 import InstallExtensionView from './views/InstallExtensionView'
 import UseChromeView from './views/UseChromeView'
 import ImportPlayersView from './views/ImportPlayersView'
+import {isMobile} from 'react-device-detect';
 import { useSelector } from "react-redux";
 import { getUserSelector } from "../../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { fetchUser } from "../../redux/user/userSlice";
+import MobileView from "./views/mobileView";
 
 const ImportPlayers = () => {
   const [extensionInstalled, setExtensionInstalled] = useState(false)
@@ -15,32 +17,28 @@ const ImportPlayers = () => {
   // ---
   // helper functions
   const isChrome = () => window.chrome
-
-  const checkExtensionInstalled = () => window.chrome.runtime.sendMessage(
-      process.env.REACT_APP_EXTENSION_ID!, { uuid: user.data.uuid }, 
-      (res) => {
-        
-        console.log("ress", res);
-        
-        setExtensionInstalled(res.msg === 'confirmation');
-      
-      }
-    );
   // ---
   useEffect(() => {
     // TODO: If user is not logged in, make them login (otherwise it will show the InstallExtension)
     if (user?.data?.email && window.chrome?.runtime) {
-      checkExtensionInstalled()
+      window.chrome.runtime.sendMessage(
+        process.env.REACT_APP_EXTENSION_ID!, { uuid: user.data.uuid }, 
+        (res) => {
+          setExtensionInstalled(res.msg === 'confirmation');
+        }
+      );
     } else {
       dispatch(fetchUser)
     }
-  }, [dispatch, fetchUser, user, checkExtensionInstalled])
+  }, [dispatch, user])
 
   let view 
   if (!isChrome()) {
     view = <UseChromeView/>
   } else if(!extensionInstalled) {
     view = <InstallExtensionView/>
+  } else if (isMobile) {
+    view = <MobileView/>
   } else {
     view = <ImportPlayersView/>
   }

@@ -6,7 +6,6 @@ import ImportErrorView from './ImportErrorView'
 import { useSelector } from "react-redux";
 import { getUserSelector } from "../../../redux/user/userSlice";
 import * as privateApi from "../../../api/privateApi"
-import styles from "../../../components/UI/Tooltip.module.css";
 
 const ImportPlayersView = () => {
 
@@ -24,6 +23,7 @@ const ImportPlayersView = () => {
         // Remember to delete old players
         sendIdToExtension()
         setImportPlayersClicked(true)
+        privateApi.deletePlayers(user.data.uuid)
         window.open('https://www.ea.com/fifa/ultimate-team/web-app/','_blank')
     }
     // getPlayers to see if they were imported correctly
@@ -79,7 +79,7 @@ const ImportPlayersView = () => {
         <div className="ml-4 mr-4 mt-8 h-16">
 
         <div className={" w-44 h-16"}>
-            {!importPlayersClicked ?<span className={styles.tooltiptextnext}>Import your players first!</span> : <></>}
+            {/* {!importPlayersClicked ?<span className={styles.tooltiptextnext}>Import your players first!</span> : <></>} */}
             <SecondaryButton title={"Done"} onClick={onDoneClicked} disabled={!importPlayersClicked}/>
         </div>
         </div>

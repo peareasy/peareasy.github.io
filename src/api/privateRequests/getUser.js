@@ -5,7 +5,7 @@ export const getUser = () => axios.get("users/profile").then(res => {
     {name: res.data.given_name, 
       email: res.data.email, 
       platform: res.data.platform, 
-      paid: res.data.paid,
+      subscription: res.data.subscription,
       uuid: res.data.uuid
     })
 })

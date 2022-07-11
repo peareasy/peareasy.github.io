@@ -13,7 +13,7 @@ import * as privateApi from "../../api/privateApi";
 
 import { NotifyClickedModal } from "../../components/UI/NotifyClickedModal";
 import ChoosePlatform from "../../components/UI/ChoosePlatform";
-import { APIStatus } from "../../enums/APIStatus";
+import { APIStatus } from "../../enums/APIStatus.enum";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 const Home = () => {
@@ -99,7 +99,7 @@ const Home = () => {
         modalNegativeButton = 'No thanks!'
       } else {
         modalNotShowFooter = true
-        modalHeader = '❗ You need a premium subscription'
+        modalHeader = '❗ You need a silver subscription'
         modalBody = <div className={'w-full m-auto flex flex-row md:flex md:flex-col-reverse gap-8'}>
           <SubscriptionCard showButton={true} boxColor={"#22d3ee"} content={
             <ul className={'flex flex-col gap-y-4 text-left'}>

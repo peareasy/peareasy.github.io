@@ -1,5 +1,5 @@
 export interface Player {
-  id: string,
+  resource_id: string,
   name: string,
   position: string,
   untradeable: boolean,

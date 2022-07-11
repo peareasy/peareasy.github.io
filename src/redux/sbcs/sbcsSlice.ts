@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {getSBCs} from "../../api/publicApi";
 import {SBC} from "../../interfaces/SBC";
-import {APIStatus} from "../../enums/APIStatus";
+import {APIStatus} from "../../enums/APIStatus.enum";
 import {IRootState} from "../store";
 
 type SBCState = {

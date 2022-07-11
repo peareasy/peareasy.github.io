@@ -1,0 +1,1 @@
+export enum Subscription { FREE = 'free', SILVER = 'silver', GOLD = 'gold' }

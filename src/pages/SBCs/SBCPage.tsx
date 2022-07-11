@@ -4,17 +4,19 @@ import {PrimaryButton} from "../../components/UI/Button";
 import {useEffect, useState} from "react";
 import SolutionView from "../../components/UI/SolutionView";
 import {Solution} from "../../interfaces/Solution";
-import * as api from "../../api/publicApi";
+import * as publicApi from "../../api/publicApi";
+import * as privateApi from "../../api/privateApi";
 import * as otherApi from "../../api/sbcLambda";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../../redux/store";
-import {fetchPlayers, fetchUser} from "../../redux/user/userSlice";
+import {fetchUser} from "../../redux/user/userSlice";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import Modal from "../../components/UI/Modal";
 import {useSelector} from "react-redux";
 import {getUserSelector} from "../../redux/user/userSlice";
 import ReactGA from "react-ga4";
 import Toggle from "../../components/Toggle";
+import { Subscription } from "../../enums/Subscription.enum";
 
 // TODO: If no user, dispatch fetchUser
 
@@ -33,19 +35,31 @@ const SBCPage = () => {
   const user = useSelector(getUserSelector)
   const [error, setError] = useState("")
   const sbcIconBaseUrl = "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/";
-  const [useImportedPlayers, setUseImportedPlayers] = useState(user?.players > 0)
   const [importPlayersModal, setImportPlayersModal] = useState(false)
   let { id } = useParams();
+  // helpers
+  const isMarqueeMatchup = id?.includes("Marquee Matchups")
+  
+  const hasImportedPlayers = user?.players > 0
+  
+  const isGoldUser = user?.data?.subscription === Subscription.GOLD
+  
+  const importEnabled = hasImportedPlayers && (isMarqueeMatchup || isGoldUser)
+  
+  // ---
+  const [useImportedPlayers, setUseImportedPlayers] = useState(importEnabled)
+  const [solvedSBCWithOwnPlayers, setSolvedSBCWithOwnPlayers] = useState(false)
+
   useEffect(() => {
       otherApi.getSBCsWithId(id).then(res => setSBCs(res))
       if (!user) {
         dispatch(fetchUser())
-        setUseImportedPlayers(user?.players > 0)
+        setUseImportedPlayers(importEnabled)
       }
   }, [id, user?.players]);
 
   const onToggle = (toggle: boolean) => {
-    if (user?.players <= 0) {
+    if (!importEnabled) {
       setImportPlayersModal(true)
     } else {
       setUseImportedPlayers(toggle)
@@ -57,7 +71,7 @@ const SBCPage = () => {
         category: "SolveSBC",
         action: "click_solve_sbc",
       });
-    api.solveSBC(sbcs[index].challengeId, user.data?.uuid || null, useImportedPlayers)
+    publicApi.solveSBC(sbcs[index].challengeId, user.data?.uuid || null, useImportedPlayers)
       .then((solution: Solution) => {
         if (solution.players.length === 0){
           setError(solution.solution_message);
@@ -112,7 +126,6 @@ const SBCPage = () => {
       </p>
       <div className="pt-10 flex justify-around pb-10 ">
         <PrimaryButton onClick={() => {
-          setSelectedSBC(-1)
           setSolution(emptySolution)
           setError("")
         }} title={"Try another one!"}/>
@@ -124,7 +137,9 @@ const SBCPage = () => {
     <div className="pt-10 flex justify-around pb-10 ">
       <PrimaryButton onClick={() => {
         setShowSolution(false)
-        setSolution(emptySolution)
+        if (useImportedPlayers) {
+          setSolvedSBCWithOwnPlayers(true)
+        }
       }} title={"Solve another SBC"}/>
     </div>
   </div> 
@@ -165,7 +180,6 @@ const SBCPage = () => {
                </div>}
     
   </>
-
   let modal
   if (clickedRestrictedSBC && !user.data) {
     modal = <Modal header={'❗ You need to login in order to solve this SBC'}
@@ -197,10 +211,36 @@ const SBCPage = () => {
       }}
       positiveActionButtonLabel={'Import Players'}
       negativeActionButtonLabel="Cancel"/>
+  } else if (solvedSBCWithOwnPlayers) {
+    modal = <Modal header={"❗ Did you use this solution?"}
+                            body={<span>
+                              If you want to solve a new SBC we want to make sure that your old players are removed from our database.
+                              Please indicate if you used our generated solution
+                            </span>}
+                            onNegativeActionClicked={() => {
+                              setSolution(emptySolution)
+                              setSolvedSBCWithOwnPlayers(false)
+                            }}
+                            onPositiveActionClicked={() => {
+                              solution.players.map((player) => console.log(player))
+                              privateApi.deletePlayersUsedInSBCs(
+                                  user.data.uuid,
+                                  solution.players.map((player) => player.resource_id)
+                                )
+                              setSolution(emptySolution)
+                              setSolvedSBCWithOwnPlayers(false)
+                            }}
+                            onCloseClicked={() => {
+                              setSolution(emptySolution)
+                              setSolvedSBCWithOwnPlayers(false)
+                            }}
+                            positiveActionButtonLabel="Yes"
+                            negativeActionButtonLabel="No"/>
   }
   const toggleView = <div className='flex flex-col justify-center gap-y-2 mb-4'>
-    <Toggle onToggle={(toggle) => onToggle(toggle)} disabled={!user.data} toggleState={useImportedPlayers}/>
+    <Toggle onToggle={(toggle) => onToggle(toggle)} disabled={!user.data || !(isGoldUser || isMarqueeMatchup)} toggleState={useImportedPlayers}/>
     {!user.data ? <span className='text-gray-300 text-sm m-auto italic'>Login to import</span> : null}
+    {!(isGoldUser || isMarqueeMatchup) ? <span className='text-gray-300 text-sm m-auto italic'>Buy gold subscription to use import for all SBCs</span> : null}
   </div>
   
   let view;
@@ -216,8 +256,7 @@ const SBCPage = () => {
   return <>
     { showSolution ? null : toggleView }
     {view}
-    {importPlayersModal ? modal : null}
-    {clickedRestrictedSBC ? modal : null}
+    {importPlayersModal || clickedRestrictedSBC || solvedSBCWithOwnPlayers? modal : null}
   </>
 }
 

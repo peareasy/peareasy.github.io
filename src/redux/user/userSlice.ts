@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { IRootState } from '../store';
-import {APIStatus} from "../../enums/APIStatus";
+import {APIStatus} from "../../enums/APIStatus.enum";
 import {getUser, logout, getPlayers} from "../../api/privateApi";
 import {User} from "../../interfaces/User";
+import { Subscription } from '../../enums/Subscription.enum';
 
 type UserState = {
   user: {
@@ -23,7 +24,10 @@ const initialState: UserState = {
 
 export const fetchUser = createAsyncThunk('user', async () => getUser()
   .then((user) => {
-    return user
+    return {
+      ...user,
+      paid: (user.subscription === Subscription.GOLD || user.subscription === Subscription.SILVER)
+    }
   }))
 
 export const logoutUser = createAsyncThunk('logout-user', async () => logout()
