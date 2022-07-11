@@ -20,7 +20,13 @@ const ImportPlayers = () => {
 
   const checkExtensionInstalled = () => window.chrome.runtime.sendMessage(
       process.env.REACT_APP_EXTENSION_ID!, { uuid: user.data.uuid }, 
-      (res) => setExtensionInstalled(res.msg === 'confirmation')
+      (res) => {
+        
+        console.log("ress", res);
+        
+        setExtensionInstalled(res.msg === 'confirmation');
+      
+      }
     );
   // ---
   useEffect(() => {
