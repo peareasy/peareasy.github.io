@@ -99,8 +99,8 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
               }}
             >
               <div className={'flex flex-row gap-x-2'}>
-                {paid ?  <></> : <div className={'w-4 h-4 rounded-full my-auto'} style={{backgroundColor: "#fb923c"}}/>}
-                <span className={'my-auto'}>premium</span>
+                {paid ?  <></> : <div className={'w-4 h-4 rounded-full my-auto'} style={{backgroundColor: "#FFD700"}}/>}
+                <span className={'my-auto'}>subscription</span>
               </div>
             </NavigationItem>
           </ul> : null }

@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import CardSBC from "../../components/UI/CardSBC";
 import Modal from "../../components/UI/Modal";
+import { Subscription } from "../../enums/Subscription.enum";
 import {copied} from '../../components/UI/icons';
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "../../redux/store";
@@ -102,15 +103,23 @@ const Home = () => {
         modalHeader = '❗ You need a silver subscription'
         modalBody = <div className={'w-full m-auto flex flex-row md:flex md:flex-col-reverse gap-8'}>
           <SubscriptionCard showButton={true} boxColor={"#22d3ee"} content={
-            <ul className={'flex flex-col gap-y-4 text-left'}>
-            <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
-              Current Subscription
-            </div>
+            <ul className={'flex flex-col gap-y-4'}>
+            {!user?.data?.paid ? <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
+              Free Subscription - Active
+            </div> : <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
+              Free Subscription
+            </div> }
             <li className={'flex flex-row gap-x-2'}>
               <span>{copied}</span> Marquee Matchups
             </li>
             <li className={'flex flex-row gap-x-2'}>
               <span>{copied}</span> Unique solutions
+            </li>
+            <li className={'flex flex-row gap-x-2'}>
+              <span>{copied}</span> Use player prices from different plaforms
+            </li>
+            <li className={'flex flex-row gap-x-2'}>
+              <span>{copied}</span> Import players for Marquee Matchups
             </li>
             <li className={'flex flex-row gap-x-2 text-gray-400'}>
               <span className="pl-6"></span> General solutions to all SBCs
@@ -118,42 +127,90 @@ const Home = () => {
             <li className={'flex flex-row gap-x-2 text-gray-400 italic'}>
               <span className="pl-6"></span> Player replacement suggestions (coming soon!)
             </li>
-            {/* <li className={'flex flex-row gap-x-2 text-gray-400'}>
-              <span className="pl-6"></span> Prioritize leagues, nations or card types in solution
+            <li className={'flex flex-row gap-x-2 text-gray-400'}>
+              <span className="pl-6"></span> Import players for all SBCs
+            </li>
+          </ul>} price={0} onClick={() => {}} tier={'Free'} currentSubscription={true} primaryButtonTitle={'yoo'} priceId={priceId}/>
+          <SubscriptionCard showButton={!(user?.data?.subscription === Subscription.SILVER)}  boxColor={"#C0C0C0"} content={<>
+            <ul className={'flex flex-col gap-y-4'}>
+            { user.data?.subscription === Subscription.SILVER ? 
+              <div className={'text-primary-400 font-bold'} style={{color: "#C0C0C0"}}>
+                Silver Subscription - Active
+              </div> : 
+              <div className={'text-primary-400 font-bold'} style={{color: "#C0C0C0"}}>
+                Silver Subscription
+              </div>
+            }
+            <li className={'flex flex-row gap-x-2'}>
+              <span>{copied}</span> Marquee Matchups
+            </li>
+            <li className={'flex flex-row gap-x-2'}>
+              <span>{copied}</span> Unique solutions
+            </li>
+            <li className={'flex flex-row gap-x-2'}>
+              <span>{copied}</span> Use player prices from different plaforms
+            </li>
+            <li className={'flex flex-row gap-x-2'}>
+              <span>{copied}</span> Import players for Marquee Matchups
+            </li>
+            <li className={'flex flex-row gap-x-2'}>
+              <span>{copied}</span> General solutions to all SBCs
+            </li>
+            <li className={'flex flex-row gap-x-2 italic'}>
+              <span>{copied}</span> Player replacement suggestions (coming soon!)
             </li>
             <li className={'flex flex-row gap-x-2 text-gray-400'}>
-              <span className="pl-6"></span> Exclude leagues, nations and card types
-            </li> */}
-          </ul>} price={0} onClick={() => {}} tier={'Free'} currentSubscription={true} primaryButtonTitle={'yoo'} priceId={priceId}/>
-          <SubscriptionCard showButton={true}  boxColor={"#fb923c"} content={<>
-            <ul className={'flex flex-col gap-y-4 text-left'}>
-              <div className={'text-primary-400 font-bold'} style={{color: "#fb923c"}}>
-                Premium Subscription
-              </div>
-              <li className={'flex flex-row gap-x-2'}>
-                <span>{copied}</span> Marquee Matchups
-              </li>
-              <li className={'flex flex-row gap-x-2'}>
-                <span>{copied}</span> Unique solutions
-              </li>
-              <li className={'flex flex-row gap-x-2'}>
-                <span>{copied}</span> General solutions to all SBCs
-              </li>
-              <li className={'flex flex-row gap-x-2 italic'}>
-                <span>{copied}</span> Player replacement suggestions (coming soon!)
-              </li>
-              {/* <li className={'flex flex-row gap-x-2'}>
-                <span>{copied}</span> Prioritize leagues, nations or card types in solution
-              </li>
-              <li className={'flex flex-row gap-x-2'}>
-                <span>{copied}</span> Exclude leagues, nations and card types
-              </li> */}
-            </ul>
+              <span className="pl-6"></span> Import players for all SBCs
+            </li>
+          </ul>
           </>} price={2.99} onClick={onBuySubscriptionClicked}
-                            tier={'Premium'}
+                            tier={'Silver'}
                             primaryButtonTitle={'Buy Now'}
                             currentSubscription={false}
-                            priceId={priceId}/>
+                            priceId={process.env.REACT_APP_ENVIRONMENT === "dev" ? 
+                            process.env.REACT_APP_STRIPE_PRICE_ID_TEST : 
+                            process.env.REACT_APP_SILVER_PRICE_ID}
+                            beta={false}/>
+
+<SubscriptionCard showButton={!(user?.data?.subscription === Subscription.GOLD)} boxColor={"#FFD700"} content={<>
+      <ul className={'flex flex-col gap-y-4'}>
+
+      { user.data?.subscription === Subscription.GOLD ? 
+        <div className={'text-primary-400 font-bold'} style={{color: "#FFD700"}}>
+          Gold Subscription - Active
+        </div> : 
+        <div className={'text-primary-400 font-bold'} style={{color: "#FFD700"}}>
+          Gold Subscription
+        </div>
+      }
+
+      <li className={'flex flex-row gap-x-2'}>
+        <span>{copied}</span> Marquee Matchups
+      </li>
+      <li className={'flex flex-row gap-x-2'}>
+        <span>{copied}</span> Unique solutions
+      </li>
+      <li className={'flex flex-row gap-x-2'}>
+        <span>{copied}</span> Use player prices from different plaforms
+      </li>
+      <li className={'flex flex-row gap-x-2'}>
+        <span>{copied}</span> Import players for Marquee Matchups
+      </li>
+      <li className={'flex flex-row gap-x-2'}>
+        <span>{copied}</span> General solutions to all SBCs
+      </li>
+      <li className={'flex flex-row gap-x-2 italic'}>
+        <span>{copied}</span> Player replacement suggestions (coming soon!)
+      </li>
+      <li className={'flex flex-row gap-x-2'}>
+        <span>{copied}</span> Import players for all SBCs
+      </li>
+      </ul>
+      </>} price={6.99} onClick={onBuySubscriptionClicked} tier={'Gold'} primaryButtonTitle={'Buy Now'} currentSubscription={false} priceId={
+        process.env.REACT_APP_ENVIRONMENT === "dev" ? 
+        process.env.REACT_APP_STRIPE_PRICE_ID_TEST : 
+        process.env.REACT_APP_GOLD_PRICE_ID
+      } beta={user?.data?.beta}/>
         </div>
       }
     } else {
@@ -175,7 +232,8 @@ const Home = () => {
             <div></div>
             <p className="text-2xl font-light">Cheap and unique AI solutions to any SBC tailored to your club's players!</p> 
             {sbcs_sets?.data?.length > 0 ? <div className="p-2 bg-gray-700 rounded">
-              <p className="text-green-500 text-right text-sm md:text-center">{user?.players ? user.players : 0 } players imported - 04 July 22</p>
+              <p className="text-green-500 text-right text-sm md:text-center">
+                {user?.data?.playerCount ? user?.data?.playerCount : 0 } players imported{user?.data?.lastImportedAt ?  ' - '+String(user?.data?.lastImportedAt).slice(0,21) : ''}</p>
             </div> : null}
           </h1>
           

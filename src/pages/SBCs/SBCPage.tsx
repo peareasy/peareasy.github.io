@@ -40,7 +40,7 @@ const SBCPage = () => {
   // helpers
   const isMarqueeMatchup = id?.includes("Marquee Matchups")
   
-  const hasImportedPlayers = user?.players > 0
+  const hasImportedPlayers = user?.data?.playerCount > 0
   
   const isGoldUser = user?.data?.subscription === Subscription.GOLD
   
@@ -56,7 +56,7 @@ const SBCPage = () => {
         dispatch(fetchUser())
         setUseImportedPlayers(importEnabled)
       }
-  }, [id, user?.players]);
+  }, [id, user?.data?.playerCount]);
 
   const onToggle = (toggle: boolean) => {
     if (!importEnabled) {
@@ -254,6 +254,12 @@ const SBCPage = () => {
     view = SBCsView;
   }
   return <>
+  <div className="flex flex-row pr-32 md:mb-4">
+    <div className="p-2 bg-gray-700 rounded inline-block ml-auto">
+      <p className="text-green-500 text-right text-sm md:text-center inline-block items-end">
+        {user?.data?.playerCount ? user?.data?.playerCount : 0 } players imported{user?.data?.lastImportedAt ?  ' - '+String(user?.data?.lastImportedAt).slice(0,21) : ''}</p>
+    </div>
+  </div>
     { showSolution ? null : toggleView }
     {view}
     {importPlayersModal || clickedRestrictedSBC || solvedSBCWithOwnPlayers? modal : null}

@@ -6,6 +6,9 @@ export const getUser = () => axios.get("users/profile").then(res => {
       email: res.data.email, 
       platform: res.data.platform, 
       subscription: res.data.subscription,
-      uuid: res.data.uuid
+      uuid: res.data.uuid,
+      beta: res.data.beta,
+      playerCount: res.data.playerCount,
+      lastImportedAt: res.data.lastImported
     })
 })

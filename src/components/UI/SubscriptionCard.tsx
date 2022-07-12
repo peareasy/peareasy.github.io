@@ -10,12 +10,14 @@ type SubscriptionCardProps = {
   primaryButtonTitle: string;
   onClick: (priceId: string) => void;
   priceId: string;
+  beta?: boolean
 };
 
 
-const SubscriptionCard = ({tier, price, boxColor, content, currentSubscription, primaryButtonTitle, showButton, onClick, priceId}: SubscriptionCardProps) => {
+const SubscriptionCard = ({tier, price, beta, boxColor, content, currentSubscription, primaryButtonTitle, showButton, onClick, priceId}: SubscriptionCardProps) => {
   const parentClassName = ['bg-gray-800 rounded-3xl text-secondary w-full p-5']
-  
+  const priceClassName = beta ? ['font-semibold text-3xl line-through'] : ['font-semibold text-3xl']
+
   return <div className={parentClassName.join(' ')}>
     <div className={'flex flex-col gap-y-4'}>
       <h1 className={'flex flex-row justify-between'}>
@@ -23,7 +25,8 @@ const SubscriptionCard = ({tier, price, boxColor, content, currentSubscription, 
         <div className={'flex flex-col text-right'}>
           <span>{tier}</span>
           <span>
-            $ <span className={'font-semibold text-3xl'}>{price}</span>  <span>{'/mo'}</span>
+            $ <span className={priceClassName.join(' ')}>{price}</span> 
+            {beta ? <span className={'font-semibold text-3xl text-green-400'}> {Math.round(100*price/2)/100}</span> : <></>} <span>{'/mo'}</span>
           </span>
         </div>
       </h1>

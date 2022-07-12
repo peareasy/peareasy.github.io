@@ -4,5 +4,8 @@ export interface User {
   platform: string,
   paid: boolean,
   subscription: string,
-  uuid: string
+  uuid: string,
+  beta: boolean,
+  playerCount: number
+  lastImportedAt: Date
 }
