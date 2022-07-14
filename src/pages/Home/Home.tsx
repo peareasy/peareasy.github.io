@@ -237,7 +237,7 @@ const Home = () => {
               <p className="text-green-500 text-right text-sm md:text-center">
                 {user?.data?.playerCount ? user?.data?.playerCount : 0 } players imported{user?.data?.lastImportedAt ?  
                 ' - '+String(user?.data?.lastImportedAt).slice(0,10) 
-                + ' ' +String(user?.data?.lastImportedAt).slice(11,16)
+                + ' ' +String(user?.data?.lastImportedAt).slice(11,16) + ' GMT'
                 : ''}</p>
             </div> : null}
           </h1>
