@@ -15,7 +15,7 @@ const CardSBC = ({title, onClick, changeImg, restricted, is_marquee_match_up, pl
     onClick(restricted, is_marquee_match_up)
   }
 
-  const subscriptionColor = is_marquee_match_up ? "#22d3ee" : "#fb923c";
+  const subscriptionColor = is_marquee_match_up ? "#22d3ee" : "#FFD700";
   const subscriptionIcon = <div className={'w-4 h-4 rounded-full my-auto'} style={{backgroundColor: subscriptionColor}}/>
 
   const platform_message = showPlatformMsg && 

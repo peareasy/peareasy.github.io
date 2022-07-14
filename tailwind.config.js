@@ -12,6 +12,7 @@ module.exports = {
       secondary: colors.white,
       tertiary: colors.purple,
       slate: colors.slate,
+      green: colors.green,
       gray: {
         ...colors.gray,
         950: '#06072a',
@@ -22,6 +23,7 @@ module.exports = {
     },
     textColor: {
       primary: colors.indigo,
+      green: colors.green,
       secondary: colors.white,
       gray: colors.gray,
       tertiary: colors.purple,

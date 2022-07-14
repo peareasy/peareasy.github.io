@@ -23,7 +23,8 @@ jobs:
           echo REACT_APP_SBC_LAMBDA_URL="https://uj78wx8nf5.execute-api.eu-west-1.amazonaws.com" >> .env
           echo REACT_APP_BUGSNAG_API_KEY="${{ secrets.REACT_APP_BUGSNAG_API_KEY }} " >> .env
           echo REACT_APP_GOOGLE_CLIENT_ID="${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }} " >> .env
-          echo REACT_APP_STRIPE_PRICE_ID_PREMIUM="${{ secrets.REACT_APP_STRIPE_PRICE_ID_PREMIUM }} " >> .env
+          echo REACT_APP_GOLD_PRICE_ID=${{ secrets.GOLD_PRICE_ID }} >> .env
+          echo REACT_APP_SILVER_PRICE_ID=${{ secrets.SILVER_PRICE_ID }} >> .env
           cat .env
       - name: Install and Build 🔧
         run: |

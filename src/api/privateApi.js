@@ -16,3 +16,6 @@ export { logout } from "./privateRequests/logout";
 export { createCheckoutSession } from "./privateRequests/createCheckoutSession"
 export { getUser } from "./privateRequests/getUser";
 export { patchUser } from "./privateRequests/patchUser";
+export { getPlayers } from "./privateRequests/getPlayers";
+export { deletePlayers } from "./privateRequests/deletePlayers"
+export { deletePlayersUsedInSBCs } from "./privateRequests/deletePlayersUsedInSBC"

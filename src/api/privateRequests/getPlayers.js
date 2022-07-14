@@ -1,4 +1,4 @@
-import axios from "../publicApi";
+import axios from "../privateApi";
 
 export const getPlayers = (uuid) => {
   return axios

@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {getSBCSets} from "../../api/sbcLambda";
-import {APIStatus} from "../../enums/APIStatus";
+import {APIStatus} from "../../enums/APIStatus.enum";
 import {IRootState} from "../store";
 
 
