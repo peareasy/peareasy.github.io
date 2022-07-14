@@ -93,7 +93,7 @@ const ImportPlayersView = () => {
                     </div>
                 </div>
             </div>
-        <p className="m-auto italic">Watch how to import your players here: <a href="">hej</a> </p>
+        <p className="m-auto italic">Watch tutorial on how to import your players <a href="https://youtu.be/1e0OQvlY8Ww">here</a> </p>
             { importError ? <ImportErrorView/> : null}
         </div>
 
