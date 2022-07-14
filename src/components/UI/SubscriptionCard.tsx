@@ -26,7 +26,7 @@ const SubscriptionCard = ({tier, price, beta, boxColor, content, currentSubscrip
           <span>{tier}</span>
           <span>
             $ <span className={priceClassName.join(' ')}>{price}</span> 
-            {beta ? <span className={'font-semibold text-3xl text-green-400'}> {Math.round(100*price/2)/100}</span> : <></>} <span>{'/mo'}</span>
+            {beta ? <span className={'font-semibold text-3xl text-green-400'}> {Math.round(100.0*price/2.0)/100}</span> : <></>} <span>{'/mo'}</span>
           </span>
         </div>
       </h1>

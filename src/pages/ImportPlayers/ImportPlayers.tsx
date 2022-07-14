@@ -40,19 +40,20 @@ const ImportPlayers = () => {
   if (!isChrome()) {
     view = <UseChromeView/>
   } else if (!user?.data) {
-    view = <Modal header={'❗ You need to login in order to solve this SBC'}
-    body={<span>You need to log in to solve this SBC</span>}
-    onNegativeActionClicked={() => {
-      navigate('/')
-    }}
-    onPositiveActionClicked={() => {
-      navigate('/login')
-    }}
-    onCloseClicked={() => {
-      navigate('/')
-    }}
-    positiveActionButtonLabel={'Log in'}
-    negativeActionButtonLabel="Cancel"/>
+    view = <ImportPlayersView/>
+    // view = <Modal header={'❗ You need to login in order to solve this SBC'}
+    // body={<span>You need to log in to solve this SBC</span>}
+    // onNegativeActionClicked={() => {
+    //   navigate('/')
+    // }}
+    // onPositiveActionClicked={() => {
+    //   navigate('/login')
+    // }}
+    // onCloseClicked={() => {
+    //   navigate('/')
+    // }}
+    // positiveActionButtonLabel={'Log in'}
+    // negativeActionButtonLabel="Cancel"/>
   } else if(!extensionInstalled) {
     view = <InstallExtensionView/>
   } else if (isMobile) {
