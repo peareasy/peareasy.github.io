@@ -99,7 +99,7 @@ const Home = () => {
         modalNegativeButton = 'No thanks!'
       } else {
         modalNotShowFooter = true
-        modalHeader = '❗ You need a Silver subscription'
+        modalHeader = '❗ You need a Pro subscription'
         modalBody = <div className={'w-full m-auto'}>
           {user?.data?.beta ?<span className="italic text-green-500 m-auto">Hey {user?.data?.name}! Beta discount has been added</span> : <></> }
           <div className='flex flex-row md:flex md:flex-col-reverse gap-8 mt-8'>
@@ -136,10 +136,10 @@ const Home = () => {
             <ul className={'flex flex-col gap-y-4 text-left'}>
             { user.data?.subscription === Subscription.SILVER ? 
               <div className={'text-primary-400 font-bold'} style={{color: "#C0C0C0"}}>
-                Silver Subscription - Active
+                Pro Subscription - Active
               </div> : 
               <div className={'text-primary-400 font-bold'} style={{color: "#C0C0C0"}}>
-                Silver Subscription
+                Pro Subscription
               </div>
             }
             <li className={'flex flex-row gap-x-2'}>
@@ -178,10 +178,10 @@ const Home = () => {
 
       { user.data?.subscription === Subscription.GOLD ? 
         <div className={'text-primary-400 font-bold'} style={{color: "#FFD700"}}>
-          Gold Subscription - Active
+          Elite Subscription - Active
         </div> : 
         <div className={'text-primary-400 font-bold'} style={{color: "#FFD700"}}>
-          Gold Subscription
+          Elite Subscription
         </div>
       }
 

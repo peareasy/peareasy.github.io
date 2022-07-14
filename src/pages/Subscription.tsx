@@ -159,10 +159,10 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
 
       { user.data?.subscription === SubscriptionEnum.SILVER ? 
         <div className={'text-primary-400 font-bold'} style={{color: "#C0C0C0"}}>
-          Silver Subscription - Active
+          Pro Subscription - Active
         </div> : 
         <div className={'text-primary-400 font-bold'} style={{color: "#C0C0C0"}}>
-          Silver Subscription
+          Pro Subscription
         </div>
       }
       
@@ -201,10 +201,10 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
 
       { user.data?.subscription === SubscriptionEnum.GOLD ? 
         <div className={'text-primary-400 font-bold'} style={{color: "#FFD700"}}>
-          Gold Subscription - Active
+          Elite Subscription - Active
         </div> : 
         <div className={'text-primary-400 font-bold'} style={{color: "#FFD700"}}>
-          Gold Subscription
+          Elite Subscription
         </div>
       }
       
