@@ -3,13 +3,16 @@ import { useNavigate } from "react-router";
 import { SecondaryButton } from "../../../components/UI/Button"
 import { open_link as openLinkIcon } from "../../../components/UI/icons"
 import ImportErrorView from './ImportErrorView'
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { getUserSelector } from "../../../redux/user/userSlice";
 import * as privateApi from "../../../api/privateApi"
+import {AppDispatch} from "../../../redux/store";
+import {fetchUser } from "../../../redux/user/userSlice";
 
 const ImportPlayersView = () => {
 
     const user = useSelector(getUserSelector)
+    const dispatch = useDispatch<AppDispatch>();
     const [importPlayersClicked, setImportPlayersClicked] = useState(false)
     const [importError, setImportError] = useState(false)
     const navigate = useNavigate();
@@ -33,6 +36,7 @@ const ImportPlayersView = () => {
 
     const onDoneClicked = async () => {
         const { playerCount } = await onGetPlayers()
+        dispatch(fetchUser())
         if (playerCount > 0) {
             navigate('/')
         } else {

@@ -18,6 +18,7 @@ import ReactGA from "react-ga4";
 import Toggle from "../../components/Toggle";
 import { Subscription } from "../../enums/Subscription.enum";
 
+
 // TODO: If no user, dispatch fetchUser
 
 const SBCPage = () => {
@@ -56,7 +57,7 @@ const SBCPage = () => {
         dispatch(fetchUser())
         setUseImportedPlayers(importEnabled)
       }
-  }, [id, user?.data?.playerCount]);
+  }, [id, user, dispatch, importEnabled]);
 
   const onToggle = (toggle: boolean) => {
     if (!importEnabled) {
@@ -222,11 +223,11 @@ const SBCPage = () => {
                               setSolvedSBCWithOwnPlayers(false)
                             }}
                             onPositiveActionClicked={() => {
-                              solution.players.map((player) => console.log(player))
                               privateApi.deletePlayersUsedInSBCs(
                                   user.data.uuid,
                                   solution.players.map((player) => player.resource_id)
                                 )
+                              dispatch(fetchUser())
                               setSolution(emptySolution)
                               setSolvedSBCWithOwnPlayers(false)
                             }}
@@ -257,7 +258,9 @@ const SBCPage = () => {
   <div className="flex flex-row pr-32 md:mb-4">
     <div className="p-2 bg-gray-700 rounded inline-block ml-auto">
       <p className="text-green-500 text-right text-sm md:text-center inline-block items-end">
-        {user?.data?.playerCount ? user?.data?.playerCount : 0 } players imported{user?.data?.lastImportedAt ?  ' - '+String(user?.data?.lastImportedAt).slice(0,21) : ''}</p>
+        {user?.data?.playerCount ? user?.data?.playerCount : 0 } players imported{user?.data?.lastImportedAt ?  ' - '+
+          String(user?.data?.lastImportedAt).slice(0,10) 
+          + ' ' +String(user?.data?.lastImportedAt).slice(11,16) : ''}</p>
     </div>
   </div>
     { showSolution ? null : toggleView }

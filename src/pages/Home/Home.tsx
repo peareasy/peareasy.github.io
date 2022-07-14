@@ -35,7 +35,6 @@ const Home = () => {
 
 
   useEffect(() => {
-    // console.log(user)
     if (user?.data) {
       dispatch(fetchPlayers(user.data.uuid))
     }
@@ -100,10 +99,12 @@ const Home = () => {
         modalNegativeButton = 'No thanks!'
       } else {
         modalNotShowFooter = true
-        modalHeader = '❗ You need a silver subscription'
-        modalBody = <div className={'w-full m-auto flex flex-row md:flex md:flex-col-reverse gap-8'}>
+        modalHeader = '❗ You need a Silver subscription'
+        modalBody = <div className={'w-full m-auto'}>
+          {user?.data?.beta ?<span className="italic text-green-500 m-auto">Hey {user?.data?.name}! Beta discount has been added</span> : <></> }
+          <div className='flex flex-row md:flex md:flex-col-reverse gap-8 mt-8'>
           <SubscriptionCard showButton={true} boxColor={"#22d3ee"} content={
-            <ul className={'flex flex-col gap-y-4'}>
+            <ul className={'flex flex-col gap-y-4 text-left'}>
             {!user?.data?.paid ? <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
               Free Subscription - Active
             </div> : <div className={'text-primary-400 font-bold'} style={{color: "#22d3ee"}}>
@@ -132,7 +133,7 @@ const Home = () => {
             </li>
           </ul>} price={0} onClick={() => {}} tier={'Free'} currentSubscription={true} primaryButtonTitle={'yoo'} priceId={priceId}/>
           <SubscriptionCard showButton={!(user?.data?.subscription === Subscription.SILVER)}  boxColor={"#C0C0C0"} content={<>
-            <ul className={'flex flex-col gap-y-4'}>
+            <ul className={'flex flex-col gap-y-4 text-left'}>
             { user.data?.subscription === Subscription.SILVER ? 
               <div className={'text-primary-400 font-bold'} style={{color: "#C0C0C0"}}>
                 Silver Subscription - Active
@@ -173,7 +174,7 @@ const Home = () => {
                             beta={false}/>
 
 <SubscriptionCard showButton={!(user?.data?.subscription === Subscription.GOLD)} boxColor={"#FFD700"} content={<>
-      <ul className={'flex flex-col gap-y-4'}>
+      <ul className={'flex flex-col gap-y-4 text-left'}>
 
       { user.data?.subscription === Subscription.GOLD ? 
         <div className={'text-primary-400 font-bold'} style={{color: "#FFD700"}}>
@@ -212,6 +213,7 @@ const Home = () => {
         process.env.REACT_APP_GOLD_PRICE_ID
       } beta={user?.data?.beta}/>
         </div>
+      </div>
       }
     } else {
       modalHeader = '❗ Log in required to solve this SBC'
@@ -233,7 +235,10 @@ const Home = () => {
             <p className="text-2xl font-light">Cheap and unique AI solutions to any SBC tailored to your club's players!</p> 
             {sbcs_sets?.data?.length > 0 ? <div className="p-2 bg-gray-700 rounded">
               <p className="text-green-500 text-right text-sm md:text-center">
-                {user?.data?.playerCount ? user?.data?.playerCount : 0 } players imported{user?.data?.lastImportedAt ?  ' - '+String(user?.data?.lastImportedAt).slice(0,21) : ''}</p>
+                {user?.data?.playerCount ? user?.data?.playerCount : 0 } players imported{user?.data?.lastImportedAt ?  
+                ' - '+String(user?.data?.lastImportedAt).slice(0,10) 
+                + ' ' +String(user?.data?.lastImportedAt).slice(11,16)
+                : ''}</p>
             </div> : null}
           </h1>
           

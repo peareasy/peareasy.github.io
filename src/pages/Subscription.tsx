@@ -194,7 +194,7 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
           process.env.REACT_APP_ENVIRONMENT === "dev" ? 
           process.env.REACT_APP_STRIPE_PRICE_ID_TEST : 
           process.env.REACT_APP_SILVER_PRICE_ID
-        } beta={user?.data?.beta}/>
+        } beta={false}/>
   
     <SubscriptionCard showButton={true}  boxColor={"#FFD700"} content={<>
     <ul className={'flex flex-col gap-y-4'}>
