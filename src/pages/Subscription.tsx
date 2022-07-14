@@ -230,7 +230,7 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
         <span>{copied}</span> Import players for all SBCs
       </li>
     </ul>
-    </>} price={6.99} onClick={goldSubscriptionClicked} tier={'Gold'} primaryButtonTitle={'Buy Now'} 
+    </>} price={6.99} onClick={goldSubscriptionClicked} tier={'Elite'} primaryButtonTitle={'Buy Now'}
     currentSubscription={user?.data?.subscription === SubscriptionEnum.GOLD} 
     priceId={
       process.env.REACT_APP_ENVIRONMENT === "dev" ? 
