@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { fetchUser } from "../../redux/user/userSlice";
 import MobileView from "./views/mobileView";
+import Modal from "../../components/UI/Modal"
 
 const ImportPlayers = () => {
   const [extensionInstalled, setExtensionInstalled] = useState(false)
@@ -38,6 +39,20 @@ const ImportPlayers = () => {
   let view 
   if (!isChrome()) {
     view = <UseChromeView/>
+  } else if (!user?.data) {
+    view = <Modal header={'❗ You need to login in order to solve this SBC'}
+    body={<span>You need to log in to solve this SBC</span>}
+    onNegativeActionClicked={() => {
+      navigate('/')
+    }}
+    onPositiveActionClicked={() => {
+      navigate('/login')
+    }}
+    onCloseClicked={() => {
+      navigate('/')
+    }}
+    positiveActionButtonLabel={'Log in'}
+    negativeActionButtonLabel="Cancel"/>
   } else if(!extensionInstalled) {
     view = <InstallExtensionView/>
   } else if (isMobile) {

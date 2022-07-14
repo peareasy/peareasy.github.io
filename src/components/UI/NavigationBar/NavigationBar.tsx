@@ -64,10 +64,10 @@ const NavigationBar = ({isLoggedIn}:LoggedInProps) => {
             <NavigationItem
               link={'/import'}
               onClick={() => {
-                // ReactGA.event({
-                //   category: "NavBar",
-                //   action: "click_navbar_about",
-                // });
+                ReactGA.event({
+                  category: "NavBar",
+                  action: "click_navbar_import",
+                });
               }}
             >
               <span>import</span>
