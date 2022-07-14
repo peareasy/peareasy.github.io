@@ -1,4 +1,3 @@
-import { useState } from "react";
 
 type Props = {
     onToggle: (enabled: boolean) => any
