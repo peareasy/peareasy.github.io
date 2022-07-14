@@ -178,10 +178,10 @@ const Home = () => {
 
       { user.data?.subscription === Subscription.GOLD ? 
         <div className={'text-primary-400 font-bold'} style={{color: "#FFD700"}}>
-          Elite Subscription - Active
+          Elite Subscription (Beta) - Active
         </div> : 
         <div className={'text-primary-400 font-bold'} style={{color: "#FFD700"}}>
-          Elite Subscription
+          Elite Subscription (Beta)
         </div>
       }
 
@@ -207,7 +207,7 @@ const Home = () => {
         <span>{copied}</span> Import players for all SBCs
       </li>
       </ul>
-      </>} price={6.99} onClick={onBuySubscriptionClicked} tier={'Elite'} primaryButtonTitle={'Buy Now'} currentSubscription={false} priceId={
+      </>} price={6.99} onClick={onBuySubscriptionClicked} tier={'Elite (Beta)'} primaryButtonTitle={'Buy Now'} currentSubscription={false} priceId={
         process.env.REACT_APP_ENVIRONMENT === "dev" ? 
         process.env.REACT_APP_STRIPE_PRICE_ID_TEST : 
         process.env.REACT_APP_GOLD_PRICE_ID

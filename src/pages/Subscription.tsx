@@ -201,10 +201,10 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
 
       { user.data?.subscription === SubscriptionEnum.GOLD ? 
         <div className={'text-primary-400 font-bold'} style={{color: "#FFD700"}}>
-          Elite Subscription - Active
+          Elite Subscription (Beta) - Active
         </div> : 
         <div className={'text-primary-400 font-bold'} style={{color: "#FFD700"}}>
-          Elite Subscription
+          Elite Subscription (Beta)
         </div>
       }
       
@@ -230,7 +230,7 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
         <span>{copied}</span> Import players for all SBCs
       </li>
     </ul>
-    </>} price={6.99} onClick={goldSubscriptionClicked} tier={'Elite'} primaryButtonTitle={'Buy Now'}
+    </>} price={6.99} onClick={goldSubscriptionClicked} tier={'Elite (Beta)'} primaryButtonTitle={'Buy Now'}
     currentSubscription={user?.data?.subscription === SubscriptionEnum.GOLD} 
     priceId={
       process.env.REACT_APP_ENVIRONMENT === "dev" ? 

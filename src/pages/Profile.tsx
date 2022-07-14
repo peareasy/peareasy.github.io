@@ -45,7 +45,7 @@ const Profile = ({setLogin}: LogoutProps) => {
     subscriptionSpan = <span className="text-gray-300">Pro</span>
     subscriptionColor = "#C0C0C0"
   } else if (user.data?.subscription === Subscription.GOLD) {
-    subscriptionSpan = <span className="text-gray-300">Elite</span>
+    subscriptionSpan = <span className="text-gray-300">Elite (Beta)</span>
     subscriptionColor = "#FFD700"
   }
 
