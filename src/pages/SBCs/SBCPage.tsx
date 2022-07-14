@@ -119,9 +119,13 @@ const SBCPage = () => {
       <h1 className="text-2xl font-bold mb-4">
         Sorry, we couldn't find a solution! 
       </h1>
-      <p>
-        Our team has been notified and we are working hard on improving our solver! 
-      </p>
+      {error && importEnabled ?
+          <p>{error}</p> :
+          <p>
+            Our team has been notified and we are working hard on improving our solver!
+          </p>
+      }
+
       <p>
         In the meantime, try one of the other SBCs!  
       </p>
