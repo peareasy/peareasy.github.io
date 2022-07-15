@@ -37,27 +37,26 @@ const ImportPlayers = () => {
   }, [dispatch, user])
 
   let view 
-  if (!isChrome()) {
-    view = <UseChromeView/>
+  if (isMobile) {
+    view = <MobileView/>
   } else if (!user?.data) {
-    view = <ImportPlayersView/>
-    // view = <Modal header={'❗ You need to login in order to solve this SBC'}
-    // body={<span>You need to log in to solve this SBC</span>}
-    // onNegativeActionClicked={() => {
-    //   navigate('/')
-    // }}
-    // onPositiveActionClicked={() => {
-    //   navigate('/login')
-    // }}
-    // onCloseClicked={() => {
-    //   navigate('/')
-    // }}
-    // positiveActionButtonLabel={'Log in'}
-    // negativeActionButtonLabel="Cancel"/>
+    view = <Modal header={'❗ You need to login in order to Import players'}
+    body={<span>You need to log in to import players</span>}
+    onNegativeActionClicked={() => {
+      navigate('/')
+    }}
+    onPositiveActionClicked={() => {
+      navigate('/login')
+    }}
+    onCloseClicked={() => {
+      navigate('/')
+    }}
+    positiveActionButtonLabel={'Log in'}
+    negativeActionButtonLabel="Cancel"/>
+  } else if (!isChrome()) {
+    view = <UseChromeView/>
   } else if(!extensionInstalled) {
     view = <InstallExtensionView/>
-  } else if (isMobile) {
-    view = <MobileView/>
   } else {
     view = <ImportPlayersView/>
   }
