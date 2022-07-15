@@ -245,7 +245,7 @@ const SBCPage = () => {
   const toggleView = <div className='flex flex-col justify-center gap-y-2 mb-4'>
     <Toggle onToggle={(toggle) => onToggle(toggle)} disabled={!user.data || !(isGoldUser || isMarqueeMatchup)} toggleState={useImportedPlayers}/>
     {!user.data ? <span className='text-gray-300 text-sm m-auto italic'>Login to import</span> : null}
-    {!(isGoldUser || isMarqueeMatchup) ? <span className='text-gray-300 text-sm m-auto italic'>Buy gold subscription to use import for all SBCs</span> : null}
+    {!(isGoldUser || isMarqueeMatchup) ? <span className='text-gray-300 text-sm m-auto italic'>Buy elite subscription to use import for all SBCs</span> : null}
   </div>
   
   let view;
