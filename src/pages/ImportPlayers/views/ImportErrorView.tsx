@@ -7,7 +7,7 @@ const ImportErrorView = () =>
         <div className="border border-t-0 border-error-400 rounded-b bg-red-100 px-4 py-3 text-red-700 ">
             <p>It seems like your players weren't imported properly. Please try again or see
             <a rel="noreferrer"
-                href="https://www.youtube.com/watch?v=sFu6rMaSEDg"
+                href="https://youtu.be/1e0OQvlY8Ww"
                 target="_blank"> this </a>
             tutorial</p>
         </div>
