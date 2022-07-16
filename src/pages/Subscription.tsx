@@ -243,7 +243,7 @@ const Subscription = ({isLoggedIn}: LoggedInProps) => {
   let view = 
   <div className='container mx-auto w-3/5 md:w-full flex font-light flex-col gap-y-6 md:p-2 p-8 bg-gray-900 rounded'>
     {header}
-    {user?.data?.beta ?<span className="italic text-green-500 m-auto">Hey {user?.data?.name}! Beta discount has been added</span> : <></> }
+    {user?.data?.beta ?<span className="italic text-green-400 m-auto">Hey {user?.data?.name}! Beta discount has been added</span> : <></> }
     {subHeader}
     {subscriptions}
   </div>
