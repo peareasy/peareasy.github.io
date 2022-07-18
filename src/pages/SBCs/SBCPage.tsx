@@ -35,7 +35,6 @@ const SBCPage = () => {
   const [sbcs, setSBCs] = useState<any[]>([])
   const user = useSelector(getUserSelector)
   const [error, setError] = useState("")
-  const sbcIconBaseUrl = "https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/";
   const [importPlayersModal, setImportPlayersModal] = useState(false)
   let { id } = useParams();
   // helpers
