@@ -164,8 +164,7 @@ const SBCPage = () => {
       <div className={sbcs.length === 1 ? "md:w-3/5 gap-4 pb-2 w-1/5 m-auto" : "grid grid-cols-2 md:grid-cols-1 md:w-3/5 gap-4 pb-2 w-1/2 m-auto"}>
       {sbcs.map((sbc, index) => { 
         
-        const imgUrl = sbc.challengeImageId ? `${sbcIconBaseUrl}challenges/images/sbc_challenge_image_${sbc.challengeImageId}.png` 
-                        : `sets/images/sbc_set_image_${sbc.setImageId.split('_')[1]}.png`;
+        const imgUrl = sbc.ImageURL;
 
         const restrictedMarqueeSbc = !!id?.includes("Marquee Matchups") && index > 0 && !user.data;
 

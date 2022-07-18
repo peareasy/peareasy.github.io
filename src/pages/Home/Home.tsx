@@ -307,7 +307,7 @@ const Home = () => {
             {
               sbcs_sets.status === APIStatus.FULFILLED ?<CardSBC title={marquee_matchups.name}
               key={marquee_matchups.id}
-              changeImg={`https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_${marquee_matchups.img}.png`}
+              changeImg={marquee_matchups.img}
               // Figure out what to do here
               restricted={false}
               is_marquee_match_up={false /* It is a marquee matchup, but we don't want to show the blue dot
@@ -320,7 +320,7 @@ const Home = () => {
                  category: "HomePage",
                  action: gaAction,
                });
-                onSBCClicked(restricted, (marquee_matchups.id+'_'+marquee_matchups.img+'_'+marquee_matchups.name), is_marquee_match_up)
+                onSBCClicked(restricted, (marquee_matchups.id.toString()), is_marquee_match_up)
               }} /> : null
             }
           </div>
@@ -328,7 +328,7 @@ const Home = () => {
             {sbcs_sets.status === APIStatus.FULFILLED ? sbcs_sets.data.map((sbc, index) =>
               <CardSBC title={sbc.name}
                        key={sbc.id}
-                       changeImg={`https://www.ea.com/fifa/ultimate-team/web-app/content/22747632-e3df-4904-b3f6-bb0035736505/2022/fut/sbc/companion/sets/images/sbc_set_image_${sbc.img}.png`}
+                       changeImg={sbc.img}
                        // Figure out what to do here
                        restricted={!user.data?.paid}
                        is_marquee_match_up={false}
@@ -340,7 +340,7 @@ const Home = () => {
                           category: "HomePage",
                           action: gaAction,
                         });
-                         onSBCClicked(restricted, (sbc.id+'_'+sbc.img+'_'+sbc.name), is_marquee_match_up)
+                         onSBCClicked(restricted, (sbc.id.toString()), is_marquee_match_up)
                        }} />) : <>
                           <div className='m-auto'>
                           </div>
