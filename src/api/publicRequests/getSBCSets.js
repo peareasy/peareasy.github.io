@@ -1,6 +1,6 @@
 import axios from "../sbcLambda"
 
-  export const getSBCSets = () => axios.get('/get-sbc-setss').then(res => {
+  export const getSBCSets = () => axios.get('/get-sbc-sets').then(res => {
     let sbcSets = res.data
     let transformedSBCSets = []
     sbcSets.forEach(element => {
