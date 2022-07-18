@@ -71,7 +71,7 @@ const SBCPage = () => {
         category: "SolveSBC",
         action: "click_solve_sbc",
       });
-    publicApi.solveSBC(sbcs[index].challengeId, user.data?.uuid || null, useImportedPlayers)
+    publicApi.solveSBC(sbcs[index].SBC_ID, user.data?.uuid || null, useImportedPlayers)
       .then((solution: Solution) => {
         if (solution.players.length === 0){
           setError(solution.solution_message);
