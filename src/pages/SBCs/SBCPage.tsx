@@ -86,7 +86,7 @@ const SBCPage = () => {
             action: "solve_sbc_success",
           })
           const {players, cost, chem, rating, solution_message} = solution;
-          const formation = sbcs[index].formation
+          const formation = sbcs[index].Formation
           setError("")
           setSolution({players, cost, chem, rating, formation, solution_message})
           setShowSolution(true)
