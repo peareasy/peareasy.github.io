@@ -19,3 +19,4 @@ export { patchUser } from "./privateRequests/patchUser";
 export { getPlayers } from "./privateRequests/getPlayers";
 export { deletePlayers } from "./privateRequests/deletePlayers"
 export { deletePlayersUsedInSBCs } from "./privateRequests/deletePlayersUsedInSBC"
+export { unsubscribe } from "./privateRequests/unsubscribe"
